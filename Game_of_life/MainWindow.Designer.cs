@@ -101,6 +101,7 @@
             this.pictureBox_DeadCell = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox_Time = new System.Windows.Forms.PictureBox();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_TimerTick)).BeginInit();
             this.groupBox_SurvivalRules.SuspendLayout();
             this.groupBox_CreationRules.SuspendLayout();
@@ -717,12 +718,15 @@
             // trackBar_AreaSize
             // 
             this.trackBar_AreaSize.Location = new System.Drawing.Point(64, 412);
-            this.trackBar_AreaSize.Maximum = 100;
+            this.trackBar_AreaSize.Maximum = 300;
+            this.trackBar_AreaSize.Minimum = 10;
             this.trackBar_AreaSize.Name = "trackBar_AreaSize";
             this.trackBar_AreaSize.Size = new System.Drawing.Size(270, 45);
             this.trackBar_AreaSize.TabIndex = 1;
-            this.trackBar_AreaSize.TickFrequency = 5;
+            this.trackBar_AreaSize.TickFrequency = 10;
             this.trackBar_AreaSize.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar_AreaSize.Value = 10;
+            this.trackBar_AreaSize.Scroll += new System.EventHandler(this.TrackBar_AreaSize_Scroll);
             // 
             // label17
             // 
@@ -838,11 +842,21 @@
             this.pictureBox_Time.TabIndex = 12;
             this.pictureBox_Time.TabStop = false;
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(218, 450);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(80, 23);
+            this.label16.TabIndex = 21;
+            this.label16.Text = "label16";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 687);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
@@ -972,6 +986,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label16;
     }
 }
 

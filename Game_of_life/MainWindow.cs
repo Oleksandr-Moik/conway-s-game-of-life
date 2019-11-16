@@ -29,57 +29,54 @@ namespace Game_of_life
             initialization();
         }
 
-        private void drawPlayingArea()
-        {
-            Graphics dc = panel_PlaingArea.CreateGraphics();
-
-            Pen blackPen = new Pen(Color.Black, 2);
-
-            Point startPoint = new Point(0, 0);
-            Point endPoint = new Point(panel_PlaingArea.Width, panel_PlaingArea.Height);
-
-            dc.DrawLine(blackPen, startPoint, endPoint);
-        }
-
         #region initialization
         private void initialization()
         {
             initCheckBoxList();
             setStartupColors();
 
+            panel_PlaingArea.Height = 600;
+            panel_PlaingArea.Width = 600;
+
+            int size = trackBar_AreaSize.Value;
+
             lifeArea = new LifeArea.AreaBuilder()
+                .size(size)
+                .playingArea(panel_PlaingArea)
                 .gridColor(pictureBox_Grid.BackColor)
                 .diedCellColor(pictureBox_DeadCell.BackColor)
                 .createdCellColor(pictureBox_CreatedCell.BackColor)
                 .livingCellColor(pictureBox_LivingCell.BackColor)
                 .areaColor(colorDialog_AreaBackground.Color)
-                .playingArea(this.panel_PlaingArea)
                 .build();
 
+            lifeArea.drawGrid();
+
+            setRulesSets();
         }
         private void initCheckBoxList()
         {
             survivalRules = new List<CheckBox>();
-            this.survivalRules.Insert(0, checkBox1);
-            this.survivalRules.Insert(1, checkBox2);
-            this.survivalRules.Insert(2, checkBox3);
-            this.survivalRules.Insert(3, checkBox4);
-            this.survivalRules.Insert(4, checkBox5);
-            this.survivalRules.Insert(5, checkBox6);
-            this.survivalRules.Insert(6, checkBox7);
-            this.survivalRules.Insert(7, checkBox8);
-            this.survivalRules.Insert(8, checkBox9);
+            survivalRules.Insert(0, checkBox1);
+            survivalRules.Insert(1, checkBox2);
+            survivalRules.Insert(2, checkBox3);
+            survivalRules.Insert(3, checkBox4);
+            survivalRules.Insert(4, checkBox5);
+            survivalRules.Insert(5, checkBox6);
+            survivalRules.Insert(6, checkBox7);
+            survivalRules.Insert(7, checkBox8);
+            survivalRules.Insert(8, checkBox9);
 
             creationRules = new List<CheckBox>();
-            this.creationRules.Insert(0, checkBox10);
-            this.creationRules.Insert(1, checkBox11);
-            this.creationRules.Insert(2, checkBox12);
-            this.creationRules.Insert(3, checkBox13);
-            this.creationRules.Insert(4, checkBox14);
-            this.creationRules.Insert(5, checkBox15);
-            this.creationRules.Insert(6, checkBox16);
-            this.creationRules.Insert(7, checkBox17);
-            this.creationRules.Insert(8, checkBox18);
+            creationRules.Insert(0, checkBox10);
+            creationRules.Insert(1, checkBox11);
+            creationRules.Insert(2, checkBox12);
+            creationRules.Insert(3, checkBox13);
+            creationRules.Insert(4, checkBox14);
+            creationRules.Insert(5, checkBox15);
+            creationRules.Insert(6, checkBox16);
+            creationRules.Insert(7, checkBox17);
+            creationRules.Insert(8, checkBox18);
         }
         private void setStartupColors()
         {
@@ -110,6 +107,8 @@ namespace Game_of_life
                 return;
             pictureBox_Grid.BackColor = colorDialog_Grid.Color;
             lifeArea.GridColor = colorDialog_Grid.Color;
+            lifeArea.Size = trackBar_AreaSize.Value;
+            lifeArea.drawGrid();
         }
         private void PictureBox_DeadCell_Click(object sender, EventArgs e)
         {
@@ -137,7 +136,6 @@ namespace Game_of_life
             if (colorDialog_AreaBackground.ShowDialog() == DialogResult.Cancel)
                 return;
             pictureBox_AreaBackground.BackColor = colorDialog_AreaBackground.Color;
-            //panel_PlaingArea.BackColor = colorDialog_AreaBackground.Color;
             lifeArea.AreaColor = colorDialog_AreaBackground.Color;
             lifeArea.updateAreaColor();
         }
@@ -188,5 +186,12 @@ namespace Game_of_life
         }
 
         #endregion
+
+        private void TrackBar_AreaSize_Scroll(object sender, EventArgs e)
+        {
+            label16.Text = trackBar_AreaSize.Value.ToString();
+            lifeArea.Size = trackBar_AreaSize.Value;
+            lifeArea.drawGrid();
+        }
     }
 }

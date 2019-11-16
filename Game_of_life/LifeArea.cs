@@ -13,6 +13,7 @@ namespace Game_of_life
     public class LifeArea
     {
         public int TickSpeed { get; set; }
+        public int Size { get; set; }
         public Color GridColor { get; set; }
         public Color DiedCellColor { get; set; }
         public Color LivingCellColor { get; set; }
@@ -23,6 +24,7 @@ namespace Game_of_life
         public LifeArea(AreaBuilder builder)
         {
             TickSpeed = builder.TickSpeed;
+            Size = builder.Size;
             GridColor = builder.GridColor;
             DiedCellColor = builder.DiedCellColor;
             LivingCellColor = builder.LivingCellColor;
@@ -41,10 +43,29 @@ namespace Game_of_life
             PlayingArea.BackColor = AreaColor;
         }
 
+        public void drawGrid()
+        {
+            PlayingArea.Refresh();
+
+            Graphics dc = PlayingArea.CreateGraphics();
+            Pen gridPan = new Pen(GridColor, 1);
+
+            int width = PlayingArea.Width;
+            int height = PlayingArea.Height;
+
+            for (int i = 0; i <= width; i += (width / Size))
+            {
+                dc.DrawLine(gridPan, new Point(i,0), new Point(i, height));
+                dc.DrawLine(gridPan, new Point(0, i), new Point(width, i));
+            }
+            dc.Dispose();
+        }
+
 
         public class AreaBuilder
         {
             public int TickSpeed;
+            public int Size;
             public Color GridColor;
             public Color DiedCellColor;
             public Color LivingCellColor;
@@ -55,6 +76,11 @@ namespace Game_of_life
             public AreaBuilder tickSpeed(int tick)
             {
                 TickSpeed = tick;
+                return this;
+            }
+            public AreaBuilder size(int size)
+            {
+                Size = size;
                 return this;
             }
             public AreaBuilder gridColor(Color color)
