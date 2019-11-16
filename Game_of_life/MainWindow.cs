@@ -21,11 +21,12 @@ namespace Game_of_life
 
         List<CheckBox> survivalRules;
         List<CheckBox> creationRules;
+        LifeRule[] rulesSets;
+        LifeArea lifeArea;
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            initCheckBoxList();
-            setStartupColors();
+            initialization();
         }
 
         private void drawPlayingArea()
@@ -40,6 +41,22 @@ namespace Game_of_life
             dc.DrawLine(blackPen, startPoint, endPoint);
         }
 
+        #region initialization
+        private void initialization()
+        {
+            initCheckBoxList();
+            setStartupColors();
+
+            lifeArea = new LifeArea.AreaBuilder()
+                .gridColor(pictureBox_Grid.BackColor)
+                .diedCellColor(pictureBox_DeadCell.BackColor)
+                .createdCellColor(pictureBox_CreatedCell.BackColor)
+                .livingCellColor(pictureBox_LivingCell.BackColor)
+                .areaColor(colorDialog_AreaBackground.Color)
+                .playingArea(this.panel_PlaingArea)
+                .build();
+
+        }
         private void initCheckBoxList()
         {
             survivalRules = new List<CheckBox>();
@@ -64,7 +81,6 @@ namespace Game_of_life
             this.creationRules.Insert(7, checkBox17);
             this.creationRules.Insert(8, checkBox18);
         }
-
         private void setStartupColors()
         {
             colorDialog_Grid.Color = pictureBox_Grid.BackColor;
@@ -74,41 +90,56 @@ namespace Game_of_life
             colorDialog_AreaBackground.Color = pictureBox_AreaBackground.BackColor;
         }
 
+        private void setRulesSets()
+        {
+
+
+            rulesSets = new LifeRule[]
+            {
+               new LifeRule("",1,new bool[]{ },new bool[]{ }),
+
+            };
+        }
+
+        #endregion
+
         #region colorDialog select
         private void PictureBox_Grid_Click(object sender, EventArgs e)
         {
             if (colorDialog_Grid.ShowDialog() == DialogResult.Cancel)
                 return;
             pictureBox_Grid.BackColor = colorDialog_Grid.Color;
+            lifeArea.GridColor = colorDialog_Grid.Color;
         }
-
         private void PictureBox_DeadCell_Click(object sender, EventArgs e)
         {
             if (colorDialog_DeadCell.ShowDialog() == DialogResult.Cancel)
                 return;
             pictureBox_DeadCell.BackColor = colorDialog_DeadCell.Color;
+            lifeArea.DiedCellColor = colorDialog_DeadCell.Color;
         }
-
         private void PictureBox_CreatedCell_Click(object sender, EventArgs e)
         {
             if (colorDialog_CreatedCell.ShowDialog() == DialogResult.Cancel)
                 return;
             pictureBox_CreatedCell.BackColor = colorDialog_CreatedCell.Color;
+            lifeArea.CreatedCellColor = colorDialog_CreatedCell.Color;
         }
-
         private void PictureBox_LivingCell_Click(object sender, EventArgs e)
         {
             if (colorDialog_LivingCell.ShowDialog() == DialogResult.Cancel)
                 return;
             pictureBox_LivingCell.BackColor = colorDialog_LivingCell.Color;
+            lifeArea.LivingCellColor = colorDialog_LivingCell.Color;
         }
-
         private void PictureBox_AreaBackground_Click(object sender, EventArgs e)
         {
             if (colorDialog_AreaBackground.ShowDialog() == DialogResult.Cancel)
                 return;
             pictureBox_AreaBackground.BackColor = colorDialog_AreaBackground.Color;
-            panel_PlaingArea.BackColor = colorDialog_AreaBackground.Color;
+            //panel_PlaingArea.BackColor = colorDialog_AreaBackground.Color;
+            lifeArea.AreaColor = colorDialog_AreaBackground.Color;
+            lifeArea.updateAreaColor();
         }
         #endregion
 
@@ -117,16 +148,45 @@ namespace Game_of_life
         {
             pictureBox_Grid.Enabled = checkBox_DisplayGrid.Checked;
         }
-
         private void CheckBox_ShowDeadCell_CheckedChanged(object sender, EventArgs e)
         {
             pictureBox_DeadCell.Enabled = checkBox_ShowDeadCell.Checked;
         }
-
         private void CheckBox_CreatedCell_CheckedChanged(object sender, EventArgs e)
         {
             pictureBox_CreatedCell.Enabled = checkBox_ShowCreatedCell.Checked;
         }
+        #endregion
+
+        #region game rules
+        
+        private void Button_ChangeRules_Click(object sender, EventArgs e)
+        {
+            button_ChangeRules.Visible = false;
+            button_ApplyRules.Visible = true;
+            button_CancelChangeRules.Visible = true;
+            comboBox_RulesSets.Enabled = true;
+
+        }
+
+        private void Button_ApplyRules_Click(object sender, EventArgs e)
+        {
+            button_ChangeRules.Visible = true;
+            button_ApplyRules.Visible = false;
+            button_CancelChangeRules.Visible = false;
+            comboBox_RulesSets.Enabled = false;
+
+        }
+
+        private void Button_CancelChangeRules_Click(object sender, EventArgs e)
+        {
+            button_ChangeRules.Visible = true;
+            button_ApplyRules.Visible = false;
+            button_CancelChangeRules.Visible = false;
+            comboBox_RulesSets.Enabled = false;
+
+        }
+
         #endregion
     }
 }

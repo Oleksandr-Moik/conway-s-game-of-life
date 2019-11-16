@@ -574,6 +574,7 @@
             // 
             // comboBox_RulesSets
             // 
+            this.comboBox_RulesSets.Enabled = false;
             this.comboBox_RulesSets.FormattingEnabled = true;
             this.comboBox_RulesSets.Location = new System.Drawing.Point(16, 53);
             this.comboBox_RulesSets.Name = "comboBox_RulesSets";
@@ -594,7 +595,7 @@
             // 
             this.label_RulesType.AutoSize = true;
             this.label_RulesType.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_RulesType.Location = new System.Drawing.Point(204, 61);
+            this.label_RulesType.Location = new System.Drawing.Point(204, 56);
             this.label_RulesType.Name = "label_RulesType";
             this.label_RulesType.Size = new System.Drawing.Size(51, 23);
             this.label_RulesType.TabIndex = 8;
@@ -609,6 +610,7 @@
             this.button_ApplyRules.Text = "Apply";
             this.button_ApplyRules.UseVisualStyleBackColor = true;
             this.button_ApplyRules.Visible = false;
+            this.button_ApplyRules.Click += new System.EventHandler(this.Button_ApplyRules_Click);
             // 
             // button_CancelChangeRules
             // 
@@ -619,6 +621,7 @@
             this.button_CancelChangeRules.Text = "Cancel";
             this.button_CancelChangeRules.UseVisualStyleBackColor = true;
             this.button_CancelChangeRules.Visible = false;
+            this.button_CancelChangeRules.Click += new System.EventHandler(this.Button_CancelChangeRules_Click);
             // 
             // button_StartTime
             // 
@@ -646,6 +649,7 @@
             this.button_ChangeRules.TabIndex = 11;
             this.button_ChangeRules.Text = "Change rules";
             this.button_ChangeRules.UseVisualStyleBackColor = true;
+            this.button_ChangeRules.Click += new System.EventHandler(this.Button_ChangeRules_Click);
             // 
             // panel1
             // 
@@ -671,8 +675,9 @@
             this.button_RulesTypeInfo.Name = "button_RulesTypeInfo";
             this.button_RulesTypeInfo.Size = new System.Drawing.Size(133, 33);
             this.button_RulesTypeInfo.TabIndex = 10;
-            this.button_RulesTypeInfo.Text = "information";
+            this.button_RulesTypeInfo.Text = "Information";
             this.button_RulesTypeInfo.UseVisualStyleBackColor = true;
+            this.button_RulesTypeInfo.Visible = false;
             // 
             // checkBox_DisplayGrid
             // 
@@ -815,9 +820,9 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::Game_of_life.Properties.Resources.grid;
-            this.pictureBox1.Location = new System.Drawing.Point(16, 413);
+            this.pictureBox1.Location = new System.Drawing.Point(16, 412);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(46, 44);
+            this.pictureBox1.Size = new System.Drawing.Size(46, 45);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
@@ -828,7 +833,7 @@
             this.pictureBox_Time.Image = global::Game_of_life.Properties.Resources.speed_icon_png_3_jpg;
             this.pictureBox_Time.Location = new System.Drawing.Point(16, 362);
             this.pictureBox_Time.Name = "pictureBox_Time";
-            this.pictureBox_Time.Size = new System.Drawing.Size(46, 44);
+            this.pictureBox_Time.Size = new System.Drawing.Size(46, 45);
             this.pictureBox_Time.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_Time.TabIndex = 12;
             this.pictureBox_Time.TabStop = false;
