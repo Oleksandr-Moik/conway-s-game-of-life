@@ -13,21 +13,56 @@ namespace Game_of_life
     public partial class MainWindow : Form
     {
 
-        private Graphics graphics;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        List<CheckBox> survivalRules;
+        List<CheckBox> creationRules;
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void MainWindow_Load(object sender, EventArgs e)
         {
-            Graphics graphics = e.Graphics;
-            Pen blackPen = new Pen(Color.Black, 2);
-            graphics.DrawLine(blackPen, 20, 20, 200, 100);
-
-            graphics.Dispose();
+            initCheckBoxList();
         }
+
+        private void drawPlayingArea()
+        {
+            Graphics dc = panel_PlaingArea.CreateGraphics();
+
+            Pen blackPen = new Pen(Color.Black, 2);
+
+            Point startPoint = new Point(0, 0);
+            Point endPoint = new Point(panel_PlaingArea.Width, panel_PlaingArea.Height);
+
+            dc.DrawLine(blackPen, startPoint, endPoint);
+        }
+
+        private void initCheckBoxList()
+        {
+            survivalRules = new List<CheckBox>();
+            this.survivalRules.Insert(0, checkBox1);
+            this.survivalRules.Insert(1, checkBox2);
+            this.survivalRules.Insert(2, checkBox3);
+            this.survivalRules.Insert(3, checkBox4);
+            this.survivalRules.Insert(4, checkBox5);
+            this.survivalRules.Insert(5, checkBox6);
+            this.survivalRules.Insert(6, checkBox7);
+            this.survivalRules.Insert(7, checkBox8);
+            this.survivalRules.Insert(8, checkBox9);
+
+            creationRules = new List<CheckBox>();
+            this.creationRules.Insert(0, checkBox10);
+            this.creationRules.Insert(1, checkBox11);
+            this.creationRules.Insert(2, checkBox12);
+            this.creationRules.Insert(3, checkBox13);
+            this.creationRules.Insert(4, checkBox14);
+            this.creationRules.Insert(5, checkBox15);
+            this.creationRules.Insert(6, checkBox16);
+            this.creationRules.Insert(7, checkBox17);
+            this.creationRules.Insert(8, checkBox18);
+        }
+
     }
 }
