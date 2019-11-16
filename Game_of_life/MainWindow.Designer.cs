@@ -83,7 +83,7 @@
             this.button_RulesTypeInfo = new System.Windows.Forms.Button();
             this.checkBox_DisplayGrid = new System.Windows.Forms.CheckBox();
             this.checkBox_ShowDeadCell = new System.Windows.Forms.CheckBox();
-            this.checkBox_CreatedCell = new System.Windows.Forms.CheckBox();
+            this.checkBox_ShowCreatedCell = new System.Windows.Forms.CheckBox();
             this.colorDialog_Grid = new System.Windows.Forms.ColorDialog();
             this.trackBar_AreaSize = new System.Windows.Forms.TrackBar();
             this.colorDialog_DeadCell = new System.Windows.Forms.ColorDialog();
@@ -685,6 +685,7 @@
             this.checkBox_DisplayGrid.TabIndex = 14;
             this.checkBox_DisplayGrid.Text = "Display grid";
             this.checkBox_DisplayGrid.UseVisualStyleBackColor = true;
+            this.checkBox_DisplayGrid.CheckedChanged += new System.EventHandler(this.CheckBox_DisplayGrid_CheckedChanged);
             // 
             // checkBox_ShowDeadCell
             // 
@@ -695,16 +696,18 @@
             this.checkBox_ShowDeadCell.TabIndex = 15;
             this.checkBox_ShowDeadCell.Text = "Show the dead cell";
             this.checkBox_ShowDeadCell.UseVisualStyleBackColor = true;
+            this.checkBox_ShowDeadCell.CheckedChanged += new System.EventHandler(this.CheckBox_ShowDeadCell_CheckedChanged);
             // 
-            // checkBox_CreatedCell
+            // checkBox_ShowCreatedCell
             // 
-            this.checkBox_CreatedCell.AutoSize = true;
-            this.checkBox_CreatedCell.Location = new System.Drawing.Point(12, 69);
-            this.checkBox_CreatedCell.Name = "checkBox_CreatedCell";
-            this.checkBox_CreatedCell.Size = new System.Drawing.Size(199, 27);
-            this.checkBox_CreatedCell.TabIndex = 16;
-            this.checkBox_CreatedCell.Text = "Show created cell";
-            this.checkBox_CreatedCell.UseVisualStyleBackColor = true;
+            this.checkBox_ShowCreatedCell.AutoSize = true;
+            this.checkBox_ShowCreatedCell.Location = new System.Drawing.Point(12, 69);
+            this.checkBox_ShowCreatedCell.Name = "checkBox_ShowCreatedCell";
+            this.checkBox_ShowCreatedCell.Size = new System.Drawing.Size(199, 27);
+            this.checkBox_ShowCreatedCell.TabIndex = 16;
+            this.checkBox_ShowCreatedCell.Text = "Show created cell";
+            this.checkBox_ShowCreatedCell.UseVisualStyleBackColor = true;
+            this.checkBox_ShowCreatedCell.CheckedChanged += new System.EventHandler(this.CheckBox_CreatedCell_CheckedChanged);
             // 
             // trackBar_AreaSize
             // 
@@ -743,7 +746,7 @@
             this.panel2.Controls.Add(this.pictureBox_AreaBackground);
             this.panel2.Controls.Add(this.checkBox_ShowDeadCell);
             this.panel2.Controls.Add(this.pictureBox_LivingCell);
-            this.panel2.Controls.Add(this.checkBox_CreatedCell);
+            this.panel2.Controls.Add(this.checkBox_ShowCreatedCell);
             this.panel2.Controls.Add(this.pictureBox_CreatedCell);
             this.panel2.Controls.Add(this.pictureBox_DeadCell);
             this.panel2.Location = new System.Drawing.Point(16, 473);
@@ -760,6 +763,7 @@
             this.pictureBox_Grid.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_Grid.TabIndex = 17;
             this.pictureBox_Grid.TabStop = false;
+            this.pictureBox_Grid.Click += new System.EventHandler(this.PictureBox_Grid_Click);
             // 
             // pictureBox_AreaBackground
             // 
@@ -770,6 +774,7 @@
             this.pictureBox_AreaBackground.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_AreaBackground.TabIndex = 17;
             this.pictureBox_AreaBackground.TabStop = false;
+            this.pictureBox_AreaBackground.Click += new System.EventHandler(this.PictureBox_AreaBackground_Click);
             // 
             // pictureBox_LivingCell
             // 
@@ -780,6 +785,7 @@
             this.pictureBox_LivingCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_LivingCell.TabIndex = 17;
             this.pictureBox_LivingCell.TabStop = false;
+            this.pictureBox_LivingCell.Click += new System.EventHandler(this.PictureBox_LivingCell_Click);
             // 
             // pictureBox_CreatedCell
             // 
@@ -791,6 +797,7 @@
             this.pictureBox_CreatedCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_CreatedCell.TabIndex = 17;
             this.pictureBox_CreatedCell.TabStop = false;
+            this.pictureBox_CreatedCell.Click += new System.EventHandler(this.PictureBox_CreatedCell_Click);
             // 
             // pictureBox_DeadCell
             // 
@@ -802,6 +809,7 @@
             this.pictureBox_DeadCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_DeadCell.TabIndex = 17;
             this.pictureBox_DeadCell.TabStop = false;
+            this.pictureBox_DeadCell.Click += new System.EventHandler(this.PictureBox_DeadCell_Click);
             // 
             // pictureBox1
             // 
@@ -942,7 +950,7 @@
         private System.Windows.Forms.Button button_RulesTypeInfo;
         private System.Windows.Forms.CheckBox checkBox_DisplayGrid;
         private System.Windows.Forms.CheckBox checkBox_ShowDeadCell;
-        private System.Windows.Forms.CheckBox checkBox_CreatedCell;
+        private System.Windows.Forms.CheckBox checkBox_ShowCreatedCell;
         private System.Windows.Forms.ColorDialog colorDialog_Grid;
         private System.Windows.Forms.PictureBox pictureBox_Grid;
         private System.Windows.Forms.TrackBar trackBar_AreaSize;

@@ -25,6 +25,7 @@ namespace Game_of_life
         private void MainWindow_Load(object sender, EventArgs e)
         {
             initCheckBoxList();
+            setStartupColors();
         }
 
         private void drawPlayingArea()
@@ -64,5 +65,68 @@ namespace Game_of_life
             this.creationRules.Insert(8, checkBox18);
         }
 
+        private void setStartupColors()
+        {
+            colorDialog_Grid.Color = pictureBox_Grid.BackColor;
+            colorDialog_DeadCell.Color = pictureBox_DeadCell.BackColor;
+            colorDialog_CreatedCell.Color = pictureBox_CreatedCell.BackColor;
+            colorDialog_LivingCell.Color = pictureBox_LivingCell.BackColor;
+            colorDialog_AreaBackground.Color = pictureBox_AreaBackground.BackColor;
+        }
+
+        #region colorDialog select
+        private void PictureBox_Grid_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_Grid.ShowDialog() == DialogResult.Cancel)
+                return;
+            pictureBox_Grid.BackColor = colorDialog_Grid.Color;
+        }
+
+        private void PictureBox_DeadCell_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_DeadCell.ShowDialog() == DialogResult.Cancel)
+                return;
+            pictureBox_DeadCell.BackColor = colorDialog_DeadCell.Color;
+        }
+
+        private void PictureBox_CreatedCell_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_CreatedCell.ShowDialog() == DialogResult.Cancel)
+                return;
+            pictureBox_CreatedCell.BackColor = colorDialog_CreatedCell.Color;
+        }
+
+        private void PictureBox_LivingCell_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_LivingCell.ShowDialog() == DialogResult.Cancel)
+                return;
+            pictureBox_LivingCell.BackColor = colorDialog_LivingCell.Color;
+        }
+
+        private void PictureBox_AreaBackground_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_AreaBackground.ShowDialog() == DialogResult.Cancel)
+                return;
+            pictureBox_AreaBackground.BackColor = colorDialog_AreaBackground.Color;
+            panel_PlaingArea.BackColor = colorDialog_AreaBackground.Color;
+        }
+        #endregion
+
+        #region displaying elements
+        private void CheckBox_DisplayGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            pictureBox_Grid.Enabled = checkBox_DisplayGrid.Checked;
+        }
+
+        private void CheckBox_ShowDeadCell_CheckedChanged(object sender, EventArgs e)
+        {
+            pictureBox_DeadCell.Enabled = checkBox_ShowDeadCell.Checked;
+        }
+
+        private void CheckBox_CreatedCell_CheckedChanged(object sender, EventArgs e)
+        {
+            pictureBox_CreatedCell.Enabled = checkBox_ShowCreatedCell.Checked;
+        }
+        #endregion
     }
 }
