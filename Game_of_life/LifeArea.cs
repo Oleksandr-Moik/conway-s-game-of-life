@@ -21,6 +21,10 @@ namespace Game_of_life
         public Color AreaColor { get; set; }
         public Panel PlayingArea { get; set; }
 
+        private int[,] presentArea;
+        private int[,] nextArea;
+
+
         public LifeArea(AreaBuilder builder)
         {
             TickSpeed = builder.TickSpeed;
@@ -46,6 +50,8 @@ namespace Game_of_life
         public void drawGrid()
         {
             PlayingArea.Refresh();
+            randomFilling();
+            drawCell();
 
             Graphics dc = PlayingArea.CreateGraphics();
             Pen gridPan = new Pen(GridColor, 1);
@@ -55,12 +61,64 @@ namespace Game_of_life
 
             for (int i = 0; i <= width; i += (width / Size))
             {
-                dc.DrawLine(gridPan, new Point(i,0), new Point(i, height));
+                dc.DrawLine(gridPan, new Point(i, 0), new Point(i, height));
                 dc.DrawLine(gridPan, new Point(0, i), new Point(width, i));
+            }
+
+            dc.Dispose();
+        }
+        public void clearGrid()
+        {
+            PlayingArea.Refresh();
+            GridColor = Color.Transparent;
+            drawCell();
+        }
+
+        public void drawCell()
+        {
+            int width = PlayingArea.Width / Size;
+            int height = PlayingArea.Height / Size;
+
+            Graphics dc = PlayingArea.CreateGraphics();
+            SolidBrush livingBrush = new SolidBrush(LivingCellColor);
+
+            int currentHeight = 0;
+            int currentWigth = 0;
+
+            for (int i = 0; i < Size; ++i)
+            {
+                currentWigth += height;
+                for (int j = 0; j < Size; ++j)
+                {
+                    currentHeight += width;
+                    if (presentArea[i, j] == 0)
+                        dc.FillRectangle(livingBrush,
+                            currentHeight, currentWigth,
+                            width, height);
+                }
+                currentHeight = 0;
             }
             dc.Dispose();
         }
 
+        public void randomFilling()
+        {
+            presentArea = new int[Size, Size];
+            Random random = new Random();
+            for (int i = 0; i < Size; ++i)
+                for (int j = 0; j < Size; ++j)
+                    presentArea[i, j] = random.Next(-5, 5);
+
+            drawCell();
+        }
+
+        public void clearCells()
+        {
+            presentArea = new int[Size, Size];
+            for (int i = 0; i < Size; ++i)
+                for (int j = 0; j < Size; ++j)
+                    presentArea[i, j] = -1;
+        }
 
         public class AreaBuilder
         {

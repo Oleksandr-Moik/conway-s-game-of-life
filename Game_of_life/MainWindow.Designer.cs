@@ -101,7 +101,6 @@
             this.pictureBox_DeadCell = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox_Time = new System.Windows.Forms.PictureBox();
-            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_TimerTick)).BeginInit();
             this.groupBox_SurvivalRules.SuspendLayout();
             this.groupBox_CreationRules.SuspendLayout();
@@ -553,6 +552,7 @@
             this.button_RandomFiiling.TabIndex = 7;
             this.button_RandomFiiling.Text = "Random fill";
             this.button_RandomFiiling.UseVisualStyleBackColor = true;
+            this.button_RandomFiiling.Click += new System.EventHandler(this.Button_RandomFiiling_Click);
             // 
             // button_ClearArea
             // 
@@ -717,12 +717,14 @@
             // 
             // trackBar_AreaSize
             // 
+            this.trackBar_AreaSize.LargeChange = 10;
             this.trackBar_AreaSize.Location = new System.Drawing.Point(64, 412);
             this.trackBar_AreaSize.Maximum = 300;
             this.trackBar_AreaSize.Minimum = 10;
             this.trackBar_AreaSize.Name = "trackBar_AreaSize";
             this.trackBar_AreaSize.Size = new System.Drawing.Size(270, 45);
-            this.trackBar_AreaSize.TabIndex = 1;
+            this.trackBar_AreaSize.SmallChange = 10;
+            this.trackBar_AreaSize.TabIndex = 10;
             this.trackBar_AreaSize.TickFrequency = 10;
             this.trackBar_AreaSize.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBar_AreaSize.Value = 10;
@@ -765,7 +767,7 @@
             // 
             // pictureBox_Grid
             // 
-            this.pictureBox_Grid.BackColor = System.Drawing.Color.Black;
+            this.pictureBox_Grid.BackColor = System.Drawing.Color.Gray;
             this.pictureBox_Grid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_Grid.Location = new System.Drawing.Point(265, 3);
             this.pictureBox_Grid.Name = "pictureBox_Grid";
@@ -787,7 +789,7 @@
             // 
             // pictureBox_LivingCell
             // 
-            this.pictureBox_LivingCell.BackColor = System.Drawing.Color.Lime;
+            this.pictureBox_LivingCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.pictureBox_LivingCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_LivingCell.Location = new System.Drawing.Point(265, 102);
             this.pictureBox_LivingCell.Name = "pictureBox_LivingCell";
@@ -798,7 +800,7 @@
             // 
             // pictureBox_CreatedCell
             // 
-            this.pictureBox_CreatedCell.BackColor = System.Drawing.Color.Blue;
+            this.pictureBox_CreatedCell.BackColor = System.Drawing.Color.DodgerBlue;
             this.pictureBox_CreatedCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_CreatedCell.Enabled = false;
             this.pictureBox_CreatedCell.Location = new System.Drawing.Point(265, 69);
@@ -810,7 +812,7 @@
             // 
             // pictureBox_DeadCell
             // 
-            this.pictureBox_DeadCell.BackColor = System.Drawing.Color.Red;
+            this.pictureBox_DeadCell.BackColor = System.Drawing.Color.Salmon;
             this.pictureBox_DeadCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_DeadCell.Enabled = false;
             this.pictureBox_DeadCell.Location = new System.Drawing.Point(265, 36);
@@ -842,21 +844,11 @@
             this.pictureBox_Time.TabIndex = 12;
             this.pictureBox_Time.TabStop = false;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(218, 450);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(80, 23);
-            this.label16.TabIndex = 21;
-            this.label16.Text = "label16";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 687);
-            this.Controls.Add(this.label16);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
@@ -986,7 +978,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label16;
     }
 }
 

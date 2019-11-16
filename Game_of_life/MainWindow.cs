@@ -145,6 +145,8 @@ namespace Game_of_life
         private void CheckBox_DisplayGrid_CheckedChanged(object sender, EventArgs e)
         {
             pictureBox_Grid.Enabled = checkBox_DisplayGrid.Checked;
+            if (pictureBox_Grid.Enabled) lifeArea.drawGrid();
+            else lifeArea.clearGrid();
         }
         private void CheckBox_ShowDeadCell_CheckedChanged(object sender, EventArgs e)
         {
@@ -189,9 +191,14 @@ namespace Game_of_life
 
         private void TrackBar_AreaSize_Scroll(object sender, EventArgs e)
         {
-            label16.Text = trackBar_AreaSize.Value.ToString();
             lifeArea.Size = trackBar_AreaSize.Value;
             lifeArea.drawGrid();
+        }
+
+        private void Button_RandomFiiling_Click(object sender, EventArgs e)
+        {
+            lifeArea.randomFilling();
+
         }
     }
 }
