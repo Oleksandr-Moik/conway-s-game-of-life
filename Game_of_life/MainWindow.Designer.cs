@@ -215,13 +215,16 @@
             // 
             // trackBar_TimerTick
             // 
+            this.trackBar_TimerTick.Enabled = false;
+            this.trackBar_TimerTick.LargeChange = 2;
             this.trackBar_TimerTick.Location = new System.Drawing.Point(64, 362);
-            this.trackBar_TimerTick.Maximum = 100;
+            this.trackBar_TimerTick.Minimum = 1;
             this.trackBar_TimerTick.Name = "trackBar_TimerTick";
             this.trackBar_TimerTick.Size = new System.Drawing.Size(270, 45);
             this.trackBar_TimerTick.TabIndex = 1;
-            this.trackBar_TimerTick.TickFrequency = 5;
+            this.trackBar_TimerTick.TickFrequency = 0;
             this.trackBar_TimerTick.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar_TimerTick.Value = 5;
             // 
             // groupBox_SurvivalRules
             // 
@@ -234,6 +237,7 @@
             this.groupBox_SurvivalRules.Controls.Add(this.checkBox3);
             this.groupBox_SurvivalRules.Controls.Add(this.checkBox2);
             this.groupBox_SurvivalRules.Controls.Add(this.checkBox1);
+            this.groupBox_SurvivalRules.Enabled = false;
             this.groupBox_SurvivalRules.Location = new System.Drawing.Point(3, 3);
             this.groupBox_SurvivalRules.Name = "groupBox_SurvivalRules";
             this.groupBox_SurvivalRules.Size = new System.Drawing.Size(304, 58);
@@ -244,6 +248,7 @@
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
+            this.checkBox8.Enabled = false;
             this.checkBox8.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox8.Location = new System.Drawing.Point(244, 30);
             this.checkBox8.Name = "checkBox8";
@@ -255,6 +260,7 @@
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
+            this.checkBox7.Enabled = false;
             this.checkBox7.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox7.Location = new System.Drawing.Point(212, 30);
             this.checkBox7.Name = "checkBox7";
@@ -266,6 +272,7 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
+            this.checkBox6.Enabled = false;
             this.checkBox6.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox6.Location = new System.Drawing.Point(180, 30);
             this.checkBox6.Name = "checkBox6";
@@ -277,6 +284,7 @@
             // checkBox9
             // 
             this.checkBox9.AutoSize = true;
+            this.checkBox9.Enabled = false;
             this.checkBox9.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox9.Location = new System.Drawing.Point(274, 30);
             this.checkBox9.Name = "checkBox9";
@@ -288,6 +296,7 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
+            this.checkBox5.Enabled = false;
             this.checkBox5.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox5.Location = new System.Drawing.Point(148, 30);
             this.checkBox5.Name = "checkBox5";
@@ -301,6 +310,7 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Checked = true;
             this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Enabled = false;
             this.checkBox4.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox4.Location = new System.Drawing.Point(116, 30);
             this.checkBox4.Name = "checkBox4";
@@ -314,6 +324,7 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Checked = true;
             this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Enabled = false;
             this.checkBox3.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox3.Location = new System.Drawing.Point(84, 30);
             this.checkBox3.Name = "checkBox3";
@@ -325,6 +336,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
             this.checkBox2.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox2.Location = new System.Drawing.Point(52, 30);
             this.checkBox2.Name = "checkBox2";
@@ -336,6 +348,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox1.Location = new System.Drawing.Point(20, 30);
             this.checkBox1.Name = "checkBox1";
@@ -355,6 +368,7 @@
             this.groupBox_CreationRules.Controls.Add(this.checkBox12);
             this.groupBox_CreationRules.Controls.Add(this.checkBox14);
             this.groupBox_CreationRules.Controls.Add(this.checkBox13);
+            this.groupBox_CreationRules.Enabled = false;
             this.groupBox_CreationRules.Location = new System.Drawing.Point(3, 67);
             this.groupBox_CreationRules.Name = "groupBox_CreationRules";
             this.groupBox_CreationRules.Size = new System.Drawing.Size(304, 55);
@@ -365,6 +379,7 @@
             // checkBox18
             // 
             this.checkBox18.AutoSize = true;
+            this.checkBox18.Enabled = false;
             this.checkBox18.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox18.Location = new System.Drawing.Point(274, 30);
             this.checkBox18.Name = "checkBox18";
@@ -376,6 +391,7 @@
             // checkBox15
             // 
             this.checkBox15.AutoSize = true;
+            this.checkBox15.Enabled = false;
             this.checkBox15.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox15.Location = new System.Drawing.Point(180, 30);
             this.checkBox15.Name = "checkBox15";
@@ -387,6 +403,7 @@
             // checkBox17
             // 
             this.checkBox17.AutoSize = true;
+            this.checkBox17.Enabled = false;
             this.checkBox17.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox17.Location = new System.Drawing.Point(244, 30);
             this.checkBox17.Name = "checkBox17";
@@ -398,6 +415,7 @@
             // checkBox10
             // 
             this.checkBox10.AutoSize = true;
+            this.checkBox10.Enabled = false;
             this.checkBox10.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox10.Location = new System.Drawing.Point(20, 30);
             this.checkBox10.Name = "checkBox10";
@@ -409,6 +427,7 @@
             // checkBox16
             // 
             this.checkBox16.AutoSize = true;
+            this.checkBox16.Enabled = false;
             this.checkBox16.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox16.Location = new System.Drawing.Point(212, 30);
             this.checkBox16.Name = "checkBox16";
@@ -420,6 +439,7 @@
             // checkBox11
             // 
             this.checkBox11.AutoSize = true;
+            this.checkBox11.Enabled = false;
             this.checkBox11.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox11.Location = new System.Drawing.Point(52, 30);
             this.checkBox11.Name = "checkBox11";
@@ -431,6 +451,7 @@
             // checkBox12
             // 
             this.checkBox12.AutoSize = true;
+            this.checkBox12.Enabled = false;
             this.checkBox12.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox12.Location = new System.Drawing.Point(84, 30);
             this.checkBox12.Name = "checkBox12";
@@ -442,6 +463,7 @@
             // checkBox14
             // 
             this.checkBox14.AutoSize = true;
+            this.checkBox14.Enabled = false;
             this.checkBox14.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox14.Location = new System.Drawing.Point(148, 30);
             this.checkBox14.Name = "checkBox14";
@@ -455,6 +477,7 @@
             this.checkBox13.AutoSize = true;
             this.checkBox13.Checked = true;
             this.checkBox13.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox13.Enabled = false;
             this.checkBox13.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox13.Location = new System.Drawing.Point(116, 30);
             this.checkBox13.Name = "checkBox13";
@@ -562,6 +585,7 @@
             this.button_ClearArea.TabIndex = 7;
             this.button_ClearArea.Text = "Clear";
             this.button_ClearArea.UseVisualStyleBackColor = true;
+            this.button_ClearArea.Click += new System.EventHandler(this.Button_ClearArea_Click);
             // 
             // label14
             // 
@@ -576,17 +600,33 @@
             // comboBox_RulesSets
             // 
             this.comboBox_RulesSets.Enabled = false;
+            this.comboBox_RulesSets.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox_RulesSets.FormattingEnabled = true;
+            this.comboBox_RulesSets.Items.AddRange(new object[] {
+            "Життя",
+            "HighLife",
+            "Губка клітини",
+            "Повільно зростаюче шипіння",
+            "Бури",
+            "Конденсація",
+            "Насіння",
+            "Поширення",
+            "Лабіринт",
+            "Амеба",
+            "Ді-амеба",
+            "Корал",
+            "Пам\'ять"});
             this.comboBox_RulesSets.Location = new System.Drawing.Point(16, 53);
             this.comboBox_RulesSets.Name = "comboBox_RulesSets";
-            this.comboBox_RulesSets.Size = new System.Drawing.Size(179, 31);
+            this.comboBox_RulesSets.Size = new System.Drawing.Size(211, 28);
             this.comboBox_RulesSets.TabIndex = 9;
+            this.comboBox_RulesSets.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ComboBox_RulesSets_KeyPress);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(204, 27);
+            this.label15.Location = new System.Drawing.Point(227, 27);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(61, 23);
             this.label15.TabIndex = 8;
@@ -595,12 +635,12 @@
             // label_RulesType
             // 
             this.label_RulesType.AutoSize = true;
-            this.label_RulesType.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_RulesType.Location = new System.Drawing.Point(204, 56);
+            this.label_RulesType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_RulesType.Location = new System.Drawing.Point(227, 56);
             this.label_RulesType.Name = "label_RulesType";
-            this.label_RulesType.Size = new System.Drawing.Size(51, 23);
+            this.label_RulesType.Size = new System.Drawing.Size(92, 20);
             this.label_RulesType.TabIndex = 8;
-            this.label_RulesType.Text = "type";
+            this.label_RulesType.Text = "Хаотичний";
             // 
             // button_ApplyRules
             // 
@@ -611,7 +651,6 @@
             this.button_ApplyRules.Text = "Apply";
             this.button_ApplyRules.UseVisualStyleBackColor = true;
             this.button_ApplyRules.Visible = false;
-            this.button_ApplyRules.Click += new System.EventHandler(this.Button_ApplyRules_Click);
             // 
             // button_CancelChangeRules
             // 
@@ -622,10 +661,10 @@
             this.button_CancelChangeRules.Text = "Cancel";
             this.button_CancelChangeRules.UseVisualStyleBackColor = true;
             this.button_CancelChangeRules.Visible = false;
-            this.button_CancelChangeRules.Click += new System.EventHandler(this.Button_CancelChangeRules_Click);
             // 
             // button_StartTime
             // 
+            this.button_StartTime.Enabled = false;
             this.button_StartTime.Location = new System.Drawing.Point(16, 324);
             this.button_StartTime.Name = "button_StartTime";
             this.button_StartTime.Size = new System.Drawing.Size(134, 32);
@@ -641,16 +680,17 @@
             this.button_NextTick.TabIndex = 10;
             this.button_NextTick.Text = "Next";
             this.button_NextTick.UseVisualStyleBackColor = true;
+            this.button_NextTick.Click += new System.EventHandler(this.Button_NextTick_Click);
             // 
             // button_ChangeRules
             // 
+            this.button_ChangeRules.Enabled = false;
             this.button_ChangeRules.Location = new System.Drawing.Point(16, 90);
             this.button_ChangeRules.Name = "button_ChangeRules";
             this.button_ChangeRules.Size = new System.Drawing.Size(95, 32);
             this.button_ChangeRules.TabIndex = 11;
             this.button_ChangeRules.Text = "Change rules";
             this.button_ChangeRules.UseVisualStyleBackColor = true;
-            this.button_ChangeRules.Click += new System.EventHandler(this.Button_ChangeRules_Click);
             // 
             // panel1
             // 
@@ -678,45 +718,50 @@
             this.button_RulesTypeInfo.TabIndex = 10;
             this.button_RulesTypeInfo.Text = "Information";
             this.button_RulesTypeInfo.UseVisualStyleBackColor = true;
-            this.button_RulesTypeInfo.Visible = false;
+            this.button_RulesTypeInfo.Click += new System.EventHandler(this.Button_RulesTypeInfo_Click);
             // 
             // checkBox_DisplayGrid
             // 
             this.checkBox_DisplayGrid.AutoSize = true;
             this.checkBox_DisplayGrid.Checked = true;
             this.checkBox_DisplayGrid.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_DisplayGrid.Enabled = false;
             this.checkBox_DisplayGrid.Location = new System.Drawing.Point(12, 3);
             this.checkBox_DisplayGrid.Name = "checkBox_DisplayGrid";
             this.checkBox_DisplayGrid.Size = new System.Drawing.Size(145, 27);
             this.checkBox_DisplayGrid.TabIndex = 14;
             this.checkBox_DisplayGrid.Text = "Display grid";
             this.checkBox_DisplayGrid.UseVisualStyleBackColor = true;
-            this.checkBox_DisplayGrid.CheckedChanged += new System.EventHandler(this.CheckBox_DisplayGrid_CheckedChanged);
             // 
             // checkBox_ShowDeadCell
             // 
             this.checkBox_ShowDeadCell.AutoSize = true;
+            this.checkBox_ShowDeadCell.Enabled = false;
             this.checkBox_ShowDeadCell.Location = new System.Drawing.Point(12, 36);
             this.checkBox_ShowDeadCell.Name = "checkBox_ShowDeadCell";
             this.checkBox_ShowDeadCell.Size = new System.Drawing.Size(212, 27);
             this.checkBox_ShowDeadCell.TabIndex = 15;
             this.checkBox_ShowDeadCell.Text = "Show the dead cell";
             this.checkBox_ShowDeadCell.UseVisualStyleBackColor = true;
-            this.checkBox_ShowDeadCell.CheckedChanged += new System.EventHandler(this.CheckBox_ShowDeadCell_CheckedChanged);
             // 
             // checkBox_ShowCreatedCell
             // 
             this.checkBox_ShowCreatedCell.AutoSize = true;
+            this.checkBox_ShowCreatedCell.Enabled = false;
             this.checkBox_ShowCreatedCell.Location = new System.Drawing.Point(12, 69);
             this.checkBox_ShowCreatedCell.Name = "checkBox_ShowCreatedCell";
             this.checkBox_ShowCreatedCell.Size = new System.Drawing.Size(199, 27);
             this.checkBox_ShowCreatedCell.TabIndex = 16;
             this.checkBox_ShowCreatedCell.Text = "Show created cell";
             this.checkBox_ShowCreatedCell.UseVisualStyleBackColor = true;
-            this.checkBox_ShowCreatedCell.CheckedChanged += new System.EventHandler(this.CheckBox_CreatedCell_CheckedChanged);
+            // 
+            // colorDialog_Grid
+            // 
+            this.colorDialog_Grid.Color = System.Drawing.Color.Gray;
             // 
             // trackBar_AreaSize
             // 
+            this.trackBar_AreaSize.Enabled = false;
             this.trackBar_AreaSize.LargeChange = 10;
             this.trackBar_AreaSize.Location = new System.Drawing.Point(64, 412);
             this.trackBar_AreaSize.Maximum = 300;
@@ -725,10 +770,17 @@
             this.trackBar_AreaSize.Size = new System.Drawing.Size(270, 45);
             this.trackBar_AreaSize.SmallChange = 10;
             this.trackBar_AreaSize.TabIndex = 10;
-            this.trackBar_AreaSize.TickFrequency = 10;
+            this.trackBar_AreaSize.TickFrequency = 0;
             this.trackBar_AreaSize.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar_AreaSize.Value = 10;
-            this.trackBar_AreaSize.Scroll += new System.EventHandler(this.TrackBar_AreaSize_Scroll);
+            this.trackBar_AreaSize.Value = 140;
+            // 
+            // colorDialog_DeadCell
+            // 
+            this.colorDialog_DeadCell.Color = System.Drawing.Color.Salmon;
+            // 
+            // colorDialog_CreatedCell
+            // 
+            this.colorDialog_CreatedCell.Color = System.Drawing.Color.DodgerBlue;
             // 
             // label17
             // 
@@ -747,6 +799,18 @@
             this.label18.Size = new System.Drawing.Size(172, 23);
             this.label18.TabIndex = 19;
             this.label18.Text = "Area background";
+            // 
+            // colorDialog_AreaBackground
+            // 
+            this.colorDialog_AreaBackground.Color = System.Drawing.Color.Silver;
+            // 
+            // colorDialog_LivingCell
+            // 
+            this.colorDialog_LivingCell.Color = System.Drawing.Color.PaleGreen;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
             // 
             // panel2
             // 
@@ -774,7 +838,6 @@
             this.pictureBox_Grid.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_Grid.TabIndex = 17;
             this.pictureBox_Grid.TabStop = false;
-            this.pictureBox_Grid.Click += new System.EventHandler(this.PictureBox_Grid_Click);
             // 
             // pictureBox_AreaBackground
             // 
@@ -785,18 +848,16 @@
             this.pictureBox_AreaBackground.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_AreaBackground.TabIndex = 17;
             this.pictureBox_AreaBackground.TabStop = false;
-            this.pictureBox_AreaBackground.Click += new System.EventHandler(this.PictureBox_AreaBackground_Click);
             // 
             // pictureBox_LivingCell
             // 
-            this.pictureBox_LivingCell.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.pictureBox_LivingCell.BackColor = System.Drawing.Color.PaleGreen;
             this.pictureBox_LivingCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox_LivingCell.Location = new System.Drawing.Point(265, 102);
             this.pictureBox_LivingCell.Name = "pictureBox_LivingCell";
             this.pictureBox_LivingCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_LivingCell.TabIndex = 17;
             this.pictureBox_LivingCell.TabStop = false;
-            this.pictureBox_LivingCell.Click += new System.EventHandler(this.PictureBox_LivingCell_Click);
             // 
             // pictureBox_CreatedCell
             // 
@@ -808,7 +869,6 @@
             this.pictureBox_CreatedCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_CreatedCell.TabIndex = 17;
             this.pictureBox_CreatedCell.TabStop = false;
-            this.pictureBox_CreatedCell.Click += new System.EventHandler(this.PictureBox_CreatedCell_Click);
             // 
             // pictureBox_DeadCell
             // 
@@ -820,11 +880,11 @@
             this.pictureBox_DeadCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_DeadCell.TabIndex = 17;
             this.pictureBox_DeadCell.TabStop = false;
-            this.pictureBox_DeadCell.Click += new System.EventHandler(this.PictureBox_DeadCell_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Enabled = false;
             this.pictureBox1.Image = global::Game_of_life.Properties.Resources.grid;
             this.pictureBox1.Location = new System.Drawing.Point(16, 412);
             this.pictureBox1.Name = "pictureBox1";
@@ -836,6 +896,7 @@
             // pictureBox_Time
             // 
             this.pictureBox_Time.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_Time.Enabled = false;
             this.pictureBox_Time.Image = global::Game_of_life.Properties.Resources.speed_icon_png_3_jpg;
             this.pictureBox_Time.Location = new System.Drawing.Point(16, 362);
             this.pictureBox_Time.Name = "pictureBox_Time";

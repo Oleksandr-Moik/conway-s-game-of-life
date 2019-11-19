@@ -12,48 +12,36 @@ namespace Game_of_life
 {
     public partial class MainWindow : Form
     {
-
-
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        List<CheckBox> survivalRules;
-        List<CheckBox> creationRules;
-        LifeRule[] rulesSets;
-        LifeArea lifeArea;
+        private List<CheckBox> survivalRules;
+        private List<CheckBox> creationRules;
+        private int[,] presentArea;
+        private int lifeTime = 0;
+
+        private const string CHAOTIC = "Хаотичний";
+        private const string STABLE = "Стабільний";
+        private const string EXTENSIONS = "Розширюваний";
+        private const string EXPLOSIVE = "Вибухаючий";
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            initialization();
-        }
-
-        #region initialization
-        private void initialization()
-        {
             initCheckBoxList();
-            setStartupColors();
+            setPictureColorFromColorDialog();
 
             panel_PlaingArea.Height = 600;
             panel_PlaingArea.Width = 600;
 
-            int size = trackBar_AreaSize.Value;
+            comboBox_RulesSets.SelectedIndex = 0;
 
-            lifeArea = new LifeArea.AreaBuilder()
-                .size(size)
-                .playingArea(panel_PlaingArea)
-                .gridColor(pictureBox_Grid.BackColor)
-                .diedCellColor(pictureBox_DeadCell.BackColor)
-                .createdCellColor(pictureBox_CreatedCell.BackColor)
-                .livingCellColor(pictureBox_LivingCell.BackColor)
-                .areaColor(colorDialog_AreaBackground.Color)
-                .build();
-
-            lifeArea.drawGrid();
-
-            setRulesSets();
+            RandomFiiling(ref presentArea);
+            DrawGrid();
         }
+
+        #region initialization
         private void initCheckBoxList()
         {
             survivalRules = new List<CheckBox>();
@@ -78,126 +66,127 @@ namespace Game_of_life
             creationRules.Insert(7, checkBox17);
             creationRules.Insert(8, checkBox18);
         }
-        private void setStartupColors()
+        private void setPictureColorFromColorDialog()
         {
-            colorDialog_Grid.Color = pictureBox_Grid.BackColor;
-            colorDialog_DeadCell.Color = pictureBox_DeadCell.BackColor;
-            colorDialog_CreatedCell.Color = pictureBox_CreatedCell.BackColor;
-            colorDialog_LivingCell.Color = pictureBox_LivingCell.BackColor;
-            colorDialog_AreaBackground.Color = pictureBox_AreaBackground.BackColor;
-        }
-
-        private void setRulesSets()
-        {
-
-
-            rulesSets = new LifeRule[]
-            {
-               new LifeRule("",1,new bool[]{ },new bool[]{ }),
-
-            };
-        }
-
-        #endregion
-
-        #region colorDialog select
-        private void PictureBox_Grid_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_Grid.ShowDialog() == DialogResult.Cancel)
-                return;
             pictureBox_Grid.BackColor = colorDialog_Grid.Color;
-            lifeArea.GridColor = colorDialog_Grid.Color;
-            lifeArea.Size = trackBar_AreaSize.Value;
-            lifeArea.drawGrid();
-        }
-        private void PictureBox_DeadCell_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_DeadCell.ShowDialog() == DialogResult.Cancel)
-                return;
             pictureBox_DeadCell.BackColor = colorDialog_DeadCell.Color;
-            lifeArea.DiedCellColor = colorDialog_DeadCell.Color;
-        }
-        private void PictureBox_CreatedCell_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_CreatedCell.ShowDialog() == DialogResult.Cancel)
-                return;
             pictureBox_CreatedCell.BackColor = colorDialog_CreatedCell.Color;
-            lifeArea.CreatedCellColor = colorDialog_CreatedCell.Color;
-        }
-        private void PictureBox_LivingCell_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_LivingCell.ShowDialog() == DialogResult.Cancel)
-                return;
             pictureBox_LivingCell.BackColor = colorDialog_LivingCell.Color;
-            lifeArea.LivingCellColor = colorDialog_LivingCell.Color;
-        }
-        private void PictureBox_AreaBackground_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_AreaBackground.ShowDialog() == DialogResult.Cancel)
-                return;
             pictureBox_AreaBackground.BackColor = colorDialog_AreaBackground.Color;
-            lifeArea.AreaColor = colorDialog_AreaBackground.Color;
-            lifeArea.updateAreaColor();
-        }
-        #endregion
-
-        #region displaying elements
-        private void CheckBox_DisplayGrid_CheckedChanged(object sender, EventArgs e)
-        {
-            pictureBox_Grid.Enabled = checkBox_DisplayGrid.Checked;
-            if (pictureBox_Grid.Enabled) lifeArea.drawGrid();
-            else lifeArea.clearGrid();
-        }
-        private void CheckBox_ShowDeadCell_CheckedChanged(object sender, EventArgs e)
-        {
-            pictureBox_DeadCell.Enabled = checkBox_ShowDeadCell.Checked;
-        }
-        private void CheckBox_CreatedCell_CheckedChanged(object sender, EventArgs e)
-        {
-            pictureBox_CreatedCell.Enabled = checkBox_ShowCreatedCell.Checked;
-        }
-        #endregion
-
-        #region game rules
-        
-        private void Button_ChangeRules_Click(object sender, EventArgs e)
-        {
-            button_ChangeRules.Visible = false;
-            button_ApplyRules.Visible = true;
-            button_CancelChangeRules.Visible = true;
-            comboBox_RulesSets.Enabled = true;
-
-        }
-
-        private void Button_ApplyRules_Click(object sender, EventArgs e)
-        {
-            button_ChangeRules.Visible = true;
-            button_ApplyRules.Visible = false;
-            button_CancelChangeRules.Visible = false;
-            comboBox_RulesSets.Enabled = false;
-
-        }
-
-        private void Button_CancelChangeRules_Click(object sender, EventArgs e)
-        {
-            button_ChangeRules.Visible = true;
-            button_ApplyRules.Visible = false;
-            button_CancelChangeRules.Visible = false;
-            comboBox_RulesSets.Enabled = false;
-
         }
 
         #endregion
-
-        private void TrackBar_AreaSize_Scroll(object sender, EventArgs e)
-        {
-            lifeArea.Size = trackBar_AreaSize.Value;
-            lifeArea.drawGrid();
-        }
 
         private void Button_RandomFiiling_Click(object sender, EventArgs e)
         {
-            lifeArea.randomFilling();
+
+        }
+
+        private void RandomFiiling(ref int[,] area)
+        {
+            int size = trackBar_AreaSize.Value;
+            area = new int[size, size];
+            Random random = new Random();
+            for (int i = 0; i < size; ++i)
+                for (int j = 0; j < size; ++j)
+                    area[i, j] = random.Next(0, 1);
+        }
+
+        private void ClearArea(ref int[,] area)
+        {
+            int size = trackBar_AreaSize.Value;
+            area = new int[size, size];
+        }
+
+        private void ComboBox_RulesSets_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        // show information about CHAOTIC, STABLE, EXTENSIONS and EXPLOSIVE types
+        private void Button_RulesTypeInfo_Click(object sender, EventArgs e)
+        {
+            if(label_RulesType.Text == CHAOTIC)
+            {
+                MessageBox.Show(this,
+                    
+                    "Для досягнення найкращих результатів використовуйте " +
+                    "випадковим чином розкидане поле для ініціалізації " +
+                    "моделювання. Вам може знадобитися втрутитись в гру, " +
+                    "щоб взаємодіяти з полем, або інакше взаємодії клітин " +
+                    "за часом припиняться.", 
+                    
+                    "Інформація про " + CHAOTIC.ToLower());
+            }
+            else if (label_RulesType.Text == STABLE) // стабільний
+            {
+                MessageBox.Show(this,
+
+                    "При стабільних правилах форми рідко взаємодіють " +
+                    "між собою. Можливо, Вам буде потрібно побудувати " +
+                    "великий блоб, або ж поєднання кілька менших блобів, " +
+                    "щоб побачити розвиток шаблону.", 
+
+                    "Інформація про " + STABLE.ToLower());
+
+            }
+            else if (label_RulesType.Text == EXTENSIONS) // розширюваний
+            {
+                MessageBox.Show(this,
+
+                    "Для досягнення найкращих результатів, почніть " +
+                    "з пустого поля, і побудуйте деякі живі клітини " +
+                    "перед початком моделювання. Для деяких правил, " +
+                    "можливо буде потрібно побудувати великий блоб, " +
+                    "або ж поєднання кілька менших блобів, щоб " +
+                    "побачити розвиток шаблону.", 
+
+                    "Інформація про " + EXTENSIONS.ToLower());
+
+            }
+            else if (label_RulesType.Text == EXPLOSIVE) // вибахаючий
+            {
+                MessageBox.Show(this,
+
+                    "Для досягнення найкращих результатів, почніть " +
+                    "з пустого поля, і побудуйте одну-дві живі " +
+                    "клітини перед початком моделювання. Деякі " +
+                    "правила (наприклад, Пам'ять) найкраще працюють " +
+                    "з простою формою або буквою в якосі відправного " +
+                    "шаблону.",
+                    
+                    "Інформація про " + EXPLOSIVE.ToLower());
+
+            }
+        }
+
+        private void DrawGrid()
+        {
+            panel_PlaingArea.Refresh();
+
+            Graphics dc = panel_PlaingArea.CreateGraphics();
+            Pen gridPan = new Pen(colorDialog_Grid.Color, 1);
+
+            int width = panel_PlaingArea.Width;
+            int height = panel_PlaingArea.Height;
+            int size = trackBar_AreaSize.Value;
+
+            for (int i = 0; i <= width; i += (width / size))
+            {
+                dc.DrawLine(gridPan, new Point(i, 0), new Point(i, height));
+                dc.DrawLine(gridPan, new Point(0, i), new Point(width, i));
+            }
+
+            //dc.Dispose();
+        }
+
+        private void Button_ClearArea_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button_NextTick_Click(object sender, EventArgs e)
+        {
 
         }
     }
