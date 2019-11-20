@@ -101,8 +101,6 @@
             this.pictureBox_DeadCell = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox_Time = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_TimerTick)).BeginInit();
             this.groupBox_SurvivalRules.SuspendLayout();
@@ -145,7 +143,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(599, 49);
+            this.label3.Location = new System.Drawing.Point(624, 51);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 24);
@@ -156,7 +154,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(599, 24);
+            this.label4.Location = new System.Drawing.Point(624, 26);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(113, 24);
@@ -189,7 +187,7 @@
             // 
             this.label_Died.AutoSize = true;
             this.label_Died.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Died.Location = new System.Drawing.Point(717, 49);
+            this.label_Died.Location = new System.Drawing.Point(742, 51);
             this.label_Died.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_Died.Name = "label_Died";
             this.label_Died.Size = new System.Drawing.Size(24, 25);
@@ -200,7 +198,7 @@
             // 
             this.label_Created.AutoSize = true;
             this.label_Created.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Created.Location = new System.Drawing.Point(717, 24);
+            this.label_Created.Location = new System.Drawing.Point(742, 26);
             this.label_Created.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_Created.Name = "label_Created";
             this.label_Created.Size = new System.Drawing.Size(24, 25);
@@ -738,7 +736,7 @@
             // checkBox_ShowDeadCell
             // 
             this.checkBox_ShowDeadCell.AutoSize = true;
-            this.checkBox_ShowDeadCell.Location = new System.Drawing.Point(12, 36);
+            this.checkBox_ShowDeadCell.Location = new System.Drawing.Point(12, 79);
             this.checkBox_ShowDeadCell.Name = "checkBox_ShowDeadCell";
             this.checkBox_ShowDeadCell.Size = new System.Drawing.Size(230, 27);
             this.checkBox_ShowDeadCell.TabIndex = 15;
@@ -748,7 +746,7 @@
             // checkBox_ShowCreatedCell
             // 
             this.checkBox_ShowCreatedCell.AutoSize = true;
-            this.checkBox_ShowCreatedCell.Location = new System.Drawing.Point(12, 69);
+            this.checkBox_ShowCreatedCell.Location = new System.Drawing.Point(12, 112);
             this.checkBox_ShowCreatedCell.Name = "checkBox_ShowCreatedCell";
             this.checkBox_ShowCreatedCell.Size = new System.Drawing.Size(248, 27);
             this.checkBox_ShowCreatedCell.TabIndex = 16;
@@ -785,16 +783,16 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(97, 106);
+            this.label17.Location = new System.Drawing.Point(200, 149);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(162, 23);
+            this.label17.Size = new System.Drawing.Size(57, 23);
             this.label17.TabIndex = 19;
-            this.label17.Text = "Живі / незмінні";
+            this.label17.Text = "Живі";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(207, 139);
+            this.label18.Location = new System.Drawing.Point(207, 40);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(50, 23);
             this.label18.TabIndex = 19;
@@ -827,7 +825,7 @@
             this.panel2.Controls.Add(this.pictureBox_DeadCell);
             this.panel2.Location = new System.Drawing.Point(16, 473);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(318, 170);
+            this.panel2.Size = new System.Drawing.Size(318, 202);
             this.panel2.TabIndex = 20;
             // 
             // pictureBox_Grid
@@ -839,46 +837,51 @@
             this.pictureBox_Grid.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_Grid.TabIndex = 17;
             this.pictureBox_Grid.TabStop = false;
+            this.pictureBox_Grid.Click += new System.EventHandler(this.PictureBox_Grid_Click);
             // 
             // pictureBox_AreaBackground
             // 
             this.pictureBox_AreaBackground.BackColor = System.Drawing.Color.Silver;
             this.pictureBox_AreaBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_AreaBackground.Location = new System.Drawing.Point(265, 135);
+            this.pictureBox_AreaBackground.Location = new System.Drawing.Point(265, 36);
             this.pictureBox_AreaBackground.Name = "pictureBox_AreaBackground";
             this.pictureBox_AreaBackground.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_AreaBackground.TabIndex = 17;
             this.pictureBox_AreaBackground.TabStop = false;
+            this.pictureBox_AreaBackground.Click += new System.EventHandler(this.PictureBox_AreaBackground_Click);
             // 
             // pictureBox_LivingCell
             // 
             this.pictureBox_LivingCell.BackColor = System.Drawing.Color.PaleGreen;
             this.pictureBox_LivingCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_LivingCell.Location = new System.Drawing.Point(265, 102);
+            this.pictureBox_LivingCell.Location = new System.Drawing.Point(265, 145);
             this.pictureBox_LivingCell.Name = "pictureBox_LivingCell";
             this.pictureBox_LivingCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_LivingCell.TabIndex = 17;
             this.pictureBox_LivingCell.TabStop = false;
+            this.pictureBox_LivingCell.Click += new System.EventHandler(this.PictureBox_LivingCell_Click);
             // 
             // pictureBox_CreatedCell
             // 
             this.pictureBox_CreatedCell.BackColor = System.Drawing.Color.LimeGreen;
             this.pictureBox_CreatedCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_CreatedCell.Location = new System.Drawing.Point(265, 69);
+            this.pictureBox_CreatedCell.Location = new System.Drawing.Point(265, 112);
             this.pictureBox_CreatedCell.Name = "pictureBox_CreatedCell";
             this.pictureBox_CreatedCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_CreatedCell.TabIndex = 17;
             this.pictureBox_CreatedCell.TabStop = false;
+            this.pictureBox_CreatedCell.Click += new System.EventHandler(this.PictureBox_CreatedCell_Click);
             // 
             // pictureBox_DeadCell
             // 
             this.pictureBox_DeadCell.BackColor = System.Drawing.Color.Salmon;
             this.pictureBox_DeadCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_DeadCell.Location = new System.Drawing.Point(265, 36);
+            this.pictureBox_DeadCell.Location = new System.Drawing.Point(265, 79);
             this.pictureBox_DeadCell.Name = "pictureBox_DeadCell";
             this.pictureBox_DeadCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_DeadCell.TabIndex = 17;
             this.pictureBox_DeadCell.TabStop = false;
+            this.pictureBox_DeadCell.Click += new System.EventHandler(this.PictureBox_DeadCell_Click);
             // 
             // pictureBox1
             // 
@@ -904,36 +907,17 @@
             this.pictureBox_Time.TabIndex = 12;
             this.pictureBox_Time.TabStop = false;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(209, 393);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(114, 37);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "bloc";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(209, 426);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 41);
-            this.button3.TabIndex = 21;
-            this.button3.Text = "loop";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
-            // 
             // checkBox19
             // 
             this.checkBox19.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.checkBox19.Location = new System.Drawing.Point(750, 27);
+            this.checkBox19.Location = new System.Drawing.Point(803, 27);
             this.checkBox19.Name = "checkBox19";
             this.checkBox19.Size = new System.Drawing.Size(202, 47);
             this.checkBox19.TabIndex = 22;
             this.checkBox19.Text = "show grid content (debug)";
             this.checkBox19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox19.UseVisualStyleBackColor = true;
+            this.checkBox19.Visible = false;
             // 
             // MainWindow
             // 
@@ -942,8 +926,6 @@
             this.ClientSize = new System.Drawing.Size(961, 687);
             this.Controls.Add(this.panel_PlaingArea);
             this.Controls.Add(this.checkBox19);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
@@ -1072,8 +1054,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckBox checkBox19;
     }
 }

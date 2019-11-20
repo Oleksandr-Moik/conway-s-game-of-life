@@ -173,13 +173,14 @@ namespace Game_of_life
             else if (created == 0 && died == 0) endGame = true;
             else
             {
-                int previous_died = Int32.Parse(label_Died.Text);
-                int previous_created = Int32.Parse(label_Created.Text);
-                int previous_population = Int32.Parse(label_Population.Text);
+                //int previous_died = Int32.Parse(label_Died.Text);
+                //int previous_created = Int32.Parse(label_Created.Text);
+                //int previous_population = Int32.Parse(label_Population.Text);
 
-                if (population == previous_population) endGame = true;
-                else if (died == previous_died && created == previous_created) endGame = true;
-                else endGame = false;
+                //if (population == previous_population) endGame = true;
+                ////else if (died == previous_died && created == previous_created) endGame = true;
+                //else
+                    endGame = false;
             }
         }
         // replace DIED_CELL with EMPTY_CELL
@@ -360,9 +361,9 @@ namespace Game_of_life
 
                     "Для досягнення найкращих результатів використовуйте " +
                     "випадковим чином розкидане поле для ініціалізації " +
-                    "моделювання. Вам може знадобитися втрутитись в гру, " +
+                    "моделювання. \nВам може знадобитися втрутитись в гру, " +
                     "щоб взаємодіяти з полем, або інакше взаємодії клітин " +
-                    "за часом припиняться.",
+                    "із часом припиняться.",
 
                     "Інформація про " + CHAOTIC_TYPE.ToLower());
             }
@@ -371,7 +372,7 @@ namespace Game_of_life
                 MessageBox.Show(this,
 
                     "При стабільних правилах форми рідко взаємодіють " +
-                    "між собою. Можливо, Вам буде потрібно побудувати " +
+                    "між собою. \nМожливо, Вам буде потрібно побудувати " +
                     "великий блоб, або ж поєднання кілька менших блобів, " +
                     "щоб побачити розвиток шаблону.",
 
@@ -576,6 +577,40 @@ namespace Game_of_life
             drawCell(GlobalGrid, true, LIVE_CELL);
             drawGrid(size);
             
+        }
+
+        private void PictureBox_Grid_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_Grid.ShowDialog() == DialogResult.OK)
+                pictureBox_Grid.BackColor = colorDialog_Grid.Color;
+        }
+
+        private void PictureBox_AreaBackground_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_AreaBackground.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox_AreaBackground.BackColor = colorDialog_AreaBackground.Color;
+                panel_PlaingArea.BackColor = colorDialog_AreaBackground.Color;
+            }
+
+        }
+
+        private void PictureBox_DeadCell_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_DeadCell.ShowDialog() == DialogResult.OK)
+                pictureBox_DeadCell.BackColor = colorDialog_DeadCell.Color;
+        }
+
+        private void PictureBox_CreatedCell_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_CreatedCell.ShowDialog() == DialogResult.OK)
+                pictureBox_CreatedCell.BackColor = colorDialog_CreatedCell.Color;
+        }
+
+        private void PictureBox_LivingCell_Click(object sender, EventArgs e)
+        {
+            if (colorDialog_LivingCell.ShowDialog() == DialogResult.OK)
+                pictureBox_LivingCell.BackColor = colorDialog_LivingCell.Color;
         }
     }
 }
