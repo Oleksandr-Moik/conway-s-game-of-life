@@ -33,10 +33,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label_population = new System.Windows.Forms.Label();
-            this.label_LifeTime = new System.Windows.Forms.Label();
-            this.label_lifeDead = new System.Windows.Forms.Label();
-            this.label_created = new System.Windows.Forms.Label();
+            this.label_Population = new System.Windows.Forms.Label();
+            this.label_Generation = new System.Windows.Forms.Label();
+            this.label_Died = new System.Windows.Forms.Label();
+            this.label_Created = new System.Windows.Forms.Label();
             this.panel_PlaingArea = new System.Windows.Forms.Panel();
             this.trackBar_TimerTick = new System.Windows.Forms.TrackBar();
             this.groupBox_SurvivalRules = new System.Windows.Forms.GroupBox();
@@ -134,15 +134,15 @@
             this.label2.Location = new System.Drawing.Point(380, 49);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 24);
+            this.label2.Size = new System.Drawing.Size(119, 24);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Life time:";
+            this.label2.Text = "Generation:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(648, 24);
+            this.label3.Location = new System.Drawing.Point(617, 49);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 24);
@@ -153,56 +153,56 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(648, 48);
+            this.label4.Location = new System.Drawing.Point(617, 24);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 24);
             this.label4.TabIndex = 1;
             this.label4.Text = "Created:";
             // 
-            // label_population
+            // label_Population
             // 
-            this.label_population.AutoSize = true;
-            this.label_population.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_population.Location = new System.Drawing.Point(490, 24);
-            this.label_population.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label_population.Name = "label_population";
-            this.label_population.Size = new System.Drawing.Size(24, 25);
-            this.label_population.TabIndex = 1;
-            this.label_population.Text = "0";
+            this.label_Population.AutoSize = true;
+            this.label_Population.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_Population.Location = new System.Drawing.Point(500, 24);
+            this.label_Population.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label_Population.Name = "label_Population";
+            this.label_Population.Size = new System.Drawing.Size(24, 25);
+            this.label_Population.TabIndex = 1;
+            this.label_Population.Text = "0";
             // 
-            // label_LifeTime
+            // label_Generation
             // 
-            this.label_LifeTime.AutoSize = true;
-            this.label_LifeTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_LifeTime.Location = new System.Drawing.Point(491, 49);
-            this.label_LifeTime.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label_LifeTime.Name = "label_LifeTime";
-            this.label_LifeTime.Size = new System.Drawing.Size(24, 25);
-            this.label_LifeTime.TabIndex = 1;
-            this.label_LifeTime.Text = "0";
+            this.label_Generation.AutoSize = true;
+            this.label_Generation.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_Generation.Location = new System.Drawing.Point(500, 49);
+            this.label_Generation.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label_Generation.Name = "label_Generation";
+            this.label_Generation.Size = new System.Drawing.Size(24, 25);
+            this.label_Generation.TabIndex = 1;
+            this.label_Generation.Text = "0";
             // 
-            // label_lifeDead
+            // label_Died
             // 
-            this.label_lifeDead.AutoSize = true;
-            this.label_lifeDead.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_lifeDead.Location = new System.Drawing.Point(740, 23);
-            this.label_lifeDead.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label_lifeDead.Name = "label_lifeDead";
-            this.label_lifeDead.Size = new System.Drawing.Size(24, 25);
-            this.label_lifeDead.TabIndex = 1;
-            this.label_lifeDead.Text = "0";
+            this.label_Died.AutoSize = true;
+            this.label_Died.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_Died.Location = new System.Drawing.Point(709, 48);
+            this.label_Died.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label_Died.Name = "label_Died";
+            this.label_Died.Size = new System.Drawing.Size(24, 25);
+            this.label_Died.TabIndex = 1;
+            this.label_Died.Text = "0";
             // 
-            // label_created
+            // label_Created
             // 
-            this.label_created.AutoSize = true;
-            this.label_created.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_created.Location = new System.Drawing.Point(740, 49);
-            this.label_created.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label_created.Name = "label_created";
-            this.label_created.Size = new System.Drawing.Size(24, 25);
-            this.label_created.TabIndex = 1;
-            this.label_created.Text = "0";
+            this.label_Created.AutoSize = true;
+            this.label_Created.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_Created.Location = new System.Drawing.Point(709, 25);
+            this.label_Created.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label_Created.Name = "label_Created";
+            this.label_Created.Size = new System.Drawing.Size(24, 25);
+            this.label_Created.TabIndex = 1;
+            this.label_Created.Text = "0";
             // 
             // panel_PlaingArea
             // 
@@ -215,16 +215,15 @@
             // 
             // trackBar_TimerTick
             // 
-            this.trackBar_TimerTick.Enabled = false;
             this.trackBar_TimerTick.LargeChange = 2;
             this.trackBar_TimerTick.Location = new System.Drawing.Point(64, 362);
-            this.trackBar_TimerTick.Minimum = 1;
             this.trackBar_TimerTick.Name = "trackBar_TimerTick";
             this.trackBar_TimerTick.Size = new System.Drawing.Size(270, 45);
             this.trackBar_TimerTick.TabIndex = 1;
             this.trackBar_TimerTick.TickFrequency = 0;
             this.trackBar_TimerTick.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBar_TimerTick.Value = 5;
+            this.trackBar_TimerTick.Scroll += new System.EventHandler(this.TrackBar_TimerTick_Scroll);
             // 
             // groupBox_SurvivalRules
             // 
@@ -664,13 +663,13 @@
             // 
             // button_StartTime
             // 
-            this.button_StartTime.Enabled = false;
             this.button_StartTime.Location = new System.Drawing.Point(16, 324);
             this.button_StartTime.Name = "button_StartTime";
             this.button_StartTime.Size = new System.Drawing.Size(134, 32);
             this.button_StartTime.TabIndex = 10;
             this.button_StartTime.Text = "Start";
             this.button_StartTime.UseVisualStyleBackColor = true;
+            this.button_StartTime.Click += new System.EventHandler(this.Button_StartTime_Click);
             // 
             // button_NextTick
             // 
@@ -764,7 +763,7 @@
             this.trackBar_AreaSize.Enabled = false;
             this.trackBar_AreaSize.LargeChange = 10;
             this.trackBar_AreaSize.Location = new System.Drawing.Point(64, 412);
-            this.trackBar_AreaSize.Maximum = 300;
+            this.trackBar_AreaSize.Maximum = 150;
             this.trackBar_AreaSize.Minimum = 10;
             this.trackBar_AreaSize.Name = "trackBar_AreaSize";
             this.trackBar_AreaSize.Size = new System.Drawing.Size(270, 45);
@@ -772,7 +771,7 @@
             this.trackBar_AreaSize.TabIndex = 10;
             this.trackBar_AreaSize.TickFrequency = 0;
             this.trackBar_AreaSize.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar_AreaSize.Value = 140;
+            this.trackBar_AreaSize.Value = 30;
             // 
             // colorDialog_DeadCell
             // 
@@ -811,6 +810,7 @@
             // timer1
             // 
             this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // panel2
             // 
@@ -932,10 +932,10 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label_created);
-            this.Controls.Add(this.label_lifeDead);
-            this.Controls.Add(this.label_LifeTime);
-            this.Controls.Add(this.label_population);
+            this.Controls.Add(this.label_Created);
+            this.Controls.Add(this.label_Died);
+            this.Controls.Add(this.label_Generation);
+            this.Controls.Add(this.label_Population);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -971,10 +971,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label_population;
-        private System.Windows.Forms.Label label_LifeTime;
-        private System.Windows.Forms.Label label_lifeDead;
-        private System.Windows.Forms.Label label_created;
+        private System.Windows.Forms.Label label_Population;
+        private System.Windows.Forms.Label label_Generation;
+        private System.Windows.Forms.Label label_Died;
+        private System.Windows.Forms.Label label_Created;
         private System.Windows.Forms.Panel panel_PlaingArea;
         private System.Windows.Forms.TrackBar trackBar_TimerTick;
         private System.Windows.Forms.GroupBox groupBox_SurvivalRules;
