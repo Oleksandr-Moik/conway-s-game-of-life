@@ -88,7 +88,7 @@ namespace Game_of_life
 
 
         // main game logic
-        private void nextGeneration(int[,] grid, int size)
+        private void nextGeneration(int[,] grid)
         {
             if (!endGame)
             {
@@ -96,7 +96,10 @@ namespace Game_of_life
                 int created_counter = 0;
                 ++Generation;
 
+                int size = grid.GetLength(0);
+
                 int[,] future = new int[size, size];
+
 
                 for (int line = 0; line < size; ++line)
                 {
@@ -143,21 +146,21 @@ namespace Game_of_life
                         else future[line, column] = grid[line, column];
                     }
                 }
-                drawCell(future, size, true, DIED_CELL);
-                drawCell(future, size, false, LIVE_CELL);
-                drawCell(future, size, false, CREATED_CELL);
+                drawCell(future, true, DIED_CELL);
+                drawCell(future, false, LIVE_CELL);
+                drawCell(future, false, CREATED_CELL);
                 drawGrid(size);
 
                 future = revertToEmptyAndLiveCells(future, size);
-                saveToGlobalGrid(future, size);
+                saveToGlobalGrid(future);
 
-                int population = calculatePopulation(future, size);
+                int population = calculatePopulation(future);
                 checkEndGame(population, died_counter, created_counter);
                 updateParamLabels(Generation, population, created_counter, died_counter);
             }
             else
             {
-                timer1.Stop();
+                TimerStop();
                 MessageBox.Show("Симуляцію завершено, оскільки відсутні взаємодії клітин (смерть, рух, народження).", "Симуляцію завершено");
             }
         }
@@ -199,8 +202,10 @@ namespace Game_of_life
         // draws cells from Grid
         // when refresh is true then area will be cleared
         // the type is what cells whow in area
-        private void drawCell(int[,] grid, int size, bool refresh, int type)
+        private void drawCell(int[,] grid, bool refresh, int type)
         {
+            int size = grid.GetLength(0);
+
             if (refresh) panel_PlaingArea.Refresh();
             if (size == 0) return;
 
@@ -273,8 +278,9 @@ namespace Game_of_life
         }
 
         // copies input grid in Global grid
-        private void saveToGlobalGrid(int[,] grid, int size)
+        private void saveToGlobalGrid(int[,] grid)
         {
+            int size = grid.GetLength(0);
             GlobalGrid = new int[size, size];
             GlobalGrid = grid;
         }
@@ -298,10 +304,10 @@ namespace Game_of_life
 
             int size = trackBar_AreaSize.Value;
 
-            saveToGlobalGrid(RandomGrid(size), size);
-            updateParamLabels(0, calculatePopulation(GlobalGrid, size), 0, 0);
+            saveToGlobalGrid(RandomGrid(size));
+            updateParamLabels(0, calculatePopulation(GlobalGrid), 0, 0);
 
-            drawCell(GlobalGrid, size, true, LIVE_CELL);
+            drawCell(GlobalGrid, true, LIVE_CELL);
             drawGrid(size);
         }
 
@@ -311,28 +317,23 @@ namespace Game_of_life
             TimerStop();
             int size = trackBar_AreaSize.Value;
 
-            saveToGlobalGrid(new int[size, size], size);
+            saveToGlobalGrid(new int[size, size]);
             updateParamLabels(0, 0, 0, 0);
 
-            drawCell(null, 0, true, 0);
+            drawCell(GlobalGrid, true, EMPTY_CELL);
             drawGrid(size);
         }
 
         // counts and return this count of alive cells in input grid
-        private int calculatePopulation(int[,] grid, int size)
+        private int calculatePopulation(int[,] grid)
         {
-            if (size <= 0)
-            {
-                return -1;
-            }
-            else
-            {
-                int count = 0;
-                for (int i = 0; i < size; ++i)
-                    for (int j = 0; j < size; ++j)
-                        if (grid[i, j] == 1) ++count;
-                return count;
-            }
+            int size = grid.GetLength(0);
+
+            int count = 0;
+            for (int i = 0; i < size; ++i)
+                for (int j = 0; j < size; ++j)
+                    if (grid[i, j] == 1) ++count;
+            return count;
         }
 
 
@@ -418,14 +419,14 @@ namespace Game_of_life
             int size = trackBar_AreaSize.Value;
             try
             {
-                if (GlobalGrid.Length < 5) throw new NullReferenceException();
-                nextGeneration(GlobalGrid, size);
+                if (GlobalGrid.GetLength(0) < trackBar_AreaSize.Minimum) throw new NullReferenceException();
+                nextGeneration(GlobalGrid);
             }
             catch (NullReferenceException)
             {
-                saveToGlobalGrid(RandomGrid(size), size);
-                updateParamLabels(0, calculatePopulation(GlobalGrid, size), 0, 0);
-                drawCell(GlobalGrid, size, true, LIVE_CELL);
+                saveToGlobalGrid(RandomGrid(size));
+                updateParamLabels(0, calculatePopulation(GlobalGrid), 0, 0);
+                drawCell(GlobalGrid, true, LIVE_CELL);
                 drawGrid(size);
             }
         }
@@ -473,10 +474,32 @@ namespace Game_of_life
         {
             TimerStop();
             int size = trackBar_AreaSize.Value;
+            try
+            {
+                GlobalGrid = changeSize(GlobalGrid, size);
+                drawCell(GlobalGrid, true, LIVE_CELL);
+            }
+            catch (NullReferenceException)
+            {
+                saveToGlobalGrid(new int[size, size]);
+                updateParamLabels(0, 0, 0, 0);
+                drawCell(GlobalGrid, true, EMPTY_CELL);
+            }
 
-            drawCell(null, 0, true, 0);
             drawGrid(size);
 
+        }
+        private int[,] changeSize(int[,] grid, int sizeNew)
+        {
+            int[,] gridCopy = grid;
+            int sizeOld = gridCopy.GetLength(0);
+            grid = new int[sizeNew, sizeNew];
+
+            for (int i = 0; i < sizeOld && i < sizeNew; ++i)
+                for (int j = 0; j < sizeOld && j < sizeNew; ++j)
+                    grid[i, j] = gridCopy[i, j];
+
+            return grid;
         }
 
 
@@ -496,7 +519,7 @@ namespace Game_of_life
                   { 0,0,0,0,0,0,0,1,0,1},
                   { 0,0,0,0,0,0,0,0,1,0},
             };
-            drawCell(GlobalGrid, 10, true, 1);
+            drawCell(GlobalGrid, true, 1);
             drawGrid(10);
         }
 
@@ -515,7 +538,7 @@ namespace Game_of_life
                   {0,0,0,0,0,1,0,0,0,0},
                   {0,0,0,0,0,0,0,0,0,0},
             };
-            drawCell(GlobalGrid, 10, true, 1);
+            drawCell(GlobalGrid, true, 1);
             drawGrid(10);
         }
     }

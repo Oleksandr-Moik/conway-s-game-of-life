@@ -211,7 +211,7 @@
             // 
             this.panel_PlaingArea.BackColor = System.Drawing.Color.Silver;
             this.panel_PlaingArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_PlaingArea.Location = new System.Drawing.Point(352, 76);
+            this.panel_PlaingArea.Location = new System.Drawing.Point(352, 80);
             this.panel_PlaingArea.Name = "panel_PlaingArea";
             this.panel_PlaingArea.Size = new System.Drawing.Size(600, 600);
             this.panel_PlaingArea.TabIndex = 2;
@@ -925,8 +925,6 @@
             // 
             // checkBox19
             // 
-            this.checkBox19.Checked = true;
-            this.checkBox19.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox19.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBox19.Location = new System.Drawing.Point(750, 27);
             this.checkBox19.Name = "checkBox19";
@@ -941,6 +939,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(961, 687);
+            this.Controls.Add(this.panel_PlaingArea);
             this.Controls.Add(this.checkBox19);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -962,7 +961,6 @@
             this.Controls.Add(this.button_RandomFiling);
             this.Controls.Add(this.trackBar_AreaSize);
             this.Controls.Add(this.trackBar_TimerTick);
-            this.Controls.Add(this.panel_PlaingArea);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
