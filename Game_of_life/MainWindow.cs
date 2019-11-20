@@ -179,10 +179,7 @@ namespace Game_of_life
 
                 if (population == previous_population) endGame = true;
                 else if (died == previous_died && created == previous_created) endGame = true;
-
-                endGame = false;
-                //if(previous_created==created && )
-
+                else endGame = false;
             }
         }
         // replace DIED_CELL with EMPTY_CELL
@@ -469,9 +466,11 @@ namespace Game_of_life
             setTimerInterval();
         }
 
+        // changes grid size
         private void TrackBar_AreaSize_Scroll(object sender, EventArgs e)
         {
             TimerStop();
+
             int size = trackBar_AreaSize.Value;
             try
             {
@@ -481,11 +480,11 @@ namespace Game_of_life
             catch (NullReferenceException)
             {
                 saveToGlobalGrid(new int[size, size]);
-                updateParamLabels(0, 0, 0, 0);
                 drawCell(GlobalGrid, true, EMPTY_CELL);
             }
             finally
             {
+                updateParamLabels(Generation, calculatePopulation(GlobalGrid), 0, 0);
                 drawGrid(size);
             }
 
@@ -543,6 +542,8 @@ namespace Game_of_life
             drawGrid(10);
         }
 
+
+        // add or remove cell from grid
         private void Panel_PlaingArea_MouseClick(object sender, MouseEventArgs e)
         {
             int wight = panel_PlaingArea.Width;
@@ -569,6 +570,8 @@ namespace Game_of_life
                 GlobalGrid[col, row] = LIVE_CELL;
             else
                 GlobalGrid[col, row] = EMPTY_CELL;
+
+            updateParamLabels(Generation, calculatePopulation(GlobalGrid), 0, 0);
 
             drawCell(GlobalGrid, true, LIVE_CELL);
             drawGrid(size);
