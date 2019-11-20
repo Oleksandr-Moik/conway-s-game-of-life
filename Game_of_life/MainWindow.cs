@@ -24,11 +24,16 @@ namespace Game_of_life
 
         private int Generation;
         private bool endGame;
-        
-        private const string CHAOTIC = "Хаотичний";
-        private const string STABLE = "Стабільний";
-        private const string EXTENSIONS = "Розширюваний";
-        private const string EXPLOSIVE = "Вибухаючий";
+
+        private const string CHAOTIC_TYPE = "Хаотичний";
+        private const string STABLE_TYPE = "Стабільний";
+        private const string EXTENSIONS_TYPE = "Розширюваний";
+        private const string EXPLOSIVE_TYPE = "Вибухаючий";
+
+        private const int DIED_CELL = -1;
+        private const int EMPTY_CELL = 0;
+        private const int LIVE_CELL = 1;
+        private const int CREATED_CELL = 2;
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
@@ -87,87 +92,128 @@ namespace Game_of_life
         {
             if (!endGame)
             {
-                int Died = 0;
-                int Created = 0;
+                int died_counter = 0;
+                int created_counter = 0;
                 ++Generation;
 
                 int[,] future = new int[size, size];
 
-                // Loop through every cell 
-                for (int l = 0; l < size; l++)
+                for (int line = 0; line < size; ++line)
                 {
-                    for (int m = 0; m < size; m++)
+                    for (int column = 0; column < size; ++column)
                     {
-
-                        // finding no Of Neighbours 
-                        // that are alive 
                         int aliveNeighbours = 0;
-                        for (int i = -1; i <= 1; i++)
-                            for (int j = -1; j <= 1; j++)
+                        for (int i = -1; i <= 1; ++i)
+                            for (int j = -1; j <= 1; ++j)
                             {
-                                int col = l + i;
-                                int row = m + j;
+                                int row = line + i; int col = column + j;
 
-                                if (col == -1) col = size - 1;
-                                if (row == -1) row = size - 1;
-                                if (col == size) col = 0;
-                                if (row == size) row = 0;
+                                if (col == -1) col = size - 1; // above grid limit
+                                if (row == -1) row = size - 1; // on the left limit
 
-                                aliveNeighbours += grid[col, row];
+                                if (col == size) col = 0; // lower grid limit
+                                if (row == size) row = 0; // on the right limit
+
+                                aliveNeighbours += grid[row, col];
                             }
 
-                        // The cell needs to be subtracted 
-                        // from its neighbours as it was 
-                        // counted before 
-                        aliveNeighbours -= grid[l, m];
+                        aliveNeighbours -= grid[line, column];
 
                         // Implementing the Rules of Life 
 
                         // Cell is lonely and dies 
-                        if ((grid[l, m] == 1) && (aliveNeighbours < 2))
+                        if ((grid[line, column] == LIVE_CELL) && (aliveNeighbours < 2))
                         {
-                            future[l, m] = 0;
-                            ++Died;
+                            future[line, column] = DIED_CELL;
+                            ++died_counter;
                         }
                         // Cell dies due to over population 
-                        else if ((grid[l, m] == 1) && (aliveNeighbours > 3))
+                        else if ((grid[line, column] == LIVE_CELL) && (aliveNeighbours > 3))
                         {
-                            future[l, m] = 0;
-                            ++Died;
+                            future[line, column] = DIED_CELL;
+                            ++died_counter;
                         }
                         // A new cell is born 
-                        else if ((grid[l, m] == 0) && (aliveNeighbours == 3))
+                        else if ((grid[line, column] == EMPTY_CELL) && (aliveNeighbours == 3))
                         {
-                            future[l, m] = 1;
-                            ++Created;
+                            future[line, column] = CREATED_CELL;
+                            ++created_counter;
                         }
                         // Remains the same 
-                        else
-                            future[l, m] = grid[l, m];
+                        else future[line, column] = grid[line, column];
                     }
                 }
-                updateParamLabels(Generation, getPopulation(future, size), Died, Created);
+                drawCell(future, size, true, DIED_CELL);
+                drawCell(future, size, false, LIVE_CELL);
+                drawCell(future, size, false, CREATED_CELL);
+                drawGrid(size);
+
+                future = revertToEmptyAndLiveCells(future, size);
                 saveToGlobalGrid(future, size);
-                drawArea(future, size);
+
+                int population = calculatePopulation(future, size);
+                checkEndGame(population, died_counter, created_counter);
+                updateParamLabels(Generation, population, created_counter, died_counter);
             }
             else
             {
                 timer1.Stop();
-                MessageBox.Show("Симуляцію завершено, оскільки відсутні взаємодії клітин (смерть, рух, народження).","Симуляцію завершено");
+                MessageBox.Show("Симуляцію завершено, оскільки відсутні взаємодії клітин (смерть, рух, народження).", "Симуляцію завершено");
             }
         }
 
-        // drawing cells and grid in panel
-        private void drawArea(int[,] grid, int size)
+        // true - game ended
+        // false - game may continue 
+        private void checkEndGame(int population, int died, int created)
         {
-            panel_PlaingArea.Refresh();
+            if (population == 0) endGame = true;
+            else if (created == 0 && died == 0) endGame = true;
+            else
+            {
+                int previous_died = Int32.Parse(label_Died.Text);
+                int previous_created = Int32.Parse(label_Created.Text);
+                int previous_population = Int32.Parse(label_Population.Text);
+
+                if (population == previous_population) endGame = true;
+                else if (died == previous_died && created == previous_created) endGame = true;
+
+                endGame = false;
+                //if(previous_created==created && )
+
+            }
+        }
+        // replace DIED_CELL with EMPTY_CELL
+        // replace CREATED_CELL with LIVE_CELL
+        private int[,] revertToEmptyAndLiveCells(int[,] grid, int size)
+        {
+            for (int i = 0; i < size; ++i)
+                for (int j = 0; j < size; ++j)
+                {
+                    if (grid[i, j] == DIED_CELL) grid[i, j] = EMPTY_CELL;
+                    else if (grid[i, j] == CREATED_CELL) grid[i, j] = LIVE_CELL;
+                }
+
+            return grid;
+        }
+
+        // draws cells from Grid
+        // when refresh is true then area will be cleared
+        // the type is what cells whow in area
+        private void drawCell(int[,] grid, int size, bool refresh, int type)
+        {
+            if (refresh) panel_PlaingArea.Refresh();
+            if (size == 0) return;
 
             Graphics graphics = panel_PlaingArea.CreateGraphics();
 
-            int width = panel_PlaingArea.Width;
+            SolidBrush brush = new SolidBrush(colorDialog_AreaBackground.Color);
 
-            // draw cells
-            SolidBrush livingBrush = new SolidBrush(colorDialog_LivingCell.Color);
+            if (checkBox_ShowDeadCell.Checked && type == DIED_CELL) brush.Color = colorDialog_DeadCell.Color;
+            else if (type == LIVE_CELL) brush.Color = colorDialog_LivingCell.Color;
+            else if (checkBox_ShowCreatedCell.Checked && type == CREATED_CELL) brush.Color = colorDialog_CreatedCell.Color;
+            else return;
+
+            int width = panel_PlaingArea.Width;
 
             int currentHeight = 0;
             int currentWigth = 0;
@@ -177,25 +223,52 @@ namespace Game_of_life
             {
                 for (int j = 0; j < size; ++j)
                 {
-                    if (grid[i, j] == 1)
-                        graphics.FillRectangle(livingBrush,
-                            currentHeight, currentWigth,
-                            cellSize, cellSize);
+                    if (type == LIVE_CELL)
+                    {
+                        if (grid[i, j] == LIVE_CELL || grid[i, j] == CREATED_CELL)
+                            graphics.FillRectangle(brush,
+                               currentHeight, currentWigth,
+                               cellSize, cellSize);
+                    }
+                    else
+                    {
+                        if (grid[i, j] == type)
+                            graphics.FillRectangle(brush,
+                               currentHeight, currentWigth,
+                               cellSize, cellSize);
+                    }
+                    // for debuging or showing grid content
+                    if (checkBox19.Checked)
+                        graphics.DrawString(grid[i, j].ToString(),
+                            new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204))),
+                            new SolidBrush(Color.Red),
+                            currentHeight + 4,
+                            currentWigth + 4);
+
                     currentHeight += cellSize;
                 }
                 currentWigth += cellSize;
                 currentHeight = 0;
             }
+        }
 
-            // draw grid
-            Pen gridPan = new Pen(colorDialog_Grid.Color, 1);
+        // drawing cells and grid in panel
+        private void drawGrid(int size)
+        {
+            Graphics graphics = panel_PlaingArea.CreateGraphics();
 
-            for (int i = 0; i <= width; i += (width / size))
+            int width = panel_PlaingArea.Width;
+
+            if (checkBox_DisplayGrid.Checked)
             {
-                graphics.DrawLine(gridPan, new Point(i, 0), new Point(i, width));
-                graphics.DrawLine(gridPan, new Point(0, i), new Point(width, i));
-            }
+                Pen gridPan = new Pen(colorDialog_Grid.Color, 1);
 
+                for (int i = 0; i <= width; i += (width / size))
+                {
+                    graphics.DrawLine(gridPan, new Point(i, 0), new Point(i, width));
+                    graphics.DrawLine(gridPan, new Point(0, i), new Point(width, i));
+                }
+            }
             graphics.Dispose();
         }
 
@@ -205,7 +278,7 @@ namespace Game_of_life
             GlobalGrid = new int[size, size];
             GlobalGrid = grid;
         }
-        
+
         // generates random grid
         private int[,] RandomGrid(int size)
         {
@@ -214,11 +287,11 @@ namespace Game_of_life
 
             for (int i = 0; i < size; ++i)
                 for (int j = 0; j < size; ++j)
-                    grid[i, j] = random.Next(0, 2);
+                    grid[i, j] = random.Next(0, 10) % 2;
 
             return grid;
         }
-        private void Button_RandomFiiling_Click(object sender, EventArgs e)
+        private void Button_RandomFiling_Click(object sender, EventArgs e)
         {
             endGame = false;
             TimerStop();
@@ -226,32 +299,27 @@ namespace Game_of_life
             int size = trackBar_AreaSize.Value;
 
             saveToGlobalGrid(RandomGrid(size), size);
-            updateParamLabels(0, getPopulation(GlobalGrid, size), 0, 0);
+            updateParamLabels(0, calculatePopulation(GlobalGrid, size), 0, 0);
 
-            drawArea(GlobalGrid, size);
+            drawCell(GlobalGrid, size, true, LIVE_CELL);
+            drawGrid(size);
         }
 
-        // create empty grid
-        private int[,] ClearGrid()
-        {
-            updateParamLabels(0, 0, 0, 0);
-            int[,] grid = new int[1, 1];
-            grid[0, 0] = 0;
-            return grid;
-        }
         private void Button_ClearArea_Click(object sender, EventArgs e)
         {
             endGame = false;
             TimerStop();
+            int size = trackBar_AreaSize.Value;
 
-            saveToGlobalGrid(ClearGrid(), 1);
+            saveToGlobalGrid(new int[size, size], size);
             updateParamLabels(0, 0, 0, 0);
 
-            drawArea(GlobalGrid, 1);
+            drawCell(null, 0, true, 0);
+            drawGrid(size);
         }
 
         // counts and return this count of alive cells in input grid
-        private int getPopulation(int[,] grid, int size)
+        private int calculatePopulation(int[,] grid, int size)
         {
             if (size <= 0)
             {
@@ -267,8 +335,8 @@ namespace Game_of_life
             }
         }
 
-       
-       
+
+
         // updates informatics labels
         private void updateParamLabels(int Generation, int Population, int Created, int Died)
         {
@@ -289,31 +357,31 @@ namespace Game_of_life
         // show information about CHAOTIC, STABLE, EXTENSIONS and EXPLOSIVE types
         private void Button_RulesTypeInfo_Click(object sender, EventArgs e)
         {
-            if(label_RulesType.Text == CHAOTIC)
+            if (label_RulesType.Text == CHAOTIC_TYPE)
             {
                 MessageBox.Show(this,
-                    
+
                     "Для досягнення найкращих результатів використовуйте " +
                     "випадковим чином розкидане поле для ініціалізації " +
                     "моделювання. Вам може знадобитися втрутитись в гру, " +
                     "щоб взаємодіяти з полем, або інакше взаємодії клітин " +
-                    "за часом припиняться.", 
-                    
-                    "Інформація про " + CHAOTIC.ToLower());
+                    "за часом припиняться.",
+
+                    "Інформація про " + CHAOTIC_TYPE.ToLower());
             }
-            else if (label_RulesType.Text == STABLE) // стабільний
+            else if (label_RulesType.Text == STABLE_TYPE) // стабільний
             {
                 MessageBox.Show(this,
 
                     "При стабільних правилах форми рідко взаємодіють " +
                     "між собою. Можливо, Вам буде потрібно побудувати " +
                     "великий блоб, або ж поєднання кілька менших блобів, " +
-                    "щоб побачити розвиток шаблону.", 
+                    "щоб побачити розвиток шаблону.",
 
-                    "Інформація про " + STABLE.ToLower());
+                    "Інформація про " + STABLE_TYPE.ToLower());
 
             }
-            else if (label_RulesType.Text == EXTENSIONS) // розширюваний
+            else if (label_RulesType.Text == EXTENSIONS_TYPE) // розширюваний
             {
                 MessageBox.Show(this,
 
@@ -322,12 +390,12 @@ namespace Game_of_life
                     "перед початком моделювання. Для деяких правил, " +
                     "можливо буде потрібно побудувати великий блоб, " +
                     "або ж поєднання кілька менших блобів, щоб " +
-                    "побачити розвиток шаблону.", 
+                    "побачити розвиток шаблону.",
 
-                    "Інформація про " + EXTENSIONS.ToLower());
+                    "Інформація про " + EXTENSIONS_TYPE.ToLower());
 
             }
-            else if (label_RulesType.Text == EXPLOSIVE) // вибахаючий
+            else if (label_RulesType.Text == EXPLOSIVE_TYPE) // вибахаючий
             {
                 MessageBox.Show(this,
 
@@ -337,8 +405,8 @@ namespace Game_of_life
                     "правила (наприклад, Пам'ять) найкраще працюють " +
                     "з простою формою або буквою в якосі відправного " +
                     "шаблону.",
-                    
-                    "Інформація про " + EXPLOSIVE.ToLower());
+
+                    "Інформація про " + EXPLOSIVE_TYPE.ToLower());
 
             }
         }
@@ -356,8 +424,9 @@ namespace Game_of_life
             catch (NullReferenceException)
             {
                 saveToGlobalGrid(RandomGrid(size), size);
-                updateParamLabels(0, getPopulation(GlobalGrid, size), 0, 0);
-                drawArea(GlobalGrid, size);
+                updateParamLabels(0, calculatePopulation(GlobalGrid, size), 0, 0);
+                drawCell(GlobalGrid, size, true, LIVE_CELL);
+                drawGrid(size);
             }
         }
         private void Button_NextTick_Click(object sender, EventArgs e)
@@ -368,7 +437,7 @@ namespace Game_of_life
         {
             NextTick();
         }
-        
+
 
         // set timer interval (update speed)
         private void setTimerInterval()
@@ -393,13 +462,61 @@ namespace Game_of_life
         {
             setTimerInterval();
             if (timer1.Enabled) TimerStop();
-            else  TimerStart();
+            else TimerStart();
         }
         private void TrackBar_TimerTick_Scroll(object sender, EventArgs e)
         {
             setTimerInterval();
         }
 
-        
+        private void TrackBar_AreaSize_Scroll(object sender, EventArgs e)
+        {
+            TimerStop();
+            int size = trackBar_AreaSize.Value;
+
+            drawCell(null, 0, true, 0);
+            drawGrid(size);
+
+        }
+
+
+        // testing blob patterns
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            trackBar_AreaSize.Value = trackBar_AreaSize.Minimum;
+            GlobalGrid = new int[,] {
+                  { 0,0,0,0,0,0,0,0,0,0},
+                  { 0,0,1,1,0,0,0,0,0,0},
+                  { 0,0,0,1,0,0,0,0,0,0},
+                  { 0,0,0,0,0,0,0,0,0,0},
+                  { 0,0,0,0,0,1,1,0,0,0},
+                  { 0,0,0,0,0,1,0,0,0,0},
+                  { 0,0,0,0,0,0,0,0,1,0},
+                  { 0,0,0,0,0,0,0,1,0,1},
+                  { 0,0,0,0,0,0,0,1,0,1},
+                  { 0,0,0,0,0,0,0,0,1,0},
+            };
+            drawCell(GlobalGrid, 10, true, 1);
+            drawGrid(10);
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            trackBar_AreaSize.Value = trackBar_AreaSize.Minimum;
+            GlobalGrid = new int[,] {
+                  {0,0,0,0,0,1,0,0,0,0},
+                  {0,0,0,0,0,1,0,0,0,0},
+                  {0,0,0,0,0,1,0,0,0,0},
+                  {0,0,0,0,0,0,0,0,0,0},
+                  {0,1,1,1,0,0,0,1,1,1},
+                  {0,0,0,0,0,0,0,0,0,0},
+                  {0,0,0,0,0,1,0,0,0,0},
+                  {0,0,0,0,0,1,0,0,0,0},
+                  {0,0,0,0,0,1,0,0,0,0},
+                  {0,0,0,0,0,0,0,0,0,0},
+            };
+            drawCell(GlobalGrid, 10, true, 1);
+            drawGrid(10);
+        }
     }
 }
