@@ -211,18 +211,17 @@ namespace Game_of_life
 
             Graphics graphics = panel_PlaingArea.CreateGraphics();
 
-            SolidBrush brush = new SolidBrush(colorDialog_AreaBackground.Color);
+            SolidBrush brush = new SolidBrush(Color.Empty);
 
             if (checkBox_ShowDeadCell.Checked && type == DIED_CELL) brush.Color = colorDialog_DeadCell.Color;
+            else if (type == EMPTY_CELL) brush.Color = colorDialog_AreaBackground.Color;
             else if (type == LIVE_CELL) brush.Color = colorDialog_LivingCell.Color;
             else if (checkBox_ShowCreatedCell.Checked && type == CREATED_CELL) brush.Color = colorDialog_CreatedCell.Color;
             else return;
 
-            int width = panel_PlaingArea.Width;
-
             int currentHeight = 0;
             int currentWigth = 0;
-            int cellSize = width / size;
+            int cellSize = panel_PlaingArea.Width / size;
 
             for (int i = 0; i < size; ++i)
             {
@@ -485,8 +484,10 @@ namespace Game_of_life
                 updateParamLabels(0, 0, 0, 0);
                 drawCell(GlobalGrid, true, EMPTY_CELL);
             }
-
-            drawGrid(size);
+            finally
+            {
+                drawGrid(size);
+            }
 
         }
         private int[,] changeSize(int[,] grid, int sizeNew)
@@ -540,6 +541,38 @@ namespace Game_of_life
             };
             drawCell(GlobalGrid, true, 1);
             drawGrid(10);
+        }
+
+        private void Panel_PlaingArea_MouseClick(object sender, MouseEventArgs e)
+        {
+            int wight = panel_PlaingArea.Width;
+            int size = trackBar_AreaSize.Value;
+            int step = wight / size;
+
+            int col = e.Y / step;
+            int row = e.X / step;
+
+            try
+            {
+                GlobalGrid[col, row] = GlobalGrid[col, row];
+            }
+            catch (NullReferenceException)
+            {
+                 saveToGlobalGrid(new int[size, size]);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return;
+            }
+
+            if (GlobalGrid[col, row] == EMPTY_CELL || GlobalGrid[col, row] == DIED_CELL)
+                GlobalGrid[col, row] = LIVE_CELL;
+            else
+                GlobalGrid[col, row] = EMPTY_CELL;
+
+            drawCell(GlobalGrid, true, LIVE_CELL);
+            drawGrid(size);
+            
         }
     }
 }

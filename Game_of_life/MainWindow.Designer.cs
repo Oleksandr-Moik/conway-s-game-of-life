@@ -215,6 +215,7 @@
             this.panel_PlaingArea.Name = "panel_PlaingArea";
             this.panel_PlaingArea.Size = new System.Drawing.Size(600, 600);
             this.panel_PlaingArea.TabIndex = 2;
+            this.panel_PlaingArea.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel_PlaingArea_MouseClick);
             // 
             // trackBar_TimerTick
             // 
