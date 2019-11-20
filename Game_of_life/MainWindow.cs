@@ -153,7 +153,7 @@ namespace Game_of_life
             else
             {
                 timer1.Stop();
-                MessageBox.Show("End Game simulation");
+                MessageBox.Show("Симуляцію завершено, оскільки відсутні взаємодії клітин (смерть, рух, народження).","Симуляцію завершено");
             }
         }
 
@@ -379,14 +379,14 @@ namespace Game_of_life
         private void TimerStop()
         {
             timer1.Stop();
-            button_StartTime.Text = "Start";
+            button_StartTime.Text = "Почати";
             button_NextTick.Enabled = true;
         }
         // start timer and changes other dependent parameters
         private void TimerStart()
         {
             timer1.Start();
-            button_StartTime.Text = "Stop";
+            button_StartTime.Text = "Зупинити";
             button_NextTick.Enabled = false;
         }
         private void Button_StartTime_Click(object sender, EventArgs e)

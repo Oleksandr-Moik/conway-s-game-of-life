@@ -123,9 +123,9 @@
             this.label1.Location = new System.Drawing.Point(380, 24);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 24);
+            this.label1.Size = new System.Drawing.Size(122, 24);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Population:";
+            this.label1.Text = "Населення:";
             // 
             // label2
             // 
@@ -134,9 +134,9 @@
             this.label2.Location = new System.Drawing.Point(380, 49);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 24);
+            this.label2.Size = new System.Drawing.Size(115, 24);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Generation:";
+            this.label2.Text = "Покоління:";
             // 
             // label3
             // 
@@ -145,9 +145,9 @@
             this.label3.Location = new System.Drawing.Point(617, 49);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 24);
+            this.label3.Size = new System.Drawing.Size(108, 24);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Died:";
+            this.label3.Text = "Загинуло:";
             // 
             // label4
             // 
@@ -156,9 +156,9 @@
             this.label4.Location = new System.Drawing.Point(617, 24);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 24);
+            this.label4.Size = new System.Drawing.Size(113, 24);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Created:";
+            this.label4.Text = "Створено:";
             // 
             // label_Population
             // 
@@ -186,7 +186,7 @@
             // 
             this.label_Died.AutoSize = true;
             this.label_Died.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Died.Location = new System.Drawing.Point(709, 48);
+            this.label_Died.Location = new System.Drawing.Point(735, 49);
             this.label_Died.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_Died.Name = "label_Died";
             this.label_Died.Size = new System.Drawing.Size(24, 25);
@@ -197,7 +197,7 @@
             // 
             this.label_Created.AutoSize = true;
             this.label_Created.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Created.Location = new System.Drawing.Point(709, 25);
+            this.label_Created.Location = new System.Drawing.Point(735, 24);
             this.label_Created.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_Created.Name = "label_Created";
             this.label_Created.Size = new System.Drawing.Size(24, 25);
@@ -242,7 +242,7 @@
             this.groupBox_SurvivalRules.Size = new System.Drawing.Size(304, 58);
             this.groupBox_SurvivalRules.TabIndex = 3;
             this.groupBox_SurvivalRules.TabStop = false;
-            this.groupBox_SurvivalRules.Text = "Rules of survival";
+            this.groupBox_SurvivalRules.Text = "Правила виживання";
             // 
             // checkBox8
             // 
@@ -373,7 +373,7 @@
             this.groupBox_CreationRules.Size = new System.Drawing.Size(304, 55);
             this.groupBox_CreationRules.TabIndex = 3;
             this.groupBox_CreationRules.TabStop = false;
-            this.groupBox_CreationRules.Text = "Creation rules";
+            this.groupBox_CreationRules.Text = "Правила створення";
             // 
             // checkBox18
             // 
@@ -572,7 +572,7 @@
             this.button_RandomFiiling.Name = "button_RandomFiiling";
             this.button_RandomFiiling.Size = new System.Drawing.Size(137, 32);
             this.button_RandomFiiling.TabIndex = 7;
-            this.button_RandomFiiling.Text = "Random fill";
+            this.button_RandomFiiling.Text = "Випадково";
             this.button_RandomFiiling.UseVisualStyleBackColor = true;
             this.button_RandomFiiling.Click += new System.EventHandler(this.Button_RandomFiiling_Click);
             // 
@@ -582,7 +582,7 @@
             this.button_ClearArea.Name = "button_ClearArea";
             this.button_ClearArea.Size = new System.Drawing.Size(139, 32);
             this.button_ClearArea.TabIndex = 7;
-            this.button_ClearArea.Text = "Clear";
+            this.button_ClearArea.Text = "Очистити";
             this.button_ClearArea.UseVisualStyleBackColor = true;
             this.button_ClearArea.Click += new System.EventHandler(this.Button_ClearArea_Click);
             // 
@@ -592,9 +592,9 @@
             this.label14.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label14.Location = new System.Drawing.Point(12, 27);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(121, 23);
+            this.label14.Size = new System.Drawing.Size(174, 23);
             this.label14.TabIndex = 8;
-            this.label14.Text = "Rules sets";
+            this.label14.Text = "Моделі правил";
             // 
             // comboBox_RulesSets
             // 
@@ -627,15 +627,15 @@
             this.label15.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label15.Location = new System.Drawing.Point(227, 27);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(61, 23);
+            this.label15.Size = new System.Drawing.Size(51, 23);
             this.label15.TabIndex = 8;
-            this.label15.Text = "Type";
+            this.label15.Text = "Тип";
             // 
             // label_RulesType
             // 
             this.label_RulesType.AutoSize = true;
             this.label_RulesType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_RulesType.Location = new System.Drawing.Point(227, 56);
+            this.label_RulesType.Location = new System.Drawing.Point(231, 56);
             this.label_RulesType.Name = "label_RulesType";
             this.label_RulesType.Size = new System.Drawing.Size(92, 20);
             this.label_RulesType.TabIndex = 8;
@@ -645,19 +645,19 @@
             // 
             this.button_ApplyRules.Location = new System.Drawing.Point(16, 90);
             this.button_ApplyRules.Name = "button_ApplyRules";
-            this.button_ApplyRules.Size = new System.Drawing.Size(91, 32);
+            this.button_ApplyRules.Size = new System.Drawing.Size(137, 32);
             this.button_ApplyRules.TabIndex = 11;
-            this.button_ApplyRules.Text = "Apply";
+            this.button_ApplyRules.Text = "Застосувати";
             this.button_ApplyRules.UseVisualStyleBackColor = true;
             this.button_ApplyRules.Visible = false;
             // 
             // button_CancelChangeRules
             // 
-            this.button_CancelChangeRules.Location = new System.Drawing.Point(113, 90);
+            this.button_CancelChangeRules.Location = new System.Drawing.Point(159, 90);
             this.button_CancelChangeRules.Name = "button_CancelChangeRules";
-            this.button_CancelChangeRules.Size = new System.Drawing.Size(82, 32);
+            this.button_CancelChangeRules.Size = new System.Drawing.Size(117, 32);
             this.button_CancelChangeRules.TabIndex = 11;
-            this.button_CancelChangeRules.Text = "Cancel";
+            this.button_CancelChangeRules.Text = "Скасувати";
             this.button_CancelChangeRules.UseVisualStyleBackColor = true;
             this.button_CancelChangeRules.Visible = false;
             // 
@@ -667,7 +667,7 @@
             this.button_StartTime.Name = "button_StartTime";
             this.button_StartTime.Size = new System.Drawing.Size(134, 32);
             this.button_StartTime.TabIndex = 10;
-            this.button_StartTime.Text = "Start";
+            this.button_StartTime.Text = "Почати";
             this.button_StartTime.UseVisualStyleBackColor = true;
             this.button_StartTime.Click += new System.EventHandler(this.Button_StartTime_Click);
             // 
@@ -677,7 +677,7 @@
             this.button_NextTick.Name = "button_NextTick";
             this.button_NextTick.Size = new System.Drawing.Size(134, 32);
             this.button_NextTick.TabIndex = 10;
-            this.button_NextTick.Text = "Next";
+            this.button_NextTick.Text = "Наступне";
             this.button_NextTick.UseVisualStyleBackColor = true;
             this.button_NextTick.Click += new System.EventHandler(this.Button_NextTick_Click);
             // 
@@ -686,9 +686,9 @@
             this.button_ChangeRules.Enabled = false;
             this.button_ChangeRules.Location = new System.Drawing.Point(16, 90);
             this.button_ChangeRules.Name = "button_ChangeRules";
-            this.button_ChangeRules.Size = new System.Drawing.Size(95, 32);
+            this.button_ChangeRules.Size = new System.Drawing.Size(117, 32);
             this.button_ChangeRules.TabIndex = 11;
-            this.button_ChangeRules.Text = "Change rules";
+            this.button_ChangeRules.Text = "Змінити";
             this.button_ChangeRules.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -711,11 +711,11 @@
             // 
             // button_RulesTypeInfo
             // 
-            this.button_RulesTypeInfo.Location = new System.Drawing.Point(201, 90);
+            this.button_RulesTypeInfo.Location = new System.Drawing.Point(281, 21);
             this.button_RulesTypeInfo.Name = "button_RulesTypeInfo";
-            this.button_RulesTypeInfo.Size = new System.Drawing.Size(133, 33);
+            this.button_RulesTypeInfo.Size = new System.Drawing.Size(21, 28);
             this.button_RulesTypeInfo.TabIndex = 10;
-            this.button_RulesTypeInfo.Text = "Information";
+            this.button_RulesTypeInfo.Text = "і";
             this.button_RulesTypeInfo.UseVisualStyleBackColor = true;
             this.button_RulesTypeInfo.Click += new System.EventHandler(this.Button_RulesTypeInfo_Click);
             // 
@@ -727,9 +727,9 @@
             this.checkBox_DisplayGrid.Enabled = false;
             this.checkBox_DisplayGrid.Location = new System.Drawing.Point(12, 3);
             this.checkBox_DisplayGrid.Name = "checkBox_DisplayGrid";
-            this.checkBox_DisplayGrid.Size = new System.Drawing.Size(145, 27);
+            this.checkBox_DisplayGrid.Size = new System.Drawing.Size(245, 27);
             this.checkBox_DisplayGrid.TabIndex = 14;
-            this.checkBox_DisplayGrid.Text = "Display grid";
+            this.checkBox_DisplayGrid.Text = "Промальовувати сітку";
             this.checkBox_DisplayGrid.UseVisualStyleBackColor = true;
             // 
             // checkBox_ShowDeadCell
@@ -738,9 +738,9 @@
             this.checkBox_ShowDeadCell.Enabled = false;
             this.checkBox_ShowDeadCell.Location = new System.Drawing.Point(12, 36);
             this.checkBox_ShowDeadCell.Name = "checkBox_ShowDeadCell";
-            this.checkBox_ShowDeadCell.Size = new System.Drawing.Size(212, 27);
+            this.checkBox_ShowDeadCell.Size = new System.Drawing.Size(230, 27);
             this.checkBox_ShowDeadCell.TabIndex = 15;
-            this.checkBox_ShowDeadCell.Text = "Show the dead cell";
+            this.checkBox_ShowDeadCell.Text = "Показувати вмерлих";
             this.checkBox_ShowDeadCell.UseVisualStyleBackColor = true;
             // 
             // checkBox_ShowCreatedCell
@@ -749,9 +749,9 @@
             this.checkBox_ShowCreatedCell.Enabled = false;
             this.checkBox_ShowCreatedCell.Location = new System.Drawing.Point(12, 69);
             this.checkBox_ShowCreatedCell.Name = "checkBox_ShowCreatedCell";
-            this.checkBox_ShowCreatedCell.Size = new System.Drawing.Size(199, 27);
+            this.checkBox_ShowCreatedCell.Size = new System.Drawing.Size(248, 27);
             this.checkBox_ShowCreatedCell.TabIndex = 16;
-            this.checkBox_ShowCreatedCell.Text = "Show created cell";
+            this.checkBox_ShowCreatedCell.Text = "Показувати створених";
             this.checkBox_ShowCreatedCell.UseVisualStyleBackColor = true;
             // 
             // colorDialog_Grid
@@ -784,20 +784,20 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(28, 106);
+            this.label17.Location = new System.Drawing.Point(97, 106);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(108, 23);
+            this.label17.Size = new System.Drawing.Size(162, 23);
             this.label17.TabIndex = 19;
-            this.label17.Text = "Living cell";
+            this.label17.Text = "Живі / незмінні";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(28, 139);
+            this.label18.Location = new System.Drawing.Point(207, 139);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(172, 23);
+            this.label18.Size = new System.Drawing.Size(50, 23);
             this.label18.TabIndex = 19;
-            this.label18.Text = "Area background";
+            this.label18.Text = "Фон";
             // 
             // colorDialog_AreaBackground
             // 
@@ -942,7 +942,7 @@
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "Game of life";
+            this.Text = "\"Гра життя\"";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_TimerTick)).EndInit();
             this.groupBox_SurvivalRules.ResumeLayout(false);
