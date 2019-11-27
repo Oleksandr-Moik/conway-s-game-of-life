@@ -12,18 +12,8 @@ namespace Game_of_life
 {
     public partial class MainWindow : Form
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
-        private List<CheckBox> survivalRules;
-        private List<CheckBox> creationRules;
-
-        private int[,] GlobalGrid;
-
-        private int Generation;
-        private bool endGame;
+        private const int PANEL_HEIGHT = 600;
+        private const int PANEL_WIDTH = 600;
 
         private const string CHAOTIC_TYPE = "Хаотичний";
         private const string STABLE_TYPE = "Стабільний";
@@ -35,48 +25,57 @@ namespace Game_of_life
         private const int LIVE_CELL = 1;
         private const int CREATED_CELL = 2;
 
+        //private char[] LifeDefaultRules_Survival;
+        //private char[] LifeDefaultRules_Create;
+        //private char[] LifeRules_Survival;
+        //private char[] LifeRules_Create;
+
+        private int LifeSizeX;
+        private int LifeSizeY;
+
+        private int[,] LifeGrid;
+        private int Generation;
+        private int Population;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            initCheckBoxList();
-            setPictureColorFromColorDialog();
+            SetPictureColorFromColorDialog();
 
-            panel_PlaingArea.Height = 600;
-            panel_PlaingArea.Width = 600;
+            Init();
+
+
+
+            panel_PlaingArea.Height = PANEL_HEIGHT;
+            panel_PlaingArea.Width = PANEL_WIDTH;
 
             comboBox_RulesSets.SelectedIndex = 0;
 
-            Generation = 0;
-            updateParamLabels(Generation, 0, 0, 0);
-
-            endGame = false;
+            UpdateParamLabels(Generation, Population, 0, 0);
         }
 
         #region initialization
-        private void initCheckBoxList()
+        private void Init()
         {
-            survivalRules = new List<CheckBox>();
-            survivalRules.Insert(0, checkBox1);
-            survivalRules.Insert(1, checkBox2);
-            survivalRules.Insert(2, checkBox3);
-            survivalRules.Insert(3, checkBox4);
-            survivalRules.Insert(4, checkBox5);
-            survivalRules.Insert(5, checkBox6);
-            survivalRules.Insert(6, checkBox7);
-            survivalRules.Insert(7, checkBox8);
-            survivalRules.Insert(8, checkBox9);
+            //LifeDefaultRules_Survival = new char[] { '0', '0', '1', '1', '0', '0', '0', '0', '0' };
+            //LifeDefaultRules_Create = new char[] { '0', '0', '0', '1', '0', '0', '0', '0', '0' };
+            //LifeRules_Survival = new char[] { '0', '0', '1', '1', '0', '0', '0', '0', '0' };
+            //LifeRules_Create = new char[] { '0', '0', '0', '1', '0', '0', '0', '0', '0' };
 
-            creationRules = new List<CheckBox>();
-            creationRules.Insert(0, checkBox10);
-            creationRules.Insert(1, checkBox11);
-            creationRules.Insert(2, checkBox12);
-            creationRules.Insert(3, checkBox13);
-            creationRules.Insert(4, checkBox14);
-            creationRules.Insert(5, checkBox15);
-            creationRules.Insert(6, checkBox16);
-            creationRules.Insert(7, checkBox17);
-            creationRules.Insert(8, checkBox18);
+            LifeSizeX = 30;
+            LifeSizeY = 30;
+
+            Generation = 0;
+            Population = 0;
+
+            LifeGrid = new int[LifeSizeX,LifeSizeY];
+
         }
-        private void setPictureColorFromColorDialog()
+        private void SetPictureColorFromColorDialog()
         {
             pictureBox_Grid.BackColor = colorDialog_Grid.Color;
             pictureBox_DeadCell.BackColor = colorDialog_DeadCell.Color;
@@ -84,108 +83,83 @@ namespace Game_of_life
             pictureBox_LivingCell.BackColor = colorDialog_LivingCell.Color;
             pictureBox_AreaBackground.BackColor = colorDialog_AreaBackground.Color;
         }
+        
         #endregion
 
 
+
         // main game logic
-        private void nextGeneration(int[,] grid)
+        private void NextGeneration(int[,] grid)
         {
-            if (!endGame)
+            int died_counter = 0;
+            int created_counter = 0;
+            ++Generation;
+
+            int size = grid.GetLength(0);
+
+            int[,] future = new int[size, size];
+
+
+            for (int line = 0; line < size; ++line)
             {
-                int died_counter = 0;
-                int created_counter = 0;
-                ++Generation;
-
-                int size = grid.GetLength(0);
-
-                int[,] future = new int[size, size];
-
-
-                for (int line = 0; line < size; ++line)
+                for (int column = 0; column < size; ++column)
                 {
-                    for (int column = 0; column < size; ++column)
+                    int aliveNeighbours = 0;
+                    for (int i = -1; i <= 1; ++i)
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            int row = line + i; int col = column + j;
+
+                            if (col == -1) col = size - 1; // above grid limit
+                            if (row == -1) row = size - 1; // on the left limit
+
+                            if (col == size) col = 0; // lower grid limit
+                            if (row == size) row = 0; // on the right limit
+
+                            aliveNeighbours += grid[row, col];
+                        }
+
+                    aliveNeighbours -= grid[line, column];
+
+                    // Implementing the Rules of Life 
+
+
+
+                    // Cell is lonely and dies 
+                    if ((grid[line, column] == LIVE_CELL) && (aliveNeighbours < 2))
                     {
-                        int aliveNeighbours = 0;
-                        for (int i = -1; i <= 1; ++i)
-                            for (int j = -1; j <= 1; ++j)
-                            {
-                                int row = line + i; int col = column + j;
-
-                                if (col == -1) col = size - 1; // above grid limit
-                                if (row == -1) row = size - 1; // on the left limit
-
-                                if (col == size) col = 0; // lower grid limit
-                                if (row == size) row = 0; // on the right limit
-
-                                aliveNeighbours += grid[row, col];
-                            }
-
-                        aliveNeighbours -= grid[line, column];
-
-                        // Implementing the Rules of Life 
-
-                        // Cell is lonely and dies 
-                        if ((grid[line, column] == LIVE_CELL) && (aliveNeighbours < 2))
-                        {
-                            future[line, column] = DIED_CELL;
-                            ++died_counter;
-                        }
-                        // Cell dies due to over population 
-                        else if ((grid[line, column] == LIVE_CELL) && (aliveNeighbours > 3))
-                        {
-                            future[line, column] = DIED_CELL;
-                            ++died_counter;
-                        }
-                        // A new cell is born 
-                        else if ((grid[line, column] == EMPTY_CELL) && (aliveNeighbours == 3))
-                        {
-                            future[line, column] = CREATED_CELL;
-                            ++created_counter;
-                        }
-                        // Remains the same 
-                        else future[line, column] = grid[line, column];
+                        future[line, column] = DIED_CELL;
+                        ++died_counter;
                     }
+                    // Cell dies due to over population 
+                    else if ((grid[line, column] == LIVE_CELL) && (aliveNeighbours > 3))
+                    {
+                        future[line, column] = DIED_CELL;
+                        ++died_counter;
+                    }
+                    // A new cell is born 
+                    else if ((grid[line, column] == EMPTY_CELL) && (aliveNeighbours == 3))
+                    {
+                        future[line, column] = CREATED_CELL;
+                        ++created_counter;
+                    }
+                    // Remains the same 
+                    else future[line, column] = grid[line, column];
                 }
-                drawCell(future, true, DIED_CELL);
-                drawCell(future, false, LIVE_CELL);
-                drawCell(future, false, CREATED_CELL);
-                drawGrid(size);
-
-                future = revertToEmptyAndLiveCells(future, size);
-                saveToGlobalGrid(future);
-
-                int population = calculatePopulation(future);
-                checkEndGame(population, died_counter, created_counter);
-                updateParamLabels(Generation, population, created_counter, died_counter);
             }
-            else
-            {
-                TimerStop();
-                MessageBox.Show("Симуляцію завершено, оскільки відсутні взаємодії клітин (смерть, рух, народження).", "Симуляцію завершено");
-            }
+            DrawCanvas(future);
+
+            future = RevertToEmptyAndLiveCells(future, size);
+            SaveToLifeGrid(future);
+
+            int population = CalculatePopulation(future);
+            UpdateParamLabels(Generation, population, created_counter, died_counter);
+            
         }
 
-        // true - game ended
-        // false - game may continue 
-        private void checkEndGame(int population, int died, int created)
-        {
-            if (population == 0) endGame = true;
-            else if (created == 0 && died == 0) endGame = true;
-            else
-            {
-                //int previous_died = Int32.Parse(label_Died.Text);
-                //int previous_created = Int32.Parse(label_Created.Text);
-                //int previous_population = Int32.Parse(label_Population.Text);
-
-                //if (population == previous_population) endGame = true;
-                ////else if (died == previous_died && created == previous_created) endGame = true;
-                //else
-                    endGame = false;
-            }
-        }
         // replace DIED_CELL with EMPTY_CELL
         // replace CREATED_CELL with LIVE_CELL
-        private int[,] revertToEmptyAndLiveCells(int[,] grid, int size)
+        private int[,] RevertToEmptyAndLiveCells(int[,] grid, int size)
         {
             for (int i = 0; i < size; ++i)
                 for (int j = 0; j < size; ++j)
@@ -200,11 +174,10 @@ namespace Game_of_life
         // draws cells from Grid
         // when refresh is true then area will be cleared
         // the type is what cells whow in area
-        private void drawCell(int[,] grid, bool refresh, int type)
+        private void DrawCell(int[,] grid, int type)
         {
             int size = grid.GetLength(0);
 
-            if (refresh) panel_PlaingArea.Refresh();
             if (size == 0) return;
 
             Graphics graphics = panel_PlaingArea.CreateGraphics();
@@ -255,7 +228,7 @@ namespace Game_of_life
         }
 
         // drawing cells and grid in panel
-        private void drawGrid(int size)
+        private void DrawGrid(int size)
         {
             Graphics graphics = panel_PlaingArea.CreateGraphics();
 
@@ -274,12 +247,24 @@ namespace Game_of_life
             graphics.Dispose();
         }
 
+        private void DrawCanvas(int[,] grid)
+        {
+            panel_PlaingArea.Refresh();
+
+            DrawCell(grid, DIED_CELL);
+            DrawCell(grid, LIVE_CELL);
+            DrawCell(grid, CREATED_CELL);
+            DrawCell(grid, EMPTY_CELL);
+
+            DrawGrid(grid.GetLength(0));
+        }
+
         // copies input grid in Global grid
-        private void saveToGlobalGrid(int[,] grid)
+        private void SaveToLifeGrid(int[,] grid)
         {
             int size = grid.GetLength(0);
-            GlobalGrid = new int[size, size];
-            GlobalGrid = grid;
+            LifeGrid = new int[size, size];
+            LifeGrid = grid;
         }
 
         // generates random grid
@@ -296,33 +281,30 @@ namespace Game_of_life
         }
         private void Button_RandomFiling_Click(object sender, EventArgs e)
         {
-            endGame = false;
             TimerStop();
 
             int size = trackBar_AreaSize.Value;
 
-            saveToGlobalGrid(RandomGrid(size));
-            updateParamLabels(0, calculatePopulation(GlobalGrid), 0, 0);
+            SaveToLifeGrid(RandomGrid(size));
+            UpdateParamLabels(0, CalculatePopulation(LifeGrid), 0, 0);
 
-            drawCell(GlobalGrid, true, LIVE_CELL);
-            drawGrid(size);
+            DrawCanvas(LifeGrid);
         }
 
         private void Button_ClearArea_Click(object sender, EventArgs e)
         {
-            endGame = false;
             TimerStop();
             int size = trackBar_AreaSize.Value;
 
-            saveToGlobalGrid(new int[size, size]);
-            updateParamLabels(0, 0, 0, 0);
+            SaveToLifeGrid(new int[size, size]);
+            UpdateParamLabels(0, 0, 0, 0);
 
-            drawCell(GlobalGrid, true, EMPTY_CELL);
-            drawGrid(size);
+            DrawCanvas(LifeGrid);
         }
 
+        // TODO : create next calc type - created cells, deid cells
         // counts and return this count of alive cells in input grid
-        private int calculatePopulation(int[,] grid)
+        private int CalculatePopulation(int[,] grid)
         {
             int size = grid.GetLength(0);
 
@@ -334,9 +316,8 @@ namespace Game_of_life
         }
 
 
-
         // updates informatics labels
-        private void updateParamLabels(int Generation, int Population, int Created, int Died)
+        private void UpdateParamLabels(int Generation, int Population, int Created, int Died)
         {
             label_Generation.Text = Generation.ToString();
             label_Population.Text = Population.ToString();
@@ -416,15 +397,14 @@ namespace Game_of_life
             int size = trackBar_AreaSize.Value;
             try
             {
-                if (GlobalGrid.GetLength(0) < trackBar_AreaSize.Minimum) throw new NullReferenceException();
-                nextGeneration(GlobalGrid);
+                if (LifeGrid.GetLength(0) < trackBar_AreaSize.Minimum) throw new NullReferenceException();
+                NextGeneration(LifeGrid);
             }
             catch (NullReferenceException)
             {
-                saveToGlobalGrid(RandomGrid(size));
-                updateParamLabels(0, calculatePopulation(GlobalGrid), 0, 0);
-                drawCell(GlobalGrid, true, LIVE_CELL);
-                drawGrid(size);
+                SaveToLifeGrid(RandomGrid(size));
+                UpdateParamLabels(0, CalculatePopulation(LifeGrid), 0, 0);
+                DrawCanvas(LifeGrid);
             }
         }
         private void Button_NextTick_Click(object sender, EventArgs e)
@@ -470,27 +450,27 @@ namespace Game_of_life
         // changes grid size
         private void TrackBar_AreaSize_Scroll(object sender, EventArgs e)
         {
+            bool timerWasWorking = timer1.Enabled;
             TimerStop();
 
             int size = trackBar_AreaSize.Value;
             try
             {
-                GlobalGrid = changeSize(GlobalGrid, size);
-                drawCell(GlobalGrid, true, LIVE_CELL);
+                LifeGrid = ChangeSize(LifeGrid, size);
+                DrawCanvas(LifeGrid);
             }
             catch (NullReferenceException)
             {
-                saveToGlobalGrid(new int[size, size]);
-                drawCell(GlobalGrid, true, EMPTY_CELL);
+                SaveToLifeGrid(new int[size, size]);
+                DrawCanvas(LifeGrid);
             }
             finally
             {
-                updateParamLabels(Generation, calculatePopulation(GlobalGrid), 0, 0);
-                drawGrid(size);
+                UpdateParamLabels(Generation, CalculatePopulation(LifeGrid), 0, 0);
             }
-
+            if(timerWasWorking)TimerStart();
         }
-        private int[,] changeSize(int[,] grid, int sizeNew)
+        private int[,] ChangeSize(int[,] grid, int sizeNew)
         {
             int[,] gridCopy = grid;
             int sizeOld = gridCopy.GetLength(0);
@@ -503,80 +483,40 @@ namespace Game_of_life
             return grid;
         }
 
-
-        // testing blob patterns
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            trackBar_AreaSize.Value = trackBar_AreaSize.Minimum;
-            GlobalGrid = new int[,] {
-                  { 0,0,0,0,0,0,0,0,0,0},
-                  { 0,0,1,1,0,0,0,0,0,0},
-                  { 0,0,0,1,0,0,0,0,0,0},
-                  { 0,0,0,0,0,0,0,0,0,0},
-                  { 0,0,0,0,0,1,1,0,0,0},
-                  { 0,0,0,0,0,1,0,0,0,0},
-                  { 0,0,0,0,0,0,0,0,1,0},
-                  { 0,0,0,0,0,0,0,1,0,1},
-                  { 0,0,0,0,0,0,0,1,0,1},
-                  { 0,0,0,0,0,0,0,0,1,0},
-            };
-            drawCell(GlobalGrid, true, 1);
-            drawGrid(10);
-        }
-
-        private void Button3_Click(object sender, EventArgs e)
-        {
-            trackBar_AreaSize.Value = trackBar_AreaSize.Minimum;
-            GlobalGrid = new int[,] {
-                  {0,0,0,0,0,1,0,0,0,0},
-                  {0,0,0,0,0,1,0,0,0,0},
-                  {0,0,0,0,0,1,0,0,0,0},
-                  {0,0,0,0,0,0,0,0,0,0},
-                  {0,1,1,1,0,0,0,1,1,1},
-                  {0,0,0,0,0,0,0,0,0,0},
-                  {0,0,0,0,0,1,0,0,0,0},
-                  {0,0,0,0,0,1,0,0,0,0},
-                  {0,0,0,0,0,1,0,0,0,0},
-                  {0,0,0,0,0,0,0,0,0,0},
-            };
-            drawCell(GlobalGrid, true, 1);
-            drawGrid(10);
-        }
-
-
+        // TODO : draw cell and add cell
         // add or remove cell from grid
         private void Panel_PlaingArea_MouseClick(object sender, MouseEventArgs e)
         {
-            int wight = panel_PlaingArea.Width;
-            int size = trackBar_AreaSize.Value;
-            int step = wight / size;
+            int gridSize = trackBar_AreaSize.Value;
 
-            int col = e.Y / step;
-            int row = e.X / step;
+            int cellWidth = panel_PlaingArea.Width / gridSize;
+            int cellHeight = panel_PlaingArea.Height / gridSize;
+
+            int col = e.Y / cellWidth;
+            int row = e.X / cellHeight;
 
             try
             {
-                GlobalGrid[col, row] = GlobalGrid[col, row];
+                LifeGrid[col, row] = LifeGrid[col, row];
             }
-            catch (NullReferenceException)
+            catch (NullReferenceException) // when array doesn't initialized
             {
-                 saveToGlobalGrid(new int[size, size]);
+                 SaveToLifeGrid(new int[gridSize, gridSize]);
             }
-            catch (IndexOutOfRangeException)
+            catch (IndexOutOfRangeException)  
             {
                 return;
             }
 
-            if (GlobalGrid[col, row] == EMPTY_CELL || GlobalGrid[col, row] == DIED_CELL)
-                GlobalGrid[col, row] = LIVE_CELL;
-            else
-                GlobalGrid[col, row] = EMPTY_CELL;
+            if (LifeGrid[col, row] == EMPTY_CELL || LifeGrid[col, row] == DIED_CELL)
+                LifeGrid[col, row] = LIVE_CELL;
+            else 
+                LifeGrid[col, row] = EMPTY_CELL; // LIVE_CELL or CREATED_CELL
 
-            updateParamLabels(Generation, calculatePopulation(GlobalGrid), 0, 0);
+            // TODO : use died calc and creted calc
+            UpdateParamLabels(Generation, CalculatePopulation(LifeGrid), 0, 0);
 
-            drawCell(GlobalGrid, true, LIVE_CELL);
-            drawGrid(size);
-            
+            DrawCanvas(LifeGrid);
         }
 
         private void PictureBox_Grid_Click(object sender, EventArgs e)
