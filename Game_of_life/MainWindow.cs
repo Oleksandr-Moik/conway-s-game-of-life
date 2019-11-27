@@ -36,7 +36,7 @@ namespace Game_of_life
         //GetLenth 0-width  1-heigth
         private int[,] LifeGrid;
         private int Generation;
-        private int Population;
+        //private int Population;
 
         public MainWindow()
         {
@@ -48,15 +48,6 @@ namespace Game_of_life
             SetPictureColorFromColorDialog();
 
             Init();
-
-
-
-            panel_PlaingArea.Height = PANEL_HEIGHT;
-            panel_PlaingArea.Width = PANEL_WIDTH;
-
-            comboBox_RulesSets.SelectedIndex = 0;
-
-            UpdateParamLabels(Generation, Population, 0, 0);
         }
 
         #region initialization
@@ -71,10 +62,15 @@ namespace Game_of_life
             LifeSizeWidth = 30;
 
             Generation = 0;
-            Population = 0;
 
             LifeGrid = new int[LifeSizeHeight,LifeSizeWidth];
 
+            panel_PlaingArea.Height = PANEL_HEIGHT;
+            panel_PlaingArea.Width = PANEL_WIDTH;
+
+            comboBox_RulesSets.SelectedIndex = 0;
+
+            RefreshLabels(LifeGrid);
         }
         private void SetPictureColorFromColorDialog()
         {
@@ -150,12 +146,10 @@ namespace Game_of_life
             }
             DrawCanvas(future);
 
+            RefreshLabels(future);
+
             future = RevertToEmptyAndLiveCells(future);
             SaveToLifeGrid(future);
-
-            int population = CalculatePopulation(future);
-            UpdateParamLabels(Generation, population, created_counter, died_counter);
-            
         }
 
         // replace DIED_CELL with EMPTY_CELL
@@ -246,6 +240,7 @@ namespace Game_of_life
         // drawing cells and grid in panel
         private void DrawGrid(int width, int height)
         {
+            // TODO : draw grin on Form1 (over panel)
             Graphics graphics = panel_PlaingArea.CreateGraphics();
 
             int panelHeight = panel_PlaingArea.Height;
@@ -316,38 +311,46 @@ namespace Game_of_life
         private void Button_RandomFiling_Click(object sender, EventArgs e)
         {
             TimerStop();
-
+            Generation = 0;
             SaveToLifeGrid(RandomGrid(LifeSizeWidth, LifeSizeHeight));
-            UpdateParamLabels(0, CalculatePopulation(LifeGrid), 0, 0);
-
+            RefreshLabels(LifeGrid);
             DrawCanvas(LifeGrid);
         }
 
         private void Button_ClearArea_Click(object sender, EventArgs e)
         {
             TimerStop();
-
+            Generation = 0;
             SaveToLifeGrid(new int[LifeSizeHeight, LifeSizeWidth]);
-            UpdateParamLabels(0, 0, 0, 0);
-
+            RefreshLabels(LifeGrid);
             DrawCanvas(LifeGrid);
         }
 
-        // TODO : create next calc type - created cells, deid cells
-        // counts and return this count of alive cells in input grid
-        private int CalculatePopulation(int[,] grid)
+        // counts and return this count of typed cells in input grid
+        private int CalculateCells(int[,] grid, int type)
         {
             int h = grid.GetLength(1);
             int w = grid.GetLength(0);
 
             int count = 0;
+
             for (int i = 0; i < h; ++i)
             {
                 for (int j = 0; j < w; ++j)
                 {
-                    if (grid[i, j] == LIVE_CELL || grid[i, j] == CREATED_CELL)
+                    if (type == LIVE_CELL)
                     {
-                        ++count;
+                        if (grid[i, j] == LIVE_CELL || grid[i, j] == CREATED_CELL)
+                        {
+                            ++count;
+                        }
+                    }
+                    else
+                    {
+                        if (grid[i, j] == type)
+                        {
+                            ++count;
+                        }
                     }
                 }
             }
@@ -357,13 +360,21 @@ namespace Game_of_life
 
 
         // updates informatics labels
-        private void UpdateParamLabels(int Generation, int Population, int Created, int Died)
-        {
-            label_Generation.Text = Generation.ToString();
-            label_Population.Text = Population.ToString();
+        //private void UpdateParamLabels(int Generation, int Population, int Created, int Died)
+        //{
+        //    label_Generation.Text = Generation.ToString();
+        //    label_Population.Text = Population.ToString();
 
-            label_Created.Text = Created.ToString();
-            label_Died.Text = Died.ToString();
+        //    label_Created.Text = Created.ToString();
+        //    label_Died.Text = Died.ToString();
+        //}
+        private void RefreshLabels(int [,] grid)
+        {
+            label_Generation.Text = this.Generation.ToString();
+            label_Population.Text = CalculateCells(grid,LIVE_CELL).ToString();
+
+            label_Created.Text = CalculateCells(grid, CREATED_CELL).ToString();
+            label_Died.Text = CalculateCells(grid, DIED_CELL).ToString();
         }
 
         // does not allow editing comboBox
@@ -446,7 +457,7 @@ namespace Game_of_life
             catch (NullReferenceException)
             {
                 SaveToLifeGrid(RandomGrid(LifeSizeWidth, LifeSizeHeight));
-                UpdateParamLabels(0, CalculatePopulation(LifeGrid), 0, 0);
+                RefreshLabels(LifeGrid);
                 DrawCanvas(LifeGrid);
             }
         }
@@ -511,8 +522,9 @@ namespace Game_of_life
             }
             finally
             {
-                UpdateParamLabels(Generation, CalculatePopulation(LifeGrid), 0, 0);
+                RefreshLabels(LifeGrid);
             }
+
             if(timerWasWorking)TimerStart();
         }
         private int[,] ChangeSize(int[,] grid, int width, int height)
@@ -562,7 +574,7 @@ namespace Game_of_life
             }
 
             // TODO : use died calc and creted calc
-            UpdateParamLabels(Generation, CalculatePopulation(LifeGrid), 0, 0);
+            RefreshLabels(LifeGrid);
 
             DrawCanvas(LifeGrid);
         }
