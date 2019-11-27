@@ -917,7 +917,6 @@
             this.checkBox19.Text = "show grid content (debug)";
             this.checkBox19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox19.UseVisualStyleBackColor = true;
-            this.checkBox19.Visible = false;
             // 
             // MainWindow
             // 
