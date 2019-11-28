@@ -732,6 +732,7 @@
             this.checkBox_DisplayGrid.TabIndex = 14;
             this.checkBox_DisplayGrid.Text = "Промальовувати сітку";
             this.checkBox_DisplayGrid.UseVisualStyleBackColor = true;
+            this.checkBox_DisplayGrid.CheckedChanged += new System.EventHandler(this.CheckBox_Display_CheckedChanged);
             // 
             // checkBox_ShowDeadCell
             // 
@@ -742,6 +743,7 @@
             this.checkBox_ShowDeadCell.TabIndex = 15;
             this.checkBox_ShowDeadCell.Text = "Показувати вмерлих";
             this.checkBox_ShowDeadCell.UseVisualStyleBackColor = true;
+            this.checkBox_ShowDeadCell.CheckedChanged += new System.EventHandler(this.CheckBox_Display_CheckedChanged);
             // 
             // checkBox_ShowCreatedCell
             // 
@@ -752,6 +754,7 @@
             this.checkBox_ShowCreatedCell.TabIndex = 16;
             this.checkBox_ShowCreatedCell.Text = "Показувати створених";
             this.checkBox_ShowCreatedCell.UseVisualStyleBackColor = true;
+            this.checkBox_ShowCreatedCell.CheckedChanged += new System.EventHandler(this.CheckBox_Display_CheckedChanged);
             // 
             // colorDialog_Grid
             // 

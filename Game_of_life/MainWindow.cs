@@ -37,6 +37,7 @@ namespace Game_of_life
         //GetLenth 0-width  1-heigth
         private int[,] LifeGrid;
         private int Generation;
+        private int Population;
 
         public MainWindow()
         {
@@ -62,6 +63,7 @@ namespace Game_of_life
             LifeSizeWidth = 30;
 
             Generation = 0;
+            Population = 0;
 
             LifeGrid = new int[LifeSizeHeight, LifeSizeWidth];
 
@@ -85,19 +87,15 @@ namespace Game_of_life
         // main game logic
         private void NextGeneration(int[,] grid)
         {
-            int died_counter = 0;
-            int created_counter = 0;
             ++Generation;
 
-            int gridHeight = grid.GetLength(1);
-            int gridWidth = grid.GetLength(0);
+            int[,] future = new int[LifeSizeHeight, LifeSizeWidth];
 
-            int[,] future = new int[gridHeight, gridWidth];
+            grid = RevertToEmptyAndLiveCells(grid);
 
-
-            for (int line = 0; line < gridHeight; ++line)
+            for (int line = 0; line < LifeSizeHeight; ++line)
             {
-                for (int column = 0; column < gridWidth; ++column)
+                for (int column = 0; column < LifeSizeWidth; ++column)
                 {
                     int aliveNeighbours = 0;
                     for (int i = -1; i <= 1; ++i)
@@ -106,11 +104,11 @@ namespace Game_of_life
                             int row = line + i;
                             int col = column + j;
 
-                            if (col == -1) col = gridHeight - 1; // above grid limit
-                            if (row == -1) row = gridWidth - 1; // on the left limit
+                            if (col == -1) col = LifeSizeHeight - 1; // above grid limit
+                            if (row == -1) row = LifeSizeWidth - 1; // on the left limit
 
-                            if (col == gridHeight) col = 0; // lower grid limit
-                            if (row == gridWidth) row = 0; // on the right limit
+                            if (col == LifeSizeHeight) col = 0; // lower grid limit
+                            if (row == LifeSizeWidth) row = 0; // on the right limit
 
                             aliveNeighbours += grid[row, col];
                         }
@@ -119,33 +117,28 @@ namespace Game_of_life
 
                     // Implementing the Rules of Life 
 
-
-
                     // Cell is lonely and dies 
                     if ((grid[line, column] == LIVE_CELL) && (aliveNeighbours < 2))
                     {
                         future[line, column] = DIED_CELL;
-                        ++died_counter;
                     }
                     // Cell dies due to over population 
                     else if ((grid[line, column] == LIVE_CELL) && (aliveNeighbours > 3))
                     {
                         future[line, column] = DIED_CELL;
-                        ++died_counter;
                     }
                     // A new cell is born 
                     else if ((grid[line, column] == EMPTY_CELL) && (aliveNeighbours == 3))
                     {
                         future[line, column] = CREATED_CELL;
-                        ++created_counter;
                     }
                     // Remains the same 
                     else future[line, column] = grid[line, column];
                 }
             }
             DrawCanvas(future);
+            SaveToLifeGrid(future);
             RefreshLabels(future);
-            SaveToLifeGrid(RevertToEmptyAndLiveCells(future));
         }
 
         // replace DIED_CELL with EMPTY_CELL
@@ -178,29 +171,37 @@ namespace Game_of_life
         #region canva
         private void DrawCanvas(int[,] grid)
         {
-            panel_PlaingArea.Refresh();
+            // TODO : Drawing
+            /*
+             * crate graphcis
+             * grid size (length) (send Draw)
+             * 
+             * get GraphicsPath and use in graphics
+             * 
+             */
+            try
+            {
+                panel_PlaingArea.Refresh();
 
-            DrawCell(grid, EMPTY_CELL);
-            DrawCell(grid, DIED_CELL);
-            DrawCell(grid, LIVE_CELL);
-            DrawCell(grid, CREATED_CELL);
+                Graphics graphics = panel_PlaingArea.CreateGraphics();
 
-            DrawGrid(grid.GetLength(0), grid.GetLength(1));
+                DrawCell(graphics, grid, EMPTY_CELL);
+                DrawCell(graphics, grid, DIED_CELL);
+                DrawCell(graphics, grid, LIVE_CELL);
+                DrawCell(graphics, grid, CREATED_CELL);
+
+                DrawGrid(graphics);
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.ToString());
+            }
         }
 
         // draws cells from Grid
-        private void DrawCell(int[,] grid, int type)
+        private void DrawCell(Graphics graphics, int[,] grid, int type)
         {
-            int gridWidth = grid.GetLength(0);
-            int gridHeight = grid.GetLength(1);
-
-            if (gridWidth == 0 || gridHeight == 0)
-            {
-                return;
-            }
-
-            Graphics graphics = panel_PlaingArea.CreateGraphics();
-
             SolidBrush brush = new SolidBrush(Color.Empty);
 
             if (checkBox_ShowDeadCell.Checked && type == DIED_CELL) brush.Color = colorDialog_DeadCell.Color;
@@ -212,30 +213,24 @@ namespace Game_of_life
             int currentHeight = 0;
             int currentWigth = 0;
 
-            int cellHeight = panel_PlaingArea.Height / gridHeight;
-            int cellWidth = panel_PlaingArea.Width / gridWidth;
+            int cellHeight = panel_PlaingArea.Height / LifeSizeHeight;
+            int cellWidth = panel_PlaingArea.Width / LifeSizeWidth;
 
-            for (int i = 0; i < gridHeight; ++i)
+            for (int i = 0; i < LifeSizeHeight; ++i)
             {
-                for (int j = 0; j < gridWidth; ++j)
+                for (int j = 0; j < LifeSizeWidth; ++j)
                 {
-                    if (type == LIVE_CELL)
+                    if ((type == LIVE_CELL) && (grid[i, j] == LIVE_CELL || grid[i, j] == CREATED_CELL))
                     {
-                        if (grid[i, j] == LIVE_CELL || grid[i, j] == CREATED_CELL)
-                        {
-                            graphics.FillRectangle(brush,
-                               currentWigth, currentHeight,
-                               cellWidth, cellWidth);
-                        }
+                        graphics.FillRectangle(brush,
+                           currentWigth, currentHeight,
+                           cellWidth, cellWidth);
                     }
-                    else
+                    else if (grid[i, j] == type)
                     {
-                        if (grid[i, j] == type)
-                        {
-                            graphics.FillRectangle(brush,
-                               currentWigth, currentHeight,
-                               cellWidth, cellWidth);
-                        }
+                        graphics.FillRectangle(brush,
+                           currentWigth, currentHeight,
+                           cellWidth, cellWidth);
                     }
                     // for debuging or showing grid content
                     if (checkBox19.Checked)
@@ -254,45 +249,33 @@ namespace Game_of_life
         }
 
         // drawing cells and grid in panel
-        private void DrawGrid(int width, int height)
+        private void DrawGrid(Graphics graphics)
         {
-            // TODO : draw grin on Form1 (over panel)
-
-            Graphics graphics = panel_PlaingArea.CreateGraphics();
-
-            int deltaY = 0;// panel_PlaingArea.Location.Y;
-            int deltaX = 0;// panel_PlaingArea.Location.X;
-
-            int panelHeight = panel_PlaingArea.Height;
-            int panelWidth = panel_PlaingArea.Width;
-
             if (checkBox_DisplayGrid.Checked)
             {
                 Pen gridPan = new Pen(colorDialog_Grid.Color, 1);
-                Point[] points;
-                byte[] types;
 
                 // multiply by 2 because one line have 2 ponts
-                points = new Point[width * 2];
-                types = new byte[width * 2];
-                int pointX = deltaX;
-                for (int i = 0; i < points.GetLength(0) - 1; i += 2, pointX += (panelHeight / height))
+                Point[] points = new Point[LifeSizeWidth * 2];
+                byte[] types = new byte[LifeSizeWidth * 2];
+                int point = 0;
+                for (int i = 0; i < points.GetLength(0) - 1; i += 2, point += (PANEL_HEIGHT / LifeSizeHeight))
                 {
-                    points[i] = new Point(pointX, deltaY);
-                    points[i + 1] = new Point(pointX, panelHeight + deltaY);
+                    points[i] = new Point(point, 0);
+                    points[i + 1] = new Point(point, PANEL_HEIGHT + 0);
 
                     types[i] = 0; // start point
                     types[i + 1] = 1; // line
                 }
                 graphics.DrawPath(gridPan, new GraphicsPath(points, types));
 
-                points = new Point[height * 2];
-                types = new byte[height * 2];
-                int pointY = deltaY;
-                for (int i = 0; i < points.GetLength(0) - 1; i += 2, pointY += (panelWidth / width))
+                points = new Point[LifeSizeHeight * 2];
+                types = new byte[LifeSizeHeight * 2];
+                point = 0;
+                for (int i = 0; i < points.GetLength(0) - 1; i += 2, point += (PANEL_WIDTH / LifeSizeWidth))
                 {
-                    points[i] = new Point(deltaX, pointY);
-                    points[i + 1] = new Point(panelWidth + deltaX, pointY);
+                    points[i] = new Point(0, point);
+                    points[i + 1] = new Point(PANEL_WIDTH + 0, point);
 
                     types[i] = 0;
                     types[i + 1] = 1;
@@ -333,17 +316,24 @@ namespace Game_of_life
             return grid;
         }
 
+        // sets new value into labels
+        private void RefreshLabels(int[,] grid)
+        {
+            label_Generation.Text = Generation.ToString();
+            Population = CalculateCells(grid, LIVE_CELL);
+            label_Population.Text = Population.ToString();
+
+            label_Created.Text = CalculateCells(grid, CREATED_CELL).ToString();
+            label_Died.Text = CalculateCells(grid, DIED_CELL).ToString();
+        }
         // counts and return this count of typed cells in input grid
         private int CalculateCells(int[,] grid, int type)
         {
-            int height = grid.GetLength(1);
-            int widht = grid.GetLength(0);
-
             int count = 0;
 
-            for (int i = 0; i < height; ++i)
+            for (int i = 0; i < LifeSizeHeight; ++i)
             {
-                for (int j = 0; j < widht; ++j)
+                for (int j = 0; j < LifeSizeWidth; ++j)
                 {
                     if (type == LIVE_CELL)
                     {
@@ -363,16 +353,6 @@ namespace Game_of_life
             }
 
             return count;
-        }
-
-        // sets new value into labels
-        private void RefreshLabels(int[,] grid)
-        {
-            label_Generation.Text = Generation.ToString();
-            label_Population.Text = CalculateCells(grid, LIVE_CELL).ToString();
-
-            label_Created.Text = CalculateCells(grid, CREATED_CELL).ToString();
-            label_Died.Text = CalculateCells(grid, DIED_CELL).ToString();
         }
 
         // does not allow editing comboBox
@@ -440,36 +420,6 @@ namespace Game_of_life
         }
 
 
-        private void Button_NextTick_Click(object sender, EventArgs e)
-        {
-            NextTick();
-        }
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            NextTick();
-        }
-
-        // create next generation or initializes new grid generation
-        private void NextTick()
-        {
-            try
-            {
-                if (LifeGrid.GetLength(0) < trackBar_AreaSize.Minimum)
-                { // LifeGrid doesn't initialized
-                    throw new NullReferenceException();
-                }
-                NextGeneration(LifeGrid);
-                return;
-            }
-            catch (NullReferenceException)
-            {
-                SaveToLifeGrid(RandomGrid(LifeSizeWidth, LifeSizeHeight));
-                RefreshLabels(LifeGrid);
-                DrawCanvas(LifeGrid);
-            }
-        }
-
-
         private void Button_StartTime_Click(object sender, EventArgs e)
         {
             SetTimerInterval();
@@ -501,6 +451,38 @@ namespace Game_of_life
             button_NextTick.Enabled = false;
         }
 
+        private void Button_NextTick_Click(object sender, EventArgs e)
+        {
+            NextTick();
+        }
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            NextTick();
+        }
+
+        // create next generation or initializes new grid generation
+        private void NextTick()
+        {
+            try
+            {
+                if (LifeGrid.GetLength(0) < trackBar_AreaSize.Minimum)
+                { // LifeGrid doesn't initialized
+                    throw new NullReferenceException();
+                }
+                if (Population == 0)
+                {
+                    throw new NullReferenceException();
+                }
+                NextGeneration(LifeGrid);
+                return;
+            }
+            catch (NullReferenceException)
+            {
+                SaveToLifeGrid(RandomGrid(LifeSizeWidth, LifeSizeHeight));
+                RefreshLabels(LifeGrid);
+                DrawCanvas(LifeGrid);
+            }
+        }
 
         private void TrackBar_AreaSize_Scroll(object sender, EventArgs e)
         {
@@ -555,28 +537,28 @@ namespace Game_of_life
             try
             {
                 LifeGrid[row, col] = LifeGrid[row, col];
+
+                if (LifeGrid[row, col] == EMPTY_CELL || LifeGrid[row, col] == DIED_CELL)
+                {
+                    LifeGrid[row, col] = LIVE_CELL;
+                }
+                else
+                {
+                    LifeGrid[row, col] = EMPTY_CELL; // LIVE_CELL or CREATED_CELL
+                }
+
+                RefreshLabels(LifeGrid);
+                DrawCanvas(LifeGrid);
             }
             catch (NullReferenceException) // when array doesn't initialized
             {
                 SaveToLifeGrid(new int[LifeSizeHeight, LifeSizeWidth]);
+                return;
             }
             catch (IndexOutOfRangeException)
             {
                 return;
             }
-
-            if (LifeGrid[row, col] == EMPTY_CELL || LifeGrid[row, col] == DIED_CELL)
-            {
-                LifeGrid[row, col] = LIVE_CELL;
-            }
-            else
-            {
-                LifeGrid[row, col] = EMPTY_CELL; // LIVE_CELL or CREATED_CELL
-            }
-
-            RefreshLabels(LifeGrid);
-
-            DrawCanvas(LifeGrid);
         }
 
         #region color pickers
@@ -610,5 +592,10 @@ namespace Game_of_life
                 pictureBox_LivingCell.BackColor = colorDialog_LivingCell.Color;
         }
         #endregion
+
+        private void CheckBox_Display_CheckedChanged(object sender, EventArgs e)
+        {
+            DrawCanvas(LifeGrid);
+        }
     }
 }
