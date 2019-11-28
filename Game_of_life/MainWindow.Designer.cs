@@ -209,7 +209,7 @@
             // 
             this.panel_PlaingArea.BackColor = System.Drawing.Color.Silver;
             this.panel_PlaingArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_PlaingArea.Location = new System.Drawing.Point(352, 80);
+            this.panel_PlaingArea.Location = new System.Drawing.Point(349, 80);
             this.panel_PlaingArea.Name = "panel_PlaingArea";
             this.panel_PlaingArea.Size = new System.Drawing.Size(600, 600);
             this.panel_PlaingArea.TabIndex = 2;
