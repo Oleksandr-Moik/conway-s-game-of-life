@@ -84,14 +84,10 @@
             this.checkBox_DisplayGrid = new System.Windows.Forms.CheckBox();
             this.checkBox_ShowDeadCell = new System.Windows.Forms.CheckBox();
             this.checkBox_ShowCreatedCell = new System.Windows.Forms.CheckBox();
-            this.colorDialog_Grid = new System.Windows.Forms.ColorDialog();
             this.trackBar_AreaSize = new System.Windows.Forms.TrackBar();
-            this.colorDialog_DeadCell = new System.Windows.Forms.ColorDialog();
-            this.colorDialog_CreatedCell = new System.Windows.Forms.ColorDialog();
+            this.colorDialog_SelectColor = new System.Windows.Forms.ColorDialog();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.colorDialog_AreaBackground = new System.Windows.Forms.ColorDialog();
-            this.colorDialog_LivingCell = new System.Windows.Forms.ColorDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox_Grid = new System.Windows.Forms.PictureBox();
@@ -756,10 +752,6 @@
             this.checkBox_ShowCreatedCell.UseVisualStyleBackColor = true;
             this.checkBox_ShowCreatedCell.CheckedChanged += new System.EventHandler(this.CheckBox_Display_CheckedChanged);
             // 
-            // colorDialog_Grid
-            // 
-            this.colorDialog_Grid.Color = System.Drawing.Color.DimGray;
-            // 
             // trackBar_AreaSize
             // 
             this.trackBar_AreaSize.LargeChange = 10;
@@ -774,14 +766,6 @@
             this.trackBar_AreaSize.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBar_AreaSize.Value = 30;
             this.trackBar_AreaSize.Scroll += new System.EventHandler(this.TrackBar_AreaSize_Scroll);
-            // 
-            // colorDialog_DeadCell
-            // 
-            this.colorDialog_DeadCell.Color = System.Drawing.Color.Salmon;
-            // 
-            // colorDialog_CreatedCell
-            // 
-            this.colorDialog_CreatedCell.Color = System.Drawing.Color.Green;
             // 
             // label17
             // 
@@ -800,14 +784,6 @@
             this.label18.Size = new System.Drawing.Size(50, 23);
             this.label18.TabIndex = 19;
             this.label18.Text = "Фон";
-            // 
-            // colorDialog_AreaBackground
-            // 
-            this.colorDialog_AreaBackground.Color = System.Drawing.Color.Silver;
-            // 
-            // colorDialog_LivingCell
-            // 
-            this.colorDialog_LivingCell.Color = System.Drawing.Color.PaleGreen;
             // 
             // timer1
             // 
@@ -840,7 +816,7 @@
             this.pictureBox_Grid.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_Grid.TabIndex = 17;
             this.pictureBox_Grid.TabStop = false;
-            this.pictureBox_Grid.Click += new System.EventHandler(this.PictureBox_Grid_Click);
+            this.pictureBox_Grid.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox_AreaBackground
             // 
@@ -851,7 +827,7 @@
             this.pictureBox_AreaBackground.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_AreaBackground.TabIndex = 17;
             this.pictureBox_AreaBackground.TabStop = false;
-            this.pictureBox_AreaBackground.Click += new System.EventHandler(this.PictureBox_AreaBackground_Click);
+            this.pictureBox_AreaBackground.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox_LivingCell
             // 
@@ -862,7 +838,7 @@
             this.pictureBox_LivingCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_LivingCell.TabIndex = 17;
             this.pictureBox_LivingCell.TabStop = false;
-            this.pictureBox_LivingCell.Click += new System.EventHandler(this.PictureBox_LivingCell_Click);
+            this.pictureBox_LivingCell.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox_CreatedCell
             // 
@@ -873,7 +849,7 @@
             this.pictureBox_CreatedCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_CreatedCell.TabIndex = 17;
             this.pictureBox_CreatedCell.TabStop = false;
-            this.pictureBox_CreatedCell.Click += new System.EventHandler(this.PictureBox_CreatedCell_Click);
+            this.pictureBox_CreatedCell.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox_DeadCell
             // 
@@ -884,7 +860,7 @@
             this.pictureBox_DeadCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_DeadCell.TabIndex = 17;
             this.pictureBox_DeadCell.TabStop = false;
-            this.pictureBox_DeadCell.Click += new System.EventHandler(this.PictureBox_DeadCell_Click);
+            this.pictureBox_DeadCell.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox1
             // 
@@ -1040,19 +1016,15 @@
         private System.Windows.Forms.CheckBox checkBox_DisplayGrid;
         private System.Windows.Forms.CheckBox checkBox_ShowDeadCell;
         private System.Windows.Forms.CheckBox checkBox_ShowCreatedCell;
-        private System.Windows.Forms.ColorDialog colorDialog_Grid;
         private System.Windows.Forms.PictureBox pictureBox_Grid;
         private System.Windows.Forms.TrackBar trackBar_AreaSize;
         private System.Windows.Forms.PictureBox pictureBox_DeadCell;
         private System.Windows.Forms.PictureBox pictureBox_CreatedCell;
-        private System.Windows.Forms.ColorDialog colorDialog_DeadCell;
-        private System.Windows.Forms.ColorDialog colorDialog_CreatedCell;
+        private System.Windows.Forms.ColorDialog colorDialog_SelectColor;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.PictureBox pictureBox_LivingCell;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.PictureBox pictureBox_AreaBackground;
-        private System.Windows.Forms.ColorDialog colorDialog_AreaBackground;
-        private System.Windows.Forms.ColorDialog colorDialog_LivingCell;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox1;

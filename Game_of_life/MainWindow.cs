@@ -13,8 +13,8 @@ namespace Game_of_life
 {
     public partial class MainWindow : Form
     {
-        private const int PANEL_HEIGHT = 600;
-        private const int PANEL_WIDTH = 600;
+        private const float PANEL_HEIGHT = 600.0F;
+        private const float PANEL_WIDTH = 600.0F;
 
         private const string CHAOTIC_TYPE = "Хаотичний";
         private const string STABLE_TYPE = "Стабільний";
@@ -46,14 +46,6 @@ namespace Game_of_life
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            SetPictureColorFromColorDialog();
-
-            Init();
-        }
-
-        #region initialization
-        private void Init()
-        {
             //LifeDefaultRules_Survival = new char[] { '0', '0', '1', '1', '0', '0', '0', '0', '0' };
             //LifeDefaultRules_Create = new char[] { '0', '0', '0', '1', '0', '0', '0', '0', '0' };
             //LifeRules_Survival = new char[] { '0', '0', '1', '1', '0', '0', '0', '0', '0' };
@@ -67,22 +59,13 @@ namespace Game_of_life
 
             LifeGrid = new int[LifeSizeHeight, LifeSizeWidth];
 
-            panel_PlaingArea.Height = PANEL_HEIGHT;
-            panel_PlaingArea.Width = PANEL_WIDTH;
+            panel_PlaingArea.Height = (int)PANEL_HEIGHT;
+            panel_PlaingArea.Width = (int)PANEL_WIDTH;
 
             comboBox_RulesSets.SelectedIndex = 0;
 
             RefreshLabels(LifeGrid);
         }
-        private void SetPictureColorFromColorDialog()
-        {
-            pictureBox_Grid.BackColor = colorDialog_Grid.Color;
-            pictureBox_DeadCell.BackColor = colorDialog_DeadCell.Color;
-            pictureBox_CreatedCell.BackColor = colorDialog_CreatedCell.Color;
-            pictureBox_LivingCell.BackColor = colorDialog_LivingCell.Color;
-            pictureBox_AreaBackground.BackColor = colorDialog_AreaBackground.Color;
-        }
-        #endregion
 
         // main game logic
         private void NextGeneration(int[,] grid)
@@ -204,17 +187,17 @@ namespace Game_of_life
         {
             SolidBrush brush = new SolidBrush(Color.Empty);
 
-            if (checkBox_ShowDeadCell.Checked && type == DIED_CELL) brush.Color = colorDialog_DeadCell.Color;
-            else if (type == EMPTY_CELL) brush.Color = colorDialog_AreaBackground.Color;
-            else if (type == LIVE_CELL) brush.Color = colorDialog_LivingCell.Color;
-            else if (checkBox_ShowCreatedCell.Checked && type == CREATED_CELL) brush.Color = colorDialog_CreatedCell.Color;
+            if (checkBox_ShowDeadCell.Checked && type == DIED_CELL) brush.Color = pictureBox_DeadCell.BackColor;
+            else if (type == EMPTY_CELL) brush.Color = pictureBox_AreaBackground.BackColor;
+            else if (type == LIVE_CELL) brush.Color = pictureBox_LivingCell.BackColor;
+            else if (checkBox_ShowCreatedCell.Checked && type == CREATED_CELL) brush.Color = pictureBox_CreatedCell.BackColor;
             else return;
 
-            int currentHeight = 0;
-            int currentWigth = 0;
+            float currentHeight = 0;
+            float currentWigth = 0;
 
-            int cellHeight = panel_PlaingArea.Height / LifeSizeHeight;
-            int cellWidth = panel_PlaingArea.Width / LifeSizeWidth;
+            float cellHeight = PANEL_HEIGHT / LifeSizeHeight;
+            float cellWidth = PANEL_WIDTH / LifeSizeWidth;
 
             for (int i = 0; i < LifeSizeHeight; ++i)
             {
@@ -224,13 +207,13 @@ namespace Game_of_life
                     {
                         graphics.FillRectangle(brush,
                            currentWigth, currentHeight,
-                           cellWidth, cellWidth);
+                           cellWidth, cellHeight);
                     }
                     else if (grid[i, j] == type)
                     {
                         graphics.FillRectangle(brush,
                            currentWigth, currentHeight,
-                           cellWidth, cellWidth);
+                           cellWidth, cellHeight);
                     }
                     // for debuging or showing grid content
                     if (checkBox19.Checked)
@@ -253,29 +236,29 @@ namespace Game_of_life
         {
             if (checkBox_DisplayGrid.Checked)
             {
-                Pen gridPan = new Pen(colorDialog_Grid.Color, 1);
+                Pen gridPan = new Pen(pictureBox_Grid.BackColor, 1);
 
                 // multiply by 2 because one line have 2 ponts
-                Point[] points = new Point[LifeSizeWidth * 2];
+                PointF[] points = new PointF[LifeSizeWidth * 2];
                 byte[] types = new byte[LifeSizeWidth * 2];
-                int point = 0;
+                float point = 0;
                 for (int i = 0; i < points.GetLength(0) - 1; i += 2, point += (PANEL_HEIGHT / LifeSizeHeight))
                 {
-                    points[i] = new Point(point, 0);
-                    points[i + 1] = new Point(point, PANEL_HEIGHT + 0);
+                    points[i] = new PointF(point, 0);
+                    points[i + 1] = new PointF(point, PANEL_HEIGHT);
 
                     types[i] = 0; // start point
                     types[i + 1] = 1; // line
                 }
                 graphics.DrawPath(gridPan, new GraphicsPath(points, types));
 
-                points = new Point[LifeSizeHeight * 2];
+                points = new PointF[LifeSizeHeight * 2];
                 types = new byte[LifeSizeHeight * 2];
                 point = 0;
                 for (int i = 0; i < points.GetLength(0) - 1; i += 2, point += (PANEL_WIDTH / LifeSizeWidth))
                 {
-                    points[i] = new Point(0, point);
-                    points[i + 1] = new Point(PANEL_WIDTH + 0, point);
+                    points[i] = new PointF(0, point);
+                    points[i + 1] = new PointF(PANEL_WIDTH, point);
 
                     types[i] = 0;
                     types[i + 1] = 1;
@@ -311,7 +294,7 @@ namespace Game_of_life
 
             for (int i = 0; i < height; ++i)
                 for (int j = 0; j < width; ++j)
-                    grid[i, j] = random.Next(0, 10) % 2;
+                    grid[i, j] = random.Next(1, 100) % 2;
 
             return grid;
         }
@@ -561,37 +544,16 @@ namespace Game_of_life
             }
         }
 
-        #region color pickers
-        private void PictureBox_Grid_Click(object sender, EventArgs e)
+        private void PictureBox_SelectColor_Click(object sender, EventArgs e)
         {
-            if (colorDialog_Grid.ShowDialog() == DialogResult.OK)
-                pictureBox_Grid.BackColor = colorDialog_Grid.Color;
-        }
-        private void PictureBox_AreaBackground_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_AreaBackground.ShowDialog() == DialogResult.OK)
-            {
-                pictureBox_AreaBackground.BackColor = colorDialog_AreaBackground.Color;
-                panel_PlaingArea.BackColor = colorDialog_AreaBackground.Color;
-            }
+            PictureBox pictureBox = (PictureBox)sender;
+            if (colorDialog_SelectColor.ShowDialog() == DialogResult.Cancel)
+                return;
 
+            pictureBox.BackColor = colorDialog_SelectColor.Color;
+            DrawCanvas(LifeGrid);
         }
-        private void PictureBox_DeadCell_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_DeadCell.ShowDialog() == DialogResult.OK)
-                pictureBox_DeadCell.BackColor = colorDialog_DeadCell.Color;
-        }
-        private void PictureBox_CreatedCell_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_CreatedCell.ShowDialog() == DialogResult.OK)
-                pictureBox_CreatedCell.BackColor = colorDialog_CreatedCell.Color;
-        }
-        private void PictureBox_LivingCell_Click(object sender, EventArgs e)
-        {
-            if (colorDialog_LivingCell.ShowDialog() == DialogResult.OK)
-                pictureBox_LivingCell.BackColor = colorDialog_LivingCell.Color;
-        }
-        #endregion
+
 
         private void CheckBox_Display_CheckedChanged(object sender, EventArgs e)
         {
