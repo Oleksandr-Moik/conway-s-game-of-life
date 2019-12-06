@@ -273,7 +273,7 @@
             this.trackBar_AreaSize.TabIndex = 10;
             this.trackBar_AreaSize.TickFrequency = 0;
             this.trackBar_AreaSize.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar_AreaSize.Value = 30;
+            this.trackBar_AreaSize.Value = 20;
             this.trackBar_AreaSize.Scroll += new System.EventHandler(this.TrackBar_AreaSize_Scroll);
             // 
             // label17

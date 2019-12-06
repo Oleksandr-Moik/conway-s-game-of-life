@@ -13,19 +13,21 @@ namespace Game_of_life
 {
     public partial class MainWindow : Form
     {
+        /// area
         private const float PANEL_HEIGHT = 500.0F;
         private const float PANEL_WIDTH = 500.0F;
 
+        /// cell
         private const int DIED_CELL = -1;
         private const int EMPTY_CELL = 0;
         private const int LIVE_CELL = 1;
         private const int CREATED_CELL = 2;
 
+        /// GetLenth 0-width  1-heigth
+        private int[,] LifeGrid;
         private int LifeSizeHeight;
         private int LifeSizeWidth;
 
-        //GetLenth 0-width  1-heigth
-        private int[,] LifeGrid;
         private int Generation;
         private int Population;
 
@@ -36,18 +38,19 @@ namespace Game_of_life
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            LifeSizeHeight = 30;
-            LifeSizeWidth = 30;
+            LifeSizeHeight = 15;
+            LifeSizeWidth = 15;
+            trackBar_AreaSize.Value = LifeSizeHeight;
+
+            LifeGrid = new int[LifeSizeHeight, LifeSizeWidth];
 
             Generation = 0;
             Population = 0;
 
-            LifeGrid = new int[LifeSizeHeight, LifeSizeWidth];
-
             panel_PlaingArea.Height = (int)PANEL_HEIGHT;
             panel_PlaingArea.Width = (int)PANEL_WIDTH;
 
-            RefreshLabels(LifeGrid);
+            RefreshLabels();
         }
 
         // main game logic
@@ -65,6 +68,7 @@ namespace Game_of_life
                 {
                     int aliveNeighbours = 0;
                     for (int i = -1; i <= 1; ++i)
+                    {
                         for (int j = -1; j <= 1; ++j)
                         {
                             int row = line + i;
@@ -78,7 +82,7 @@ namespace Game_of_life
 
                             aliveNeighbours += (int)grid[row, col];
                         }
-
+                    }
                     aliveNeighbours -= (int)grid[line, column];
 
                     // Implementing the Rules of Life 
@@ -104,7 +108,7 @@ namespace Game_of_life
             }
             SaveToLifeGrid(future);
             DrawCanvas();
-            RefreshLabels(LifeGrid);
+            RefreshLabels();
         }
 
         // replace DIED_CELL with EMPTY_CELL
@@ -169,15 +173,14 @@ namespace Game_of_life
                 for (int j = 0; j < LifeSizeWidth; ++j)
                 {
                     if (LifeGrid[i, j] == DIED_CELL && checkBox_ShowDeadCell.Checked)
-                        brush = brushDead;
+                        graphics.FillRectangle(brushDead, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
                     if (LifeGrid[i, j] == EMPTY_CELL)
-                        brush = brushEmpty;
+                        graphics.FillRectangle(brushEmpty, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
                     if (LifeGrid[i, j] == LIVE_CELL || (LifeGrid[i, j] == CREATED_CELL && !checkBox_ShowCreatedCell.Checked))
-                        brush = brushLive;
+                        graphics.FillRectangle(brushLive, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
                     if (LifeGrid[i, j] == CREATED_CELL && checkBox_ShowCreatedCell.Checked)
-                        brush = brushCreated;
+                        graphics.FillRectangle(brushCreated, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
 
-                    graphics.FillRectangle(brush, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
 
                     currentHeight += cellHeight;
                 }
@@ -229,7 +232,7 @@ namespace Game_of_life
             TimerStop();
             Generation = 0;
             SaveToLifeGrid(new int[LifeSizeHeight, LifeSizeWidth]);
-            RefreshLabels(LifeGrid);
+            RefreshLabels();
             DrawCanvas();
         }
         private void Button_RandomFiling_Click(object sender, EventArgs e)
@@ -237,7 +240,7 @@ namespace Game_of_life
             TimerStop();
             Generation = 0;
             SaveToLifeGrid(RandomGrid(LifeSizeWidth, LifeSizeHeight));
-            RefreshLabels(LifeGrid);
+            RefreshLabels();
             DrawCanvas();
         }
 
@@ -255,15 +258,16 @@ namespace Game_of_life
         }
 
         // sets new value into labels
-        private void RefreshLabels(int[,] grid)
+        private void RefreshLabels()
         {
             label_Generation.Text = Generation.ToString();
-            Population = CalculateCells(grid, LIVE_CELL);
+            Population = CalculateCells(LifeGrid, LIVE_CELL);
             label_Population.Text = Population.ToString();
 
-            label_Created.Text = CalculateCells(grid, CREATED_CELL).ToString();
-            label_Died.Text = CalculateCells(grid, DIED_CELL).ToString();
+            label_Created.Text = CalculateCells(LifeGrid, CREATED_CELL).ToString();
+            label_Died.Text = CalculateCells(LifeGrid, DIED_CELL).ToString();
         }
+
         // counts and return this count of typed cells in input grid
         private int CalculateCells(int[,] grid, int type)
         {
@@ -289,7 +293,6 @@ namespace Game_of_life
                     }
                 }
             }
-
             return count;
         }
 
@@ -352,7 +355,7 @@ namespace Game_of_life
             catch (NullReferenceException)
             {
                 SaveToLifeGrid(RandomGrid(LifeSizeWidth, LifeSizeHeight));
-                RefreshLabels(LifeGrid);
+                RefreshLabels();
                 DrawCanvas();
             }
         }
@@ -377,7 +380,7 @@ namespace Game_of_life
             }
             finally
             {
-                RefreshLabels(LifeGrid);
+                RefreshLabels();
             }
 
             if (timerWasWorking) TimerStart();
@@ -421,7 +424,7 @@ namespace Game_of_life
                     LifeGrid[row, col] = EMPTY_CELL; // LIVE_CELL or CREATED_CELL
                 }
 
-                RefreshLabels(LifeGrid);
+                RefreshLabels();
                 DrawCanvas();
             }
             catch (NullReferenceException) // when array doesn't initialized
