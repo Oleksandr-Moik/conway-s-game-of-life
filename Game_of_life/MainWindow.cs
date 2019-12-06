@@ -11,27 +11,10 @@ using System.Windows.Forms;
 
 namespace Game_of_life
 {
-    public class AreaCanvas
-    {
-        private Panel panel;
-        public Panel Panel
-        {
-            set
-            {
-                panel = value;
-            }
-        }
-
-
-
-
-        //private 
-    }
-
     public partial class MainWindow : Form
     {
-        private const float PANEL_HEIGHT = 600.0F;
-        private const float PANEL_WIDTH = 600.0F;
+        private const float PANEL_HEIGHT = 500.0F;
+        private const float PANEL_WIDTH = 500.0F;
 
         private const int DIED_CELL = -1;
         private const int EMPTY_CELL = 0;
@@ -119,9 +102,9 @@ namespace Game_of_life
                     else future[line, column] = grid[line, column];
                 }
             }
-            DrawCanvas(future);
             SaveToLifeGrid(future);
-            RefreshLabels(future);
+            DrawCanvas();
+            RefreshLabels(LifeGrid);
         }
 
         // replace DIED_CELL with EMPTY_CELL
@@ -152,7 +135,7 @@ namespace Game_of_life
         }
 
         #region canva
-        private void DrawCanvas(int[,] grid)
+        private void DrawCanvas()
         {
             // TODO : Drawing
             /*
@@ -164,28 +147,32 @@ namespace Game_of_life
              */
             try
             {
-                panel_PlaingArea.Refresh();
+                panel_PlaingArea.Invalidate();
 
-                Graphics graphics = panel_PlaingArea.CreateGraphics();
-
-                DrawCell(graphics, grid, EMPTY_CELL);
-                DrawCell(graphics, grid, DIED_CELL);
-                DrawCell(graphics, grid, LIVE_CELL);
-                DrawCell(graphics, grid, CREATED_CELL);
-
-                DrawGrid(graphics);
-
-                graphics.Dispose();
 
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.ToString());
             }
+                
+        }
+        private void Panel_PlaingArea_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics graphics = panel_PlaingArea.CreateGraphics();
+
+            DrawCell(graphics, EMPTY_CELL);
+            DrawCell(graphics, DIED_CELL);
+            DrawCell(graphics, LIVE_CELL);
+            DrawCell(graphics, CREATED_CELL);
+
+            DrawGrid(graphics);
+
+            graphics.Dispose();
         }
 
         // draws cells from Grid
-        private void DrawCell(Graphics graphics, int[,] grid, int type)
+        private void DrawCell(Graphics graphics, int type)
         {
             SolidBrush brush = new SolidBrush(Color.Empty);
 
@@ -213,26 +200,17 @@ namespace Game_of_life
             {
                 for (int j = 0; j < LifeSizeWidth; ++j)
                 {
-                    if ((type == LIVE_CELL) && (grid[i, j] == LIVE_CELL || grid[i, j] == CREATED_CELL))
+                    if ((type == LIVE_CELL) && (LifeGrid[i, j] == LIVE_CELL || LifeGrid[i, j] == CREATED_CELL))
                     {
                         graphics.FillRectangle(brush,
-                           currentWigth, currentHeight,
-                           cellWidth, cellHeight);
+                           currentWigth + 0.5F, currentHeight + 0.5F,
+                           cellWidth - 1, cellHeight - 1);
                     }
-                    else if (grid[i, j] == type)
+                    else if (LifeGrid[i, j] == type)
                     {
                         graphics.FillRectangle(brush,
-                           currentWigth, currentHeight,
-                           cellWidth, cellHeight);
-                    }
-                    // for debuging or showing grid content
-                    if (checkBox19.Checked)
-                    {
-                        graphics.DrawString(grid[i, j].ToString(),
-                            new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204))),
-                            new SolidBrush(Color.Red),
-                            currentWigth + 4,
-                            currentHeight + 4);
+                           currentWigth + 0.5F, currentHeight + 0.5F,
+                           cellWidth - 1, cellHeight - 1);
                     }
                     currentHeight += cellHeight;
                 }
@@ -285,7 +263,7 @@ namespace Game_of_life
             Generation = 0;
             SaveToLifeGrid(new int[LifeSizeHeight, LifeSizeWidth]);
             RefreshLabels(LifeGrid);
-            DrawCanvas(LifeGrid);
+            DrawCanvas();
         }
         private void Button_RandomFiling_Click(object sender, EventArgs e)
         {
@@ -293,7 +271,7 @@ namespace Game_of_life
             Generation = 0;
             SaveToLifeGrid(RandomGrid(LifeSizeWidth, LifeSizeHeight));
             RefreshLabels(LifeGrid);
-            DrawCanvas(LifeGrid);
+            DrawCanvas();
         }
 
         // generates random grid
@@ -304,7 +282,7 @@ namespace Game_of_life
 
             for (int i = 0; i < height; ++i)
                 for (int j = 0; j < width; ++j)
-                    grid[i, j] = 0;// TODO random.Next(1, 100) % 2;
+                    grid[i, j] = random.Next(1, 100) % 2;
 
             return grid;
         }
@@ -408,7 +386,7 @@ namespace Game_of_life
             {
                 SaveToLifeGrid(RandomGrid(LifeSizeWidth, LifeSizeHeight));
                 RefreshLabels(LifeGrid);
-                DrawCanvas(LifeGrid);
+                DrawCanvas();
             }
         }
 
@@ -423,12 +401,12 @@ namespace Game_of_life
             try
             {
                 LifeGrid = ChangeSize(LifeGrid, LifeSizeWidth, LifeSizeHeight);
-                DrawCanvas(LifeGrid);
+                DrawCanvas();
             }
             catch (NullReferenceException)
             {
                 SaveToLifeGrid(new int[LifeSizeHeight, LifeSizeWidth]);
-                DrawCanvas(LifeGrid);
+                DrawCanvas();
             }
             finally
             {
@@ -475,7 +453,7 @@ namespace Game_of_life
                 }
 
                 RefreshLabels(LifeGrid);
-                DrawCanvas(LifeGrid);
+                DrawCanvas();
             }
             catch (NullReferenceException) // when array doesn't initialized
             {
@@ -497,13 +475,15 @@ namespace Game_of_life
                 return;
 
             pictureBox.BackColor = colorDialog_SelectColor.Color;
-            DrawCanvas(LifeGrid);
+            DrawCanvas();
         }
 
 
         private void CheckBox_Display_CheckedChanged(object sender, EventArgs e)
         {
-            DrawCanvas(LifeGrid);
+            DrawCanvas();
         }
+
+
     }
 }
