@@ -336,6 +336,7 @@
             this.pictureBox_AreaBackground.Size = new System.Drawing.Size(52, 27);
             this.pictureBox_AreaBackground.TabIndex = 17;
             this.pictureBox_AreaBackground.TabStop = false;
+            this.pictureBox_AreaBackground.BackColorChanged += new System.EventHandler(this.PictureBox_AreaBackground_BackColorChanged);
             this.pictureBox_AreaBackground.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox_LivingCell

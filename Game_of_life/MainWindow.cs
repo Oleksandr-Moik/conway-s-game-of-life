@@ -145,6 +145,7 @@ namespace Game_of_life
         }
         private void Panel_PlaingArea_Paint(object sender, PaintEventArgs e)
         {
+
             Graphics graphics = e.Graphics;
 
             DrawCell(graphics);
@@ -156,11 +157,6 @@ namespace Game_of_life
         // draws cells from Grid
         private void DrawCell(Graphics graphics)
         {
-            SolidBrush brushDead = new SolidBrush(pictureBox_DeadCell.BackColor);
-            SolidBrush brushEmpty = new SolidBrush(pictureBox_AreaBackground.BackColor);
-            SolidBrush brushLive = new SolidBrush(pictureBox_LivingCell.BackColor);
-            SolidBrush brushCreated = new SolidBrush(pictureBox_CreatedCell.BackColor);
-
             float currentHeight = 0;
             float currentWigth = 0;
 
@@ -173,13 +169,13 @@ namespace Game_of_life
                 for (int j = 0; j < LifeSizeWidth; ++j)
                 {
                     if (LifeGrid[i, j] == DIED_CELL && checkBox_ShowDeadCell.Checked)
-                        graphics.FillRectangle(brushDead, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
+                        graphics.FillRectangle(new SolidBrush(pictureBox_DeadCell.BackColor), currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
                     if (LifeGrid[i, j] == EMPTY_CELL)
-                        graphics.FillRectangle(brushEmpty, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
+                        graphics.FillRectangle(new SolidBrush(pictureBox_AreaBackground.BackColor), currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
                     if (LifeGrid[i, j] == LIVE_CELL || (LifeGrid[i, j] == CREATED_CELL && !checkBox_ShowCreatedCell.Checked))
-                        graphics.FillRectangle(brushLive, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
+                        graphics.FillRectangle(new SolidBrush(pictureBox_LivingCell.BackColor), currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
                     if (LifeGrid[i, j] == CREATED_CELL && checkBox_ShowCreatedCell.Checked)
-                        graphics.FillRectangle(brushCreated, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
+                        graphics.FillRectangle(new SolidBrush(pictureBox_CreatedCell.BackColor), currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
 
 
                     currentHeight += cellHeight;
@@ -451,6 +447,11 @@ namespace Game_of_life
         private void CheckBox_Display_CheckedChanged(object sender, EventArgs e)
         {
             DrawCanvas();
+        }
+
+        private void PictureBox_AreaBackground_BackColorChanged(object sender, EventArgs e)
+        {
+            panel_PlaingArea.BackColor = pictureBox_AreaBackground.BackColor;
         }
     }
 }
