@@ -50,18 +50,19 @@
             this.colorDialog_SelectColor = new System.Windows.Forms.ColorDialog();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox_Grid = new System.Windows.Forms.PictureBox();
             this.pictureBox_AreaBackground = new System.Windows.Forms.PictureBox();
             this.pictureBox_LivingCell = new System.Windows.Forms.PictureBox();
             this.pictureBox_CreatedCell = new System.Windows.Forms.PictureBox();
             this.pictureBox_DeadCell = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox_Time = new System.Windows.Forms.PictureBox();
+            this.button_SetDefaultColors = new System.Windows.Forms.Button();
+            this.pictureBox_GridSize = new System.Windows.Forms.PictureBox();
+            this.pictureBox_TimeValue = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_TimerTick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_AreaSize)).BeginInit();
             this.panel2.SuspendLayout();
@@ -70,8 +71,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LivingCell)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_CreatedCell)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DeadCell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Time)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GridSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_TimeValue)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -166,16 +167,14 @@
             // 
             this.panel_PlaingArea.BackColor = System.Drawing.Color.Silver;
             this.panel_PlaingArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_PlaingArea.Location = new System.Drawing.Point(391, 7);
+            this.panel_PlaingArea.Location = new System.Drawing.Point(406, 14);
             this.panel_PlaingArea.Name = "panel_PlaingArea";
             this.panel_PlaingArea.Size = new System.Drawing.Size(500, 500);
             this.panel_PlaingArea.TabIndex = 2;
-            this.panel_PlaingArea.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel_PlaingArea_Paint);
-            this.panel_PlaingArea.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Panel_PlaingArea_MouseClick);
             // 
             // trackBar_TimerTick
             // 
-            this.trackBar_TimerTick.LargeChange = 2;
+            this.trackBar_TimerTick.LargeChange = 1;
             this.trackBar_TimerTick.Location = new System.Drawing.Point(71, 122);
             this.trackBar_TimerTick.Maximum = 9;
             this.trackBar_TimerTick.Name = "trackBar_TimerTick";
@@ -273,7 +272,7 @@
             this.trackBar_AreaSize.TabIndex = 10;
             this.trackBar_AreaSize.TickFrequency = 0;
             this.trackBar_AreaSize.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar_AreaSize.Value = 20;
+            this.trackBar_AreaSize.Value = 10;
             this.trackBar_AreaSize.Scroll += new System.EventHandler(this.TrackBar_AreaSize_Scroll);
             // 
             // label17
@@ -294,11 +293,6 @@
             this.label18.TabIndex = 19;
             this.label18.Text = "Фон";
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 500;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.label18);
@@ -311,6 +305,7 @@
             this.panel2.Controls.Add(this.checkBox_ShowCreatedCell);
             this.panel2.Controls.Add(this.pictureBox_CreatedCell);
             this.panel2.Controls.Add(this.pictureBox_DeadCell);
+            this.panel2.Controls.Add(this.button_SetDefaultColors);
             this.panel2.Location = new System.Drawing.Point(18, 374);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(370, 115);
@@ -325,6 +320,7 @@
             this.pictureBox_Grid.Size = new System.Drawing.Size(52, 27);
             this.pictureBox_Grid.TabIndex = 17;
             this.pictureBox_Grid.TabStop = false;
+            this.pictureBox_Grid.BackColorChanged += new System.EventHandler(this.PictureBox_Grid_BackColorChanged);
             this.pictureBox_Grid.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox_AreaBackground
@@ -348,17 +344,19 @@
             this.pictureBox_LivingCell.Size = new System.Drawing.Size(52, 27);
             this.pictureBox_LivingCell.TabIndex = 17;
             this.pictureBox_LivingCell.TabStop = false;
+            this.pictureBox_LivingCell.BackColorChanged += new System.EventHandler(this.PictureBox_LivingCell_BackColorChanged);
             this.pictureBox_LivingCell.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox_CreatedCell
             // 
             this.pictureBox_CreatedCell.BackColor = System.Drawing.Color.LimeGreen;
             this.pictureBox_CreatedCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_CreatedCell.Location = new System.Drawing.Point(315, 36);
+            this.pictureBox_CreatedCell.Location = new System.Drawing.Point(314, 36);
             this.pictureBox_CreatedCell.Name = "pictureBox_CreatedCell";
             this.pictureBox_CreatedCell.Size = new System.Drawing.Size(52, 27);
             this.pictureBox_CreatedCell.TabIndex = 17;
             this.pictureBox_CreatedCell.TabStop = false;
+            this.pictureBox_CreatedCell.BackColorChanged += new System.EventHandler(this.PictureBox_CreatedCell_BackColorChanged);
             this.pictureBox_CreatedCell.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
             // pictureBox_DeadCell
@@ -370,31 +368,42 @@
             this.pictureBox_DeadCell.Size = new System.Drawing.Size(52, 27);
             this.pictureBox_DeadCell.TabIndex = 17;
             this.pictureBox_DeadCell.TabStop = false;
+            this.pictureBox_DeadCell.BackColorChanged += new System.EventHandler(this.PictureBox_DeadCell_BackColorChanged);
             this.pictureBox_DeadCell.Click += new System.EventHandler(this.PictureBox_SelectColor_Click);
             // 
-            // pictureBox1
+            // button_SetDefaultColors
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Enabled = false;
-            this.pictureBox1.Image = global::Game_of_life.Properties.Resources.grid;
-            this.pictureBox1.Location = new System.Drawing.Point(18, 233);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(46, 45);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
+            this.button_SetDefaultColors.Location = new System.Drawing.Point(12, 73);
+            this.button_SetDefaultColors.Name = "button_SetDefaultColors";
+            this.button_SetDefaultColors.Size = new System.Drawing.Size(172, 32);
+            this.button_SetDefaultColors.TabIndex = 7;
+            this.button_SetDefaultColors.Text = "Скинути";
+            this.button_SetDefaultColors.UseVisualStyleBackColor = true;
+            this.button_SetDefaultColors.Click += new System.EventHandler(this.Button_SetDefaultColors_Click);
             // 
-            // pictureBox_Time
+            // pictureBox_GridSize
             // 
-            this.pictureBox_Time.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox_Time.Enabled = false;
-            this.pictureBox_Time.Image = global::Game_of_life.Properties.Resources.speed_icon_png_3_jpg;
-            this.pictureBox_Time.Location = new System.Drawing.Point(19, 122);
-            this.pictureBox_Time.Name = "pictureBox_Time";
-            this.pictureBox_Time.Size = new System.Drawing.Size(46, 45);
-            this.pictureBox_Time.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_Time.TabIndex = 12;
-            this.pictureBox_Time.TabStop = false;
+            this.pictureBox_GridSize.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_GridSize.Enabled = false;
+            this.pictureBox_GridSize.Image = global::Game_of_life.Properties.Resources.grid;
+            this.pictureBox_GridSize.Location = new System.Drawing.Point(18, 233);
+            this.pictureBox_GridSize.Name = "pictureBox_GridSize";
+            this.pictureBox_GridSize.Size = new System.Drawing.Size(46, 45);
+            this.pictureBox_GridSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_GridSize.TabIndex = 12;
+            this.pictureBox_GridSize.TabStop = false;
+            // 
+            // pictureBox_TimeValue
+            // 
+            this.pictureBox_TimeValue.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox_TimeValue.Enabled = false;
+            this.pictureBox_TimeValue.Image = global::Game_of_life.Properties.Resources.speed_icon_png_3_jpg;
+            this.pictureBox_TimeValue.Location = new System.Drawing.Point(19, 122);
+            this.pictureBox_TimeValue.Name = "pictureBox_TimeValue";
+            this.pictureBox_TimeValue.Size = new System.Drawing.Size(46, 45);
+            this.pictureBox_TimeValue.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_TimeValue.TabIndex = 12;
+            this.pictureBox_TimeValue.TabStop = false;
             // 
             // label5
             // 
@@ -424,18 +433,22 @@
             this.label7.TabIndex = 23;
             this.label7.Text = "Налаштувати відображення";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(903, 526);
+            this.ClientSize = new System.Drawing.Size(920, 526);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel_PlaingArea);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.pictureBox_Time);
+            this.Controls.Add(this.pictureBox_GridSize);
+            this.Controls.Add(this.pictureBox_TimeValue);
             this.Controls.Add(this.button_NextTick);
             this.Controls.Add(this.button_StartTime);
             this.Controls.Add(this.button_ClearArea);
@@ -466,8 +479,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LivingCell)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_CreatedCell)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_DeadCell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Time)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_GridSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_TimeValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -482,31 +495,39 @@
         private System.Windows.Forms.Label label_Generation;
         private System.Windows.Forms.Label label_Died;
         private System.Windows.Forms.Label label_Created;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+
         private System.Windows.Forms.Panel panel_PlaingArea;
+
         private System.Windows.Forms.TrackBar trackBar_TimerTick;
+        private System.Windows.Forms.TrackBar trackBar_AreaSize;
+
         private System.Windows.Forms.Button button_RandomFiling;
         private System.Windows.Forms.Button button_ClearArea;
         private System.Windows.Forms.Button button_StartTime;
         private System.Windows.Forms.Button button_NextTick;
-        private System.Windows.Forms.PictureBox pictureBox_Time;
-        private System.Windows.Forms.CheckBox checkBox_DisplayGrid;
-        private System.Windows.Forms.CheckBox checkBox_ShowDeadCell;
-        private System.Windows.Forms.CheckBox checkBox_ShowCreatedCell;
-        private System.Windows.Forms.PictureBox pictureBox_Grid;
-        private System.Windows.Forms.TrackBar trackBar_AreaSize;
-        private System.Windows.Forms.PictureBox pictureBox_DeadCell;
-        private System.Windows.Forms.PictureBox pictureBox_CreatedCell;
+
+        public System.Windows.Forms.CheckBox checkBox_DisplayGrid;
+        public System.Windows.Forms.CheckBox checkBox_ShowDeadCell;
+        public System.Windows.Forms.CheckBox checkBox_ShowCreatedCell;
+
+        public System.Windows.Forms.PictureBox pictureBox_TimeValue;
+        public System.Windows.Forms.PictureBox pictureBox_Grid;
+        public System.Windows.Forms.PictureBox pictureBox_DeadCell;
+        public System.Windows.Forms.PictureBox pictureBox_CreatedCell;
+        public System.Windows.Forms.PictureBox pictureBox_LivingCell;
+        public System.Windows.Forms.PictureBox pictureBox_AreaBackground;
+        public System.Windows.Forms.PictureBox pictureBox_GridSize;
+
         private System.Windows.Forms.ColorDialog colorDialog_SelectColor;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.PictureBox pictureBox_LivingCell;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.PictureBox pictureBox_AreaBackground;
-        private System.Windows.Forms.Timer timer1;
+
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button_SetDefaultColors;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
