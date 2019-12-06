@@ -100,7 +100,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(197, 34);
+            this.label3.Location = new System.Drawing.Point(201, 34);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 24);
@@ -111,7 +111,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(197, 9);
+            this.label4.Location = new System.Drawing.Point(201, 9);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(113, 24);
@@ -144,7 +144,7 @@
             // 
             this.label_Died.AutoSize = true;
             this.label_Died.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Died.Location = new System.Drawing.Point(315, 34);
+            this.label_Died.Location = new System.Drawing.Point(319, 34);
             this.label_Died.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_Died.Name = "label_Died";
             this.label_Died.Size = new System.Drawing.Size(24, 25);
@@ -155,7 +155,7 @@
             // 
             this.label_Created.AutoSize = true;
             this.label_Created.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Created.Location = new System.Drawing.Point(315, 9);
+            this.label_Created.Location = new System.Drawing.Point(319, 9);
             this.label_Created.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_Created.Name = "label_Created";
             this.label_Created.Size = new System.Drawing.Size(24, 25);
@@ -177,17 +177,18 @@
             // 
             this.trackBar_TimerTick.LargeChange = 2;
             this.trackBar_TimerTick.Location = new System.Drawing.Point(71, 122);
+            this.trackBar_TimerTick.Maximum = 9;
             this.trackBar_TimerTick.Name = "trackBar_TimerTick";
             this.trackBar_TimerTick.Size = new System.Drawing.Size(314, 45);
             this.trackBar_TimerTick.TabIndex = 1;
             this.trackBar_TimerTick.TickFrequency = 0;
             this.trackBar_TimerTick.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar_TimerTick.Value = 5;
+            this.trackBar_TimerTick.Value = 4;
             this.trackBar_TimerTick.Scroll += new System.EventHandler(this.TrackBar_TimerTick_Scroll);
             // 
             // button_RandomFiling
             // 
-            this.button_RandomFiling.Location = new System.Drawing.Point(19, 173);
+            this.button_RandomFiling.Location = new System.Drawing.Point(18, 193);
             this.button_RandomFiling.Name = "button_RandomFiling";
             this.button_RandomFiling.Size = new System.Drawing.Size(166, 32);
             this.button_RandomFiling.TabIndex = 7;
@@ -197,7 +198,7 @@
             // 
             // button_ClearArea
             // 
-            this.button_ClearArea.Location = new System.Drawing.Point(214, 175);
+            this.button_ClearArea.Location = new System.Drawing.Point(213, 195);
             this.button_ClearArea.Name = "button_ClearArea";
             this.button_ClearArea.Size = new System.Drawing.Size(172, 32);
             this.button_ClearArea.TabIndex = 7;
@@ -263,7 +264,7 @@
             // trackBar_AreaSize
             // 
             this.trackBar_AreaSize.LargeChange = 10;
-            this.trackBar_AreaSize.Location = new System.Drawing.Point(63, 213);
+            this.trackBar_AreaSize.Location = new System.Drawing.Point(62, 233);
             this.trackBar_AreaSize.Maximum = 120;
             this.trackBar_AreaSize.Minimum = 10;
             this.trackBar_AreaSize.Name = "trackBar_AreaSize";
@@ -310,9 +311,9 @@
             this.panel2.Controls.Add(this.checkBox_ShowCreatedCell);
             this.panel2.Controls.Add(this.pictureBox_CreatedCell);
             this.panel2.Controls.Add(this.pictureBox_DeadCell);
-            this.panel2.Location = new System.Drawing.Point(19, 330);
+            this.panel2.Location = new System.Drawing.Point(18, 374);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(370, 158);
+            this.panel2.Size = new System.Drawing.Size(370, 115);
             this.panel2.TabIndex = 20;
             // 
             // pictureBox_Grid
@@ -375,7 +376,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Enabled = false;
             this.pictureBox1.Image = global::Game_of_life.Properties.Resources.grid;
-            this.pictureBox1.Location = new System.Drawing.Point(19, 213);
+            this.pictureBox1.Location = new System.Drawing.Point(18, 233);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(46, 45);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -397,7 +398,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(50, 304);
+            this.label5.Location = new System.Drawing.Point(49, 348);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(99, 23);
             this.label5.TabIndex = 23;
@@ -406,7 +407,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(253, 307);
+            this.label6.Location = new System.Drawing.Point(252, 351);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 23);
             this.label6.TabIndex = 23;
@@ -415,11 +416,12 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(50, 281);
+            this.label7.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(36, 310);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(296, 23);
+            this.label7.Size = new System.Drawing.Size(321, 23);
             this.label7.TabIndex = 23;
-            this.label7.Text = "Налаштування відображення";
+            this.label7.Text = "Налаштувати відображення";
             // 
             // MainWindow
             // 

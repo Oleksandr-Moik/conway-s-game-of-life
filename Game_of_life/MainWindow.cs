@@ -137,58 +137,25 @@ namespace Game_of_life
         #region canva
         private void DrawCanvas()
         {
-            // TODO : Drawing
-            /*
-             * crate graphcis
-             * grid size (length) (send Draw)
-             * 
-             * get GraphicsPath and use in graphics
-             * 
-             */
-            try
-            {
-                panel_PlaingArea.Invalidate();
-
-
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.ToString());
-            }
-                
+            panel_PlaingArea.Invalidate();
         }
         private void Panel_PlaingArea_Paint(object sender, PaintEventArgs e)
         {
-            Graphics graphics = panel_PlaingArea.CreateGraphics();
+            Graphics graphics = e.Graphics;
 
-            DrawCell(graphics, EMPTY_CELL);
-            DrawCell(graphics, DIED_CELL);
-            DrawCell(graphics, LIVE_CELL);
-            DrawCell(graphics, CREATED_CELL);
-
+            DrawCell(graphics);
             DrawGrid(graphics);
 
             graphics.Dispose();
         }
 
         // draws cells from Grid
-        private void DrawCell(Graphics graphics, int type)
+        private void DrawCell(Graphics graphics)
         {
-            SolidBrush brush = new SolidBrush(Color.Empty);
-
-            if (checkBox_ShowDeadCell.Checked && type == DIED_CELL)
-                brush.Color = pictureBox_DeadCell.BackColor;
-
-            else if (type == EMPTY_CELL)
-                brush.Color = pictureBox_AreaBackground.BackColor;
-
-            else if (type == LIVE_CELL)
-                brush.Color = pictureBox_LivingCell.BackColor;
-
-            else if (checkBox_ShowCreatedCell.Checked && type == CREATED_CELL)
-                brush.Color = pictureBox_CreatedCell.BackColor;
-
-            else return;
+            SolidBrush brushDead = new SolidBrush(pictureBox_DeadCell.BackColor);
+            SolidBrush brushEmpty = new SolidBrush(pictureBox_AreaBackground.BackColor);
+            SolidBrush brushLive = new SolidBrush(pictureBox_LivingCell.BackColor);
+            SolidBrush brushCreated = new SolidBrush(pictureBox_CreatedCell.BackColor);
 
             float currentHeight = 0;
             float currentWigth = 0;
@@ -196,22 +163,22 @@ namespace Game_of_life
             float cellHeight = PANEL_HEIGHT / LifeSizeHeight;
             float cellWidth = PANEL_WIDTH / LifeSizeWidth;
 
+            SolidBrush brush = new SolidBrush(Color.Empty);
             for (int i = 0; i < LifeSizeHeight; ++i)
             {
                 for (int j = 0; j < LifeSizeWidth; ++j)
                 {
-                    if ((type == LIVE_CELL) && (LifeGrid[i, j] == LIVE_CELL || LifeGrid[i, j] == CREATED_CELL))
-                    {
-                        graphics.FillRectangle(brush,
-                           currentWigth + 0.5F, currentHeight + 0.5F,
-                           cellWidth - 1, cellHeight - 1);
-                    }
-                    else if (LifeGrid[i, j] == type)
-                    {
-                        graphics.FillRectangle(brush,
-                           currentWigth + 0.5F, currentHeight + 0.5F,
-                           cellWidth - 1, cellHeight - 1);
-                    }
+                    if (LifeGrid[i, j] == DIED_CELL && checkBox_ShowDeadCell.Checked)
+                        brush = brushDead;
+                    if (LifeGrid[i, j] == EMPTY_CELL)
+                        brush = brushEmpty;
+                    if (LifeGrid[i, j] == LIVE_CELL || (LifeGrid[i, j] == CREATED_CELL && !checkBox_ShowCreatedCell.Checked))
+                        brush = brushLive;
+                    if (LifeGrid[i, j] == CREATED_CELL && checkBox_ShowCreatedCell.Checked)
+                        brush = brushCreated;
+
+                    graphics.FillRectangle(brush, currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
+
                     currentHeight += cellHeight;
                 }
                 currentWigth += cellWidth;
@@ -433,11 +400,13 @@ namespace Game_of_life
         // add or remove cell from grid
         private void Panel_PlaingArea_MouseClick(object sender, MouseEventArgs e)
         {
-            int cellWidth = panel_PlaingArea.Width / LifeSizeWidth;
-            int cellHeight = panel_PlaingArea.Height / LifeSizeHeight;
+            float cellWidth = panel_PlaingArea.Width / LifeSizeWidth;
+            float cellHeight = panel_PlaingArea.Height / LifeSizeHeight;
 
-            int row = e.X / cellHeight;
-            int col = e.Y / cellWidth;
+            // TODO : fix adding elements
+
+            int row = e.X / (int)cellHeight;
+            int col = e.Y / (int)cellWidth;
 
             try
             {
@@ -466,8 +435,6 @@ namespace Game_of_life
             }
         }
 
-
-
         private void PictureBox_SelectColor_Click(object sender, EventArgs e)
         {
             PictureBox pictureBox = (PictureBox)sender;
@@ -478,12 +445,9 @@ namespace Game_of_life
             DrawCanvas();
         }
 
-
         private void CheckBox_Display_CheckedChanged(object sender, EventArgs e)
         {
             DrawCanvas();
         }
-
-
     }
 }
