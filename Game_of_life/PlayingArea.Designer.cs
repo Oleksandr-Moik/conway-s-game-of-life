@@ -40,6 +40,9 @@
             this.Load += new System.EventHandler(this.PlayingArea_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.PlayingArea_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayingArea_MouseClick);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PlayingArea_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PlayingArea_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PlayingArea_MouseUp);
             this.ResumeLayout(false);
 
         }
