@@ -97,7 +97,7 @@ namespace Game_of_life
 
         private void PlayingArea_MouseClick(object sender, MouseEventArgs e)
         {
-            AddPoint(PointInGrid(e));
+             AddPoint(e);
         }
 
         private void PlayingArea_MouseDown(object sender, MouseEventArgs e)
@@ -108,15 +108,7 @@ namespace Game_of_life
         {
             if (IsMouseDown)
             {
-                // -1 для коригування координат
-                // перед виходом 
-
-                Point point = PointInGrid(e);
-
-                if (lastX!=point.X || lastY != point.Y)
-                {
-                    AddPoint(point);
-                }
+                AddPoint(e);
             }
         }
         private void PlayingArea_MouseUp(object sender, MouseEventArgs e)
@@ -125,8 +117,48 @@ namespace Game_of_life
             Invalidate();
         }
 
+        
+        private void AddPoint(MouseEventArgs e)
+        {
+            Point point = PointInGrid(e);
+
+            if (ValideteDrawPoint(point))
+            {
+                lastX = point.X;
+                lastY = point.Y;
+                try
+                {
+                    Graphics g = CreateGraphics();
+                    if (LifeGrid[lastX, lastY] == Cells.EMPTY_CELL || LifeGrid[lastX, lastY] == Cells.DIED_CELL)
+                    {
+                        LifeGrid[lastX, lastY] = Cells.LIVE_CELL;
+                        g.FillRectangle(new SolidBrush(LiveColor), CellSizeWidth * lastY + 0.5F, CellSizeHeight * lastX + 0.5F, CellSizeWidth - 1, CellSizeHeight - 1);
+                    }
+                    else
+                    {
+                        LifeGrid[lastX, lastY] = Cells.EMPTY_CELL; // Cells.LIVE_CELL or Cells.CREATED_CELL
+                        g.FillRectangle(new SolidBrush(BackColor), CellSizeWidth * lastY + 0.5F, CellSizeHeight * lastX + 0.5F, CellSizeWidth - 1, CellSizeHeight - 1);
+                    }
+                }
+                catch (NullReferenceException) // when array doesn't initialized
+                {
+                    SetLifeGrid(new int[LifeGridSize.Height, LifeGridSize.Width], LifeGridSize);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    IsMouseDown = false;
+                }
+                finally
+                {
+                    main.SetLifeGrid(LifeGrid, LifeGridSize);
+                    main.RefreshLabels(LifeGrid, LifeGridSize);
+                }
+            }
+        }
         private Point PointInGrid(MouseEventArgs e)
         {
+            // -1 для коригування координат
+            // перед виходом 
             int h = -1;
             float i = 0;
             do
@@ -144,33 +176,11 @@ namespace Game_of_life
             } while (i <= e.X);
             return new Point(h, w);
         }
-        private void AddPoint(Point point)
+        private bool ValideteDrawPoint(Point p)
         {
-            lastX = point.X;
-            lastY = point.Y;
-            try
-            {
-                Graphics g = CreateGraphics();
-                if (LifeGrid[lastX, lastY] == Cells.EMPTY_CELL || LifeGrid[lastX, lastY] == Cells.DIED_CELL)
-                {
-                    LifeGrid[lastX, lastY] = Cells.LIVE_CELL;
-                    g.FillRectangle(new SolidBrush(LiveColor), CellSizeWidth * lastY + 0.5F, CellSizeHeight * lastX + 0.5F, CellSizeWidth - 1, CellSizeHeight - 1);
-                }
-                else
-                {
-                    LifeGrid[lastX, lastY] = Cells.EMPTY_CELL; // Cells.LIVE_CELL or Cells.CREATED_CELL
-                    g.FillRectangle(new SolidBrush(BackColor), CellSizeWidth * lastY + 0.5F, CellSizeHeight * lastX + 0.5F, CellSizeWidth - 1, CellSizeHeight - 1);
-                }
-            }
-            catch (NullReferenceException) // when array doesn't initialized
-            {
-                SetLifeGrid(new int[LifeGridSize.Height, LifeGridSize.Width], LifeGridSize);
-            }
-            finally
-            {
-                main.SetLifeGrid(LifeGrid, LifeGridSize);
-                main.RefreshLabels(LifeGrid, LifeGridSize);
-            }
+            if (p.X < 0 || p.Y < 0 || p.X > Height || p.Y > Width) return false;
+            else if (lastX != p.X || lastY != p.Y) return true;
+            else return false;
         }
         // drawing cells and grid in panel
         private void DrawGrid(Graphics graphics)
