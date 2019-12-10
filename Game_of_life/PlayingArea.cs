@@ -29,8 +29,11 @@ namespace Game_of_life
         public PlayingArea(MainWindow mainWindow)
         {
             InitializeComponent();
-
             main = mainWindow;
+        }
+
+        private void PlayingArea_Load(object sender, EventArgs e)
+        {
             BackColor = DEFAULT_BACK_COLOR;
 
             SetDefaultColors();
@@ -64,7 +67,8 @@ namespace Game_of_life
                 PointF[] points = new PointF[main.LifeSizeWidth * 2];
                 byte[] types = new byte[main.LifeSizeWidth * 2];
                 float point = 0;
-                for (int i = 0; i < points.GetLength(0) - 1; i += 2, point += ((float)Height / main.LifeSizeHeight))
+                // vertival lines
+                for (int i = 0; i < points.GetLength(0) - 1; i += 2, point += ((float)Width / main.LifeSizeWidth))
                 {
                     points[i] = new PointF(point, 0);
                     points[i + 1] = new PointF(point, Height);
@@ -72,12 +76,14 @@ namespace Game_of_life
                     types[i] = 0; // start point
                     types[i + 1] = 1; // line
                 }
-                graphics.DrawPath(gridPan, new GraphicsPath(points, types));
+                //graphics.DrawPath(gridPan, new GraphicsPath(points, types));
+                graphics.DrawPath(Pens.Red, new GraphicsPath(points, types));
 
                 points = new PointF[main.LifeSizeHeight * 2];
                 types = new byte[main.LifeSizeHeight * 2];
                 point = 0;
-                for (int i = 0; i < points.GetLength(0) - 1; i += 2, point += ((float)Width / main.LifeSizeWidth))
+                // horizontal lines
+                for (int i = 0; i < points.GetLength(0) - 1; i += 2, point += ((float)Height / main.LifeSizeHeight))
                 {
                     points[i] = new PointF(0, point);
                     points[i + 1] = new PointF(Width, point);
@@ -85,7 +91,8 @@ namespace Game_of_life
                     types[i] = 0;
                     types[i + 1] = 1;
                 }
-                graphics.DrawPath(gridPan, new GraphicsPath(points, types));
+                //graphics.DrawPath(gridPan, new GraphicsPath(points, types));
+                graphics.DrawPath(Pens.White, new GraphicsPath(points, types));
             }
         }
         private void DrawCell(Graphics graphics)
@@ -96,24 +103,27 @@ namespace Game_of_life
             float cellHeight = (float)Height / main.LifeSizeHeight;
             float cellWidth = (float)Width / main.LifeSizeWidth;
 
-            for (int i = 0; i < main.LifeSizeHeight; ++i)
+            for (int row = 0; row < main.LifeSizeHeight; ++row)
             {
-                for (int j = 0; j < main.LifeSizeWidth; ++j)
+                for (int col = 0; col < main.LifeSizeWidth; ++col)
                 {
-                    if (main.LifeGrid[i, j] == Cells.DIED_CELL && main.checkBox_ShowDeadCell.Checked)
+                    if (main.LifeGrid[row, col] == Cells.DIED_CELL && main.checkBox_ShowDeadCell.Checked)
                         graphics.FillRectangle(new SolidBrush(DiedColor), currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
-                    if (main.LifeGrid[i, j] == Cells.EMPTY_CELL)
+                    if (main.LifeGrid[row, col] == Cells.EMPTY_CELL)
                         graphics.FillRectangle(new SolidBrush(BackColor), currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
-                    if (main.LifeGrid[i, j] == Cells.LIVE_CELL || (main.LifeGrid[i, j] == Cells.CREATED_CELL && !main.checkBox_ShowCreatedCell.Checked))
+                    if (main.LifeGrid[row, col] == Cells.LIVE_CELL || (main.LifeGrid[row, col] == Cells.CREATED_CELL && !main.checkBox_ShowCreatedCell.Checked))
                         graphics.FillRectangle(new SolidBrush(LiveColor), currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
-                    if (main.LifeGrid[i, j] == Cells.CREATED_CELL && main.checkBox_ShowCreatedCell.Checked)
+                    if (main.LifeGrid[row, col] == Cells.CREATED_CELL && main.checkBox_ShowCreatedCell.Checked)
                         graphics.FillRectangle(new SolidBrush(CreateColor), currentWigth + 0.5F, currentHeight + 0.5F, cellWidth - 1, cellHeight - 1);
 
+                    graphics.DrawString($"r{row} c{col}", new Font(FontFamily.GenericMonospace, 10), new SolidBrush(Color.Red), currentWigth + 0.5F, currentHeight + 0.5F);
+                    graphics.DrawString($"t {main.LifeGrid[row, col]}", new Font(FontFamily.GenericMonospace, 10), new SolidBrush(Color.Red), currentWigth + 0.5F, currentHeight + 0.5F+10);
 
-                    currentHeight += cellHeight;
+
+                    currentWigth += cellWidth;  
                 }
-                currentWigth += cellWidth;
-                currentHeight = 0;
+                currentHeight += cellHeight;
+                currentWigth = 0;
             }
         }
 
@@ -128,22 +138,34 @@ namespace Game_of_life
             float cellWidth = (float)Width / main.LifeSizeWidth;
             float cellHeight = (float)Height / main.LifeSizeHeight;
 
-            // TODO : fix adding elements
-
-            int row = e.X / (int)cellHeight;
-            int col = e.Y / (int)cellWidth;
+            // -1 для коригування координат
+            // перед виходом 
+            int h = -1;
+            float i = 0;
+            do
+            {
+                ++h;
+                i += cellHeight;
+            } while (i <= e.X);
+            
+            int w = -1; 
+            i = 0;
+            do{
+                ++w;
+                i += cellWidth;
+            } while (i <= e.Y) ;
 
             try
             {
-                main.LifeGrid[row, col] = main.LifeGrid[row, col];
+                //main.LifeGrid[h, w] = main.LifeGrid[h, w];
 
-                if (main.LifeGrid[row, col] == Cells.EMPTY_CELL || main.LifeGrid[row, col] == Cells.DIED_CELL)
+                if (main.LifeGrid[h, w] == Cells.EMPTY_CELL || main.LifeGrid[h, w] == Cells.DIED_CELL)
                 {
-                    main.LifeGrid[row, col] = Cells.LIVE_CELL;
+                    main.LifeGrid[h, w] = Cells.LIVE_CELL;
                 }
                 else
                 {
-                    main.LifeGrid[row, col] = Cells.EMPTY_CELL; // Cells.LIVE_CELL or Cells.CREATED_CELL
+                    main.LifeGrid[h, w] = Cells.EMPTY_CELL; // Cells.LIVE_CELL or Cells.CREATED_CELL
                 }
 
                 main.RefreshLabels();

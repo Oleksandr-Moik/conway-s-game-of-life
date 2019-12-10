@@ -37,6 +37,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.Name = "PlayingArea";
             this.Size = new System.Drawing.Size(247, 243);
+            this.Load += new System.EventHandler(this.PlayingArea_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.PlayingArea_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayingArea_MouseClick);
             this.ResumeLayout(false);
