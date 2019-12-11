@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -149,7 +149,7 @@ namespace Game_of_life
         {
             TimerStop();
             Generation = 0;
-            SetLifeGrid(new int[LifeGridSize.Height, LifeGridSize.Width], LifeGridSize);
+            SetLifeGrid( new int[LifeGridSize.Height, LifeGridSize.Width], LifeGridSize);
             RefreshLabels(LifeGrid, LifeGridSize);
             PlayingAreaInvalidate(LifeGrid, LifeGridSize);
         }
@@ -389,6 +389,42 @@ namespace Game_of_life
             Form from = new AboutGame();
             from.ShowDialog(this);
             from.Dispose();
+        }
+
+        private void Save_Pole(object sender, EventArgs e)
+        {
+            StreamWriter writer = new StreamWriter("pole.txt", false, Encoding.Unicode);
+            writer.WriteLine(LifeGridSize.Height);
+            for (int i = 0; i < LifeGridSize.Height; ++i)
+            {
+                for (int j = 0; j < LifeGridSize.Height; ++j)
+                    writer.Write(LifeGrid[i, j] + "|");
+                writer.WriteLine();
+            }
+            writer.Close();
+        }
+
+        private void Load_Pole(object sender, EventArgs e)
+        {
+            StreamReader reader = new StreamReader("pole.txt", Encoding.Unicode);
+            int size = Convert.ToInt16(reader.ReadLine());
+            trackBar_AreaSize.Value = size;
+            SetLifeGridSize();
+            playingArea.SetLifeGrid(LifeGrid, LifeGridSize);
+            PlayingAreaInvalidate(LifeGrid, LifeGridSize);
+            int[,] grid = new int[size, size];
+            for (int i = 0; i < size; ++i)
+            {
+                string[] c =  reader.ReadLine().Split('|');
+                for (int j = 0; j < size; ++j)
+                {
+                    grid[i, j] = Convert.ToInt32(c[j]);
+                }
+            }
+            SetLifeGrid(grid, new Size(size,size));
+            playingArea.SetLifeGrid(LifeGrid, LifeGridSize);
+            PlayingAreaInvalidate(LifeGrid, LifeGridSize);
+            reader.Close();
         }
     }
 }

@@ -76,6 +76,8 @@
             this.правилаГриToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.проПрограмуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_TimerTick)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_AreaSize)).BeginInit();
             this.panel2.SuspendLayout();
@@ -204,20 +206,19 @@
             // 
             this.trackBar_TimerTick.LargeChange = 1;
             this.trackBar_TimerTick.Location = new System.Drawing.Point(72, 63);
-            this.trackBar_TimerTick.Maximum = 9;
             this.trackBar_TimerTick.Name = "trackBar_TimerTick";
             this.trackBar_TimerTick.Size = new System.Drawing.Size(264, 45);
             this.trackBar_TimerTick.TabIndex = 1;
             this.trackBar_TimerTick.TickFrequency = 0;
             this.trackBar_TimerTick.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar_TimerTick.Value = 4;
+            this.trackBar_TimerTick.Value = 10;
             this.trackBar_TimerTick.Scroll += new System.EventHandler(this.TrackBar_TimerTick_Scroll);
             // 
             // button_RandomFiling
             // 
             this.button_RandomFiling.Location = new System.Drawing.Point(18, 276);
             this.button_RandomFiling.Name = "button_RandomFiling";
-            this.button_RandomFiling.Size = new System.Drawing.Size(126, 32);
+            this.button_RandomFiling.Size = new System.Drawing.Size(145, 32);
             this.button_RandomFiling.TabIndex = 7;
             this.button_RandomFiling.Text = "Випадково";
             this.button_RandomFiling.UseVisualStyleBackColor = true;
@@ -247,7 +248,7 @@
             // 
             this.button_NextTick.Location = new System.Drawing.Point(18, 114);
             this.button_NextTick.Name = "button_NextTick";
-            this.button_NextTick.Size = new System.Drawing.Size(126, 32);
+            this.button_NextTick.Size = new System.Drawing.Size(145, 32);
             this.button_NextTick.TabIndex = 10;
             this.button_NextTick.Text = "Наступна";
             this.button_NextTick.UseVisualStyleBackColor = true;
@@ -336,14 +337,14 @@
             this.panel2.Controls.Add(this.button_SetDefaultColors);
             this.panel2.Location = new System.Drawing.Point(17, 392);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(334, 135);
+            this.panel2.Size = new System.Drawing.Size(358, 135);
             this.panel2.TabIndex = 20;
             // 
             // pictureBox_Grid
             // 
             this.pictureBox_Grid.BackColor = System.Drawing.Color.DimGray;
             this.pictureBox_Grid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_Grid.Location = new System.Drawing.Point(91, 3);
+            this.pictureBox_Grid.Location = new System.Drawing.Point(97, 3);
             this.pictureBox_Grid.Name = "pictureBox_Grid";
             this.pictureBox_Grid.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_Grid.TabIndex = 17;
@@ -355,7 +356,7 @@
             // 
             this.pictureBox_AreaBackground.BackColor = System.Drawing.Color.Silver;
             this.pictureBox_AreaBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_AreaBackground.Location = new System.Drawing.Point(91, 36);
+            this.pictureBox_AreaBackground.Location = new System.Drawing.Point(97, 36);
             this.pictureBox_AreaBackground.Name = "pictureBox_AreaBackground";
             this.pictureBox_AreaBackground.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_AreaBackground.TabIndex = 17;
@@ -367,7 +368,7 @@
             // 
             this.pictureBox_LivingCell.BackColor = System.Drawing.Color.PaleGreen;
             this.pictureBox_LivingCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_LivingCell.Location = new System.Drawing.Point(291, 69);
+            this.pictureBox_LivingCell.Location = new System.Drawing.Point(325, 72);
             this.pictureBox_LivingCell.Name = "pictureBox_LivingCell";
             this.pictureBox_LivingCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_LivingCell.TabIndex = 17;
@@ -379,7 +380,7 @@
             // 
             this.pictureBox_CreatedCell.BackColor = System.Drawing.Color.LimeGreen;
             this.pictureBox_CreatedCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_CreatedCell.Location = new System.Drawing.Point(291, 36);
+            this.pictureBox_CreatedCell.Location = new System.Drawing.Point(325, 39);
             this.pictureBox_CreatedCell.Name = "pictureBox_CreatedCell";
             this.pictureBox_CreatedCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_CreatedCell.TabIndex = 17;
@@ -391,7 +392,7 @@
             // 
             this.pictureBox_DeadCell.BackColor = System.Drawing.Color.Salmon;
             this.pictureBox_DeadCell.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_DeadCell.Location = new System.Drawing.Point(291, 3);
+            this.pictureBox_DeadCell.Location = new System.Drawing.Point(325, 6);
             this.pictureBox_DeadCell.Name = "pictureBox_DeadCell";
             this.pictureBox_DeadCell.Size = new System.Drawing.Size(30, 27);
             this.pictureBox_DeadCell.TabIndex = 17;
@@ -421,7 +422,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(218, 369);
+            this.label6.Location = new System.Drawing.Point(223, 366);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 23);
             this.label6.TabIndex = 23;
@@ -431,7 +432,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(41, 335);
+            this.label7.Location = new System.Drawing.Point(19, 340);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(311, 23);
             this.label7.TabIndex = 23;
@@ -445,7 +446,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(41, 37);
+            this.label8.Location = new System.Drawing.Point(15, 33);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(295, 23);
             this.label8.TabIndex = 23;
@@ -455,7 +456,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(48, 190);
+            this.label9.Location = new System.Drawing.Point(15, 189);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(206, 23);
             this.label9.TabIndex = 23;
@@ -499,6 +500,7 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(18, 18);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.граToolStripMenuItem,
             this.полеToolStripMenuItem,
@@ -577,6 +579,26 @@
             this.проПрограмуToolStripMenuItem.Text = "Про програму";
             this.проПрограмуToolStripMenuItem.Click += new System.EventHandler(this.проПрограмуToolStripMenuItem_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(52, 152);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(126, 32);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Save_Pole);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(212, 154);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(126, 32);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "load";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Load_Pole);
+            // 
             // MainWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -596,6 +618,8 @@
             this.Controls.Add(this.pictureBox_GridSize);
             this.Controls.Add(this.pictureBox_TimeValue);
             this.Controls.Add(this.button_NextTick);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button_StartTime);
             this.Controls.Add(this.button_ClearArea);
             this.Controls.Add(this.button_RandomFiling);
@@ -686,6 +710,8 @@
         private System.Windows.Forms.ToolStripMenuItem правилаГриToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem проПрограмуToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
