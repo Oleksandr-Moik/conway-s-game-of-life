@@ -33,6 +33,9 @@ namespace Game_of_life
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            Size ScreenSize = Screen.PrimaryScreen.Bounds.Size;
+            if (ScreenSize.Height < Size.Height) SmalScreenResolution();
+
             panel_PlaingArea.Height = PANEL_HEIGHT;
             panel_PlaingArea.Width = PANEL_WIDTH;
             
@@ -44,6 +47,14 @@ namespace Game_of_life
 
             SetLifeGridSize();
             playingArea.SetLifeGrid(LifeGrid, LifeGridSize);
+        }
+
+        private void SmalScreenResolution()
+        {
+            DialogResult result = MessageBox.Show("Розміри Вашого основного екрану меші за розмір вікна гри. \n \n" +
+                "Продовжити користування чи завершити програму?", "Попередження", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes) return;
+            else Close();
         }
 
         // main life game logic
@@ -100,8 +111,8 @@ namespace Game_of_life
                 }
             }
             SetLifeGrid(future, LifeGridSize);
-            PlayingAreaInvalidate(LifeGrid, LifeGridSize);
-            RefreshLabels(grid, LifeGridSize);
+            PlayingAreaInvalidate(future, LifeGridSize);
+            RefreshLabels(future, LifeGridSize);
         }
 
         /* replace Cells.DIED_CELL with Cells.EMPTY_CELL
@@ -157,12 +168,7 @@ namespace Game_of_life
             int[,] grid = new int[height, width];
             Random random = new Random();
             
-            // debug
-            for (int i = 0; i < width; ++i)
-                grid[0, i] = 1;// random.Next(1, 100) % 2;
-
-
-            for (int i = 1; i < height; ++i)
+            for (int i = 0; i < height; ++i)
                 for (int j = 0; j < width; ++j)
                     grid[i, j] = random.Next(1, 100) % 2;
 
@@ -273,8 +279,8 @@ namespace Game_of_life
             catch (NullReferenceException)
             {
                 SetLifeGrid(RandomGrid(LifeGridSize.Height, LifeGridSize.Width), LifeGridSize);
-                RefreshLabels(LifeGrid, LifeGridSize);
                 PlayingAreaInvalidate(LifeGrid, LifeGridSize);
+                RefreshLabels(LifeGrid, LifeGridSize);
             }
         }
 
@@ -364,6 +370,25 @@ namespace Game_of_life
         private void PictureBox_LivingCell_BackColorChanged(object sender, EventArgs e)
         {
             playingArea.LiveColor = pictureBox_LivingCell.BackColor;
+        }
+
+        private void завершитиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void правилаГриToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form from = new GameRulesHelp();
+            from.ShowDialog(this);
+            from.Dispose();
+        }
+
+        private void проПрограмуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form from = new AboutGame();
+            from.ShowDialog(this);
+            from.Dispose();
         }
     }
 }

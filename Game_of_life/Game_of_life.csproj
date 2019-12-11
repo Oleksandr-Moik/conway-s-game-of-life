@@ -46,7 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutGame.Designer.cs">
+      <DependentUpon>AboutGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cells.cs" />
+    <Compile Include="GameRulesHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameRulesHelp.Designer.cs">
+      <DependentUpon>GameRulesHelp.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +73,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutGame.resx">
+      <DependentUpon>AboutGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameRulesHelp.resx">
+      <DependentUpon>GameRulesHelp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

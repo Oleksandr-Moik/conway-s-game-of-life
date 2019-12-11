@@ -143,6 +143,7 @@ namespace Game_of_life
                 catch (NullReferenceException) // when array doesn't initialized
                 {
                     SetLifeGrid(new int[LifeGridSize.Height, LifeGridSize.Width], LifeGridSize);
+                    IsMouseDown = false;
                 }
                 catch (IndexOutOfRangeException)
                 {
