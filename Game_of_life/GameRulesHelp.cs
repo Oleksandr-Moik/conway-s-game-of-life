@@ -21,5 +21,10 @@ namespace Game_of_life
         {
             Icon =  SystemIcons.Information;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

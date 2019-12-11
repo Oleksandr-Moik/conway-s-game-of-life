@@ -206,7 +206,7 @@
             this.trackBar_TimerTick.Location = new System.Drawing.Point(72, 63);
             this.trackBar_TimerTick.Maximum = 9;
             this.trackBar_TimerTick.Name = "trackBar_TimerTick";
-            this.trackBar_TimerTick.Size = new System.Drawing.Size(241, 45);
+            this.trackBar_TimerTick.Size = new System.Drawing.Size(264, 45);
             this.trackBar_TimerTick.TabIndex = 1;
             this.trackBar_TimerTick.TickFrequency = 0;
             this.trackBar_TimerTick.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -295,7 +295,7 @@
             this.trackBar_AreaSize.Maximum = 120;
             this.trackBar_AreaSize.Minimum = 10;
             this.trackBar_AreaSize.Name = "trackBar_AreaSize";
-            this.trackBar_AreaSize.Size = new System.Drawing.Size(251, 45);
+            this.trackBar_AreaSize.Size = new System.Drawing.Size(278, 45);
             this.trackBar_AreaSize.SmallChange = 10;
             this.trackBar_AreaSize.TabIndex = 10;
             this.trackBar_AreaSize.TickFrequency = 0;

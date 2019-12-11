@@ -117,4 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox2.Text" xml:space="preserve">
+    <value> - якщо в живої клітини два чи три живих сусіди – то вона лишається жити;
+
+ - якщо в живої клітини один чи немає живих сусідів – то вона помирає від «самотності»;
+
+ - якщо в живої клітини чотири та більше живих сусідів – вона помирає від «перенаселення»;
+
+ - якщо в мертвої клітини рівно три живих сусіди – то вона оживає.</value>
+  </data>
 </root>
